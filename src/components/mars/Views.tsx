@@ -399,8 +399,7 @@ export function RouteAnalysis() {
               "Fits mission time",
             ].map((r) => (
               <li key={r} className="flex gap-2">
-                <Check className="h-4 w-4 text-safe" />
-                {r}
+                <Check className="h-4 w-4 text-safe" />c{r}
               </li>
             ))}
           </ul>

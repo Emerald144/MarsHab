@@ -79,10 +79,27 @@
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html, body { background: var(--gradient-space); background-attachment: fixed; }
-  body { color: var(--color-foreground); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; min-height: 100vh; }
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.01em; }
+  * {
+    border-color: var(--color-border);
+  }
+  html,
+  body {
+    background: var(--gradient-space);
+    background-attachment: fixed;
+  }
+  body {
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
 }
 
 @utility glass {
@@ -93,7 +110,10 @@
   border-radius: var(--radius-xl);
 }
 @utility glow-border {
-  box-shadow: var(--shadow-panel), 0 0 0 1px oklch(0.84 0.12 205 / 0.35), var(--glow-data);
+  box-shadow:
+    var(--shadow-panel),
+    0 0 0 1px oklch(0.84 0.12 205 / 0.35),
+    var(--glow-data);
 }
 @utility label-caps {
   font-family: var(--font-mono);
@@ -111,9 +131,18 @@
   text-transform: uppercase;
   font-weight: 600;
   border-radius: var(--radius-md);
-  transition: transform .2s, box-shadow .2s, filter .2s;
-  &:hover { filter: brightness(1.1); transform: translateY(-1px); }
-  &:disabled { opacity: .5; transform: none; }
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    filter 0.2s;
+  &:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+  }
+  &:disabled {
+    opacity: 0.5;
+    transform: none;
+  }
 }
 @utility btn-ghost {
   border: 1px solid var(--border);
@@ -123,23 +152,97 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 500;
-  transition: all .2s;
-  &:hover { border-color: var(--color-data); box-shadow: var(--glow-data); color: var(--color-data); }
+  transition: all 0.2s;
+  &:hover {
+    border-color: var(--color-data);
+    box-shadow: var(--glow-data);
+    color: var(--color-data);
+  }
 }
 
-@keyframes twinkle { 0%,100% { opacity: .2 } 50% { opacity: 1 } }
-@keyframes drift { from { transform: translateY(0) } to { transform: translateY(-60px) } }
-@keyframes pulse-ring { 0% { r: 8; opacity: .9 } 100% { r: 26; opacity: 0 } }
-@keyframes draw { to { stroke-dashoffset: 0 } }
-@keyframes rise { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
-@keyframes slide-in { from { opacity: 0; transform: translateX(30px) } to { opacity: 1; transform: none } }
-@keyframes spin-slow { to { transform: rotate(360deg) } }
-@keyframes dash-flow { to { stroke-dashoffset: -40 } }
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes drift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-60px);
+  }
+}
+@keyframes pulse-ring {
+  0% {
+    r: 8;
+    opacity: 0.9;
+  }
+  100% {
+    r: 26;
+    opacity: 0;
+  }
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
 
-@utility star { animation: twinkle 4s ease-in-out infinite; }
-@utility animate-rise { animation: rise .55s cubic-bezier(.2,.7,.2,1) both; }
-@utility animate-slide-in { animation: slide-in .45s cubic-bezier(.2,.7,.2,1) both; }
-@utility animate-spin-slow { animation: spin-slow 120s linear infinite; }
-@utility route-draw { stroke-dasharray: 2000; stroke-dashoffset: 2000; animation: draw 2.2s ease-out forwards; }
-@utility dash-flow { animation: dash-flow 1.2s linear infinite; }
-@utility pulse-marker { animation: pulse-ring 2s ease-out infinite; }
+@utility star {
+  animation: twinkle 4s ease-in-out infinite;
+}
+@utility animate-rise {
+  animation: rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@utility animate-slide-in {
+  animation: slide-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@utility animate-spin-slow {
+  animation: spin-slow 120s linear infinite;
+}
+@utility route-draw {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: draw 2.2s ease-out forwards;
+}
+@utility dash-flow {
+  animation: dash-flow 1.2s linear infinite;
+}
+@utility pulse-marker {
+  animation: pulse-ring 2s ease-out infinite;
+}
