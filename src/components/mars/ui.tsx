@@ -54,7 +54,7 @@ export function Ring({ value, size = 140 }: { value: number; size?: number }) {
           cx={size / 2}
           cy={size / 2}
           r={r}
-          stroke="oklch(1 0 0 / 0.08)"
+          stroke="var(--track)"
           strokeWidth="8"
           fill="none"
         />

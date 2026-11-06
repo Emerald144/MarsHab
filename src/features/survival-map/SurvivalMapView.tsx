@@ -44,7 +44,7 @@ export function ModeSelector() {
                   borderColor: col,
                   color: col,
                   boxShadow: `0 0 18px -6px ${col}`,
-                  background: "oklch(1 0 0 / 0.04)",
+                  background: "var(--tint)",
                 }
               : { color: "var(--muted-foreground)" }
           }
@@ -144,7 +144,7 @@ export function SurvivalMapView() {
         </Panel>
       </div>
 
-      <div className="relative">
+      <div className="relative" data-theme="dark">
         <MarsMap
           layers={layers}
           selectedZone={sel}

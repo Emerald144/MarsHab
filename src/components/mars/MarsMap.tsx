@@ -59,7 +59,9 @@ export function MarsMap({
   }, [progress, highlightRoute, destination]);
 
   return (
-    <div className={`relative overflow-hidden rounded-xl border border-border ${className ?? ""}`}>
+    <div 
+    data-theme="dark"
+    className={`relative overflow-hidden rounded-xl border border-border ${className ?? ""}`}>
       <svg
         viewBox="0 0 1000 680"
         className="block h-full w-full"

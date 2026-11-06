@@ -37,9 +37,22 @@
   --color-caution: var(--caution);
   --color-danger: var(--danger);
   --color-nebula: var(--nebula);
+
+  /* Step 1: Tailwind v4 @theme inline register အသစ်များ */
+  --color-simulated: var(--simulated);
+  --color-danger-strong: var(--danger-strong);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border-strong: var(--border-strong);
+  --color-text-secondary: var(--text-secondary);
 }
 
-:root {
+/* ===== DARK (default) ===== */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  color: var(--foreground);
+
   --radius: 0.75rem;
   --background: oklch(0.13 0.03 270);
   --foreground: oklch(0.97 0.01 260);
@@ -47,8 +60,10 @@
   --card-foreground: oklch(0.97 0.01 260);
   --popover: oklch(0.18 0.04 275);
   --popover-foreground: oklch(0.97 0.01 260);
-  --primary: oklch(0.68 0.19 40);
-  --primary-foreground: oklch(0.98 0.01 60);
+
+  --primary: #f5822e;
+  --primary-foreground: #050e3c;
+
   --secondary: oklch(0.25 0.05 275);
   --secondary-foreground: oklch(0.95 0.01 260);
   --muted: oklch(0.24 0.04 275);
@@ -60,22 +75,87 @@
   --border: oklch(0.8 0.08 230 / 0.14);
   --input: oklch(0.8 0.08 230 / 0.18);
   --ring: oklch(0.82 0.12 210);
-  --mars: oklch(0.68 0.19 40);
+
+  --mars: #f5822e;
   --data: oklch(0.84 0.12 205);
   --safe: oklch(0.78 0.18 150);
   --caution: oklch(0.84 0.16 85);
   --danger: oklch(0.64 0.23 25);
   --nebula: oklch(0.45 0.18 295);
 
+  --simulated: #a78bfa;
+  --danger-strong: #dc0000;
+  --surface: #0a1a4d;
+  --surface-raised: #002455;
+  --border-strong: #3a6bb5;
+  --text-secondary: #b6c3e0;
+
+  /* Step 2: hard-code အဖြူအရောင်များကို token ပြောင်း */
+  --tint: oklch(1 0 0 / 0.04);
+  --track: oklch(1 0 0 / 0.08);
+  --glow-ring: oklch(0.84 0.12 205 / 0.35);
+
   --gradient-space:
     radial-gradient(ellipse 80% 60% at 75% 0%, oklch(0.32 0.14 295 / 0.55), transparent 60%),
     radial-gradient(ellipse 60% 50% at 0% 100%, oklch(0.3 0.12 255 / 0.5), transparent 60%),
     radial-gradient(ellipse 40% 35% at 90% 85%, oklch(0.4 0.15 35 / 0.25), transparent 70%),
     oklch(0.11 0.03 270);
-  --gradient-mars: linear-gradient(135deg, oklch(0.7 0.19 45), oklch(0.58 0.21 28));
+  --gradient-mars: linear-gradient(135deg, #ffa066 0%, #d96a1a 100%);
+
   --glow-data: 0 0 24px -4px oklch(0.84 0.12 205 / 0.55);
-  --glow-mars: 0 0 32px -6px oklch(0.68 0.19 40 / 0.7);
+  --glow-mars: 0 0 32px -6px rgb(245 130 46 / 0.7); /* ✅ shadow အပြည့်အစုံ */
+  --glow-danger: 0 0 24px -4px rgb(255 56 56 / 0.5);
   --shadow-panel: 0 20px 50px -20px oklch(0 0 0 / 0.7), inset 0 1px 0 oklch(1 0 0 / 0.06);
+}
+
+/* ===== LIGHT (html တွင် data-theme="light" ဖြစ်မှ) ===== */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --background: #f3f6fc;
+  --foreground: #050e3c;
+  --card: rgb(255 255 255 / 0.85);
+  --card-foreground: #050e3c;
+  --popover: #ffffff;
+  --popover-foreground: #050e3c;
+
+  --secondary: #e8eef9;
+  --secondary-foreground: #050e3c;
+  --muted: #e8eef9;
+  --muted-foreground: #5d6c92;
+  --accent: #dce7f8;
+  --accent-foreground: #050e3c;
+  --destructive: #dc0000;
+  --destructive-foreground: #ffffff;
+  --border: #c9d5eb;
+  --input: #c9d5eb;
+  --ring: #0b7a94;
+
+  --data: #0b7a94;
+  --safe: #168a4a;
+  --caution: #b7791f;
+  --danger: #dc0000;
+  --nebula: #6d4ae0;
+
+  --simulated: #6d4ae0;
+  --surface: #ffffff;
+  --surface-raised: #e8eef9;
+  --border-strong: #9fb2d6;
+  --text-secondary: #3b4a72;
+
+  --tint: rgb(5 14 60 / 0.04);
+  --track: rgb(5 14 60 / 0.1);
+  --glow-ring: rgb(11 122 148 / 0.45);
+
+  --gradient-space:
+    radial-gradient(ellipse 70% 50% at 80% 0%, rgb(92 214 238 / 0.18), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 0% 100%, rgb(245 130 46 / 0.1), transparent 60%),
+    #f3f6fc;
+
+  --glow-data: 0 6px 20px -6px rgb(11 122 148 / 0.45);
+  --glow-mars: 0 6px 20px -6px rgb(245 130 46 / 0.6);
+  --glow-danger: 0 6px 20px -6px rgb(220 0 0 / 0.4);
+  --shadow-panel: 0 10px 30px -14px rgb(5 14 60 / 0.25), inset 0 1px 0 rgb(255 255 255 / 0.9);
 }
 
 @layer base {
@@ -112,7 +192,7 @@
 @utility glow-border {
   box-shadow:
     var(--shadow-panel),
-    0 0 0 1px oklch(0.84 0.12 205 / 0.35),
+    0 0 0 1px var(--glow-ring),
     var(--glow-data);
 }
 @utility label-caps {
@@ -146,7 +226,7 @@
 }
 @utility btn-ghost {
   border: 1px solid var(--border);
-  background: oklch(1 0 0 / 0.03);
+  background: var(--tint);
   border-radius: var(--radius-md);
   font-family: var(--font-display);
   letter-spacing: 0.08em;
@@ -245,4 +325,18 @@
 }
 @utility pulse-marker {
   animation: pulse-ring 2s ease-out infinite;
+}
+
+/* Light mode တွင် မြင်ကွင်းကြယ်များကို ဝှက် */
+:root[data-theme="light"] .stars-layer {
+  display: none;
+}
+
+/* Step 1: ဖိုင်၏ အောက်ဆုံးတွင် prefers-reduced-motion block ထည့်သွင်းခြင်း */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

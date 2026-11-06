@@ -2,6 +2,8 @@ import { useMemo, type ReactNode } from "react";
 import { BarChart3, Compass, FileText, LayoutDashboard, Map, Rocket } from "lucide-react";
 import { useMission, type View } from "@/lib/mission-store";
 import { MODE_WEIGHTS } from "@/lib/mission-data";
+import { useTheme } from "@/lib/theme";
+import { ThemeToggle } from "./ThemeToggle";
 
 const NAV: { id: View; label: string; icon: typeof Map }[] = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
@@ -24,7 +26,7 @@ function Stars() {
     [],
   );
   return (
-    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div className="stars-layer pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       {stars.map((s, i) => (
         <span
           key={i}
@@ -51,6 +53,7 @@ const Dot = ({ c }: { c: string }) => (
 
 export function Shell({ children }: { children: ReactNode }) {
   const { view, setView, mode } = useMission();
+  const { theme, toggle } = useTheme();   
   return (
     <div className="flex min-h-screen">
       <Stars />
@@ -116,6 +119,7 @@ export function Shell({ children }: { children: ReactNode }) {
                 {MODE_WEIGHTS[mode].label}
               </span>
             </span>
+            <ThemeToggle theme={theme} onToggle={toggle} />
           </div>
         </header>
         <div className="flex gap-1 overflow-x-auto border-b border-border px-4 py-2 md:hidden">
