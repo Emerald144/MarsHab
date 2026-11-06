@@ -236,8 +236,8 @@ export function MarsMap({
             <g key={o.name}>
               {i > 0 && (
                 <line
-                  x1={ROVER_OBS[i - 1].p[0]}
-                  y1={ROVER_OBS[i - 1].p[1]}
+                  x1={ROVER_OBS[i - 1]!.p[0]}
+                  y1={ROVER_OBS[i - 1]!.p[1]}
                   x2={o.p[0]}
                   y2={o.p[1]}
                   stroke="oklch(1 0 0 / 0.5)"
