@@ -35,12 +35,24 @@ export class PlayerController {
   }
 
   initEvents() {
-    document.addEventListener("keydown", (e) => this.onKey(e, true));
-    document.addEventListener("keyup", (e) => this.onKey(e, false));
-    document.addEventListener("mousemove", (e) => this.onMouseMove(e));
-    document.addEventListener("pointerlockchange", () => {
+    this.onKeyDown = (e) => this.onKey(e, true);
+    this.onKeyUp = (e) => this.onKey(e, false);
+    this.onMove = (e) => this.onMouseMove(e);
+    this.onLockChange = () => {
       this.isLocked = document.pointerLockElement === this.domElement;
-    });
+    };
+    document.addEventListener("keydown", this.onKeyDown);
+    document.addEventListener("keyup", this.onKeyUp);
+    document.addEventListener("mousemove", this.onMove);
+    document.addEventListener("pointerlockchange", this.onLockChange);
+  }
+
+  dispose() {
+    if (this.isLocked) this.unlock();
+    document.removeEventListener("keydown", this.onKeyDown);
+    document.removeEventListener("keyup", this.onKeyUp);
+    document.removeEventListener("mousemove", this.onMove);
+    document.removeEventListener("pointerlockchange", this.onLockChange);
   }
 
   onKey(e, pressed) {

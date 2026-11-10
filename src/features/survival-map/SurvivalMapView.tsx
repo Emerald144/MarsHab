@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useLanguage } from "@/i18n/useLanguage";
+import { useState, type CSSProperties } from "react";
 import { Check, ArrowRight, X, Shield, FlaskConical, Siren } from "lucide-react";
 
 import {
@@ -18,6 +19,7 @@ import { Bar, Legend, Panel, Ring } from "@/components/mars/ui";
 
 // Mission mode selector
 export function ModeSelector() {
+  const { display } = useLanguage();
   const { mode, setMode } = useMission();
 
   const opts: {
@@ -37,20 +39,17 @@ export function ModeSelector() {
         <button
           key={id}
           onClick={() => setMode(id)}
-          className="flex flex-col items-center gap-1.5 rounded-md border p-3 text-xs font-display tracking-wider uppercase transition-all"
+          aria-pressed={mode === id}
+          className={`glass glass-interactive focus-ring flex flex-col items-center gap-1.5 rounded-md p-3 text-xs font-display tracking-wider uppercase ${mode === id ? "glass-selected" : ""}`}
           style={
-            mode === id
-              ? {
-                  borderColor: col,
-                  color: col,
-                  boxShadow: `0 0 18px -6px ${col}`,
-                  background: "var(--tint)",
-                }
-              : { color: "var(--muted-foreground)" }
+            {
+              "--glass-selection": id === "science" ? "var(--data)" : "var(--mars)",
+              color: mode === id ? col : "var(--muted-foreground)",
+            } as CSSProperties
           }
         >
           <Icon className="h-4 w-4" />
-          {label}
+          {display(label)}
         </button>
       ))}
     </div>
@@ -59,6 +58,7 @@ export function ModeSelector() {
 
 // Weight information for selected mission mode
 function Weights() {
+  const { display } = useLanguage();
   const { mode } = useMission();
   const w = MODE_WEIGHTS[mode].weights;
 
@@ -68,7 +68,7 @@ function Weights() {
         {["Return to Base", "Time", "Terrain", "Risk", "Resource Consumption"].map((x, i) => (
           <div key={x}>
             {i ? "↓ " : ""}
-            {x}
+            {display(x)}
           </div>
         ))}
       </div>
@@ -81,7 +81,9 @@ function Weights() {
         .sort((a, b) => b[1]! - a[1]!)
         .map(([k, v]) => (
           <div key={k} className="flex justify-between font-mono text-xs">
-            <span className="text-muted-foreground">{FACTOR_LABELS[k as keyof Factors]}</span>
+            <span className="text-muted-foreground">
+              {display(FACTOR_LABELS[k as keyof Factors])}
+            </span>
             <span>{Math.round(v! * 100)}%</span>
           </div>
         ))}
@@ -91,6 +93,7 @@ function Weights() {
 
 // Survival Map page
 export function SurvivalMapView() {
+  const { t, display } = useLanguage();
   const { mode, setDestination, setView, setFeasibilityChecked, setRoutesGenerated } = useMission();
 
   const [layers, setLayers] = useState<Layers>({
@@ -117,7 +120,7 @@ export function SurvivalMapView() {
   return (
     <div className="grid gap-4 xl:grid-cols-[240px_1fr]">
       <div className="space-y-4">
-        <Panel title="Map Layers">
+        <Panel title={t("Map Layers")}>
           <div className="space-y-2">
             {layerOptions.map(([key, label]) => (
               <label key={key} className="flex cursor-pointer items-center gap-2.5 text-sm">
@@ -132,13 +135,13 @@ export function SurvivalMapView() {
                   }
                   className="accent-[var(--data)]"
                 />
-                {label}
+                {display(label)}
               </label>
             ))}
           </div>
         </Panel>
 
-        <Panel title="Mission Mode">
+        <Panel title={t("Mission Mode")}>
           <ModeSelector />
           <Weights />
         </Panel>
@@ -157,8 +160,8 @@ export function SurvivalMapView() {
         </div>
 
         {!zone && (
-          <div className="glass absolute right-4 top-4 px-4 py-2 text-xs text-muted-foreground">
-            Click a zone to inspect its suitability
+          <div className="glass glass-overlay absolute right-4 top-4 px-4 py-2 text-xs text-muted-foreground">
+            {t("Click a zone to inspect its suitability")}
           </div>
         )}
 
@@ -169,19 +172,22 @@ export function SurvivalMapView() {
             return (
               <div
                 key={zone.id + mode}
-                className="glass animate-slide-in absolute bottom-4 right-4 top-4 w-[320px] overflow-y-auto p-5 glow-border"
+                className="glass glass-overlay glass-selected animate-slide-in absolute bottom-4 right-4 top-4 w-[320px] overflow-y-auto p-5"
               >
                 <button
+                  aria-label={t("Close inspection")}
                   onClick={() => setSel(null)}
                   className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
                 >
                   <X className="h-4 w-4" />
                 </button>
 
-                <div className="font-display text-xl font-bold">AREA {zone.id}</div>
+                <div className="font-display text-xl font-bold">
+                  {t("AREA")} {zone.id}
+                </div>
 
                 <div className="label-caps mt-1">
-                  Martian Survival Suitability · {MODE_WEIGHTS[mode].label}
+                  {t("Martian Survival Suitability ·")} {display(MODE_WEIGHTS[mode].label)}
                 </div>
 
                 <div className="my-5 flex items-center gap-5">
@@ -190,7 +196,7 @@ export function SurvivalMapView() {
                     className="font-display text-lg font-semibold"
                     style={{ color: tierColor(s) }}
                   >
-                    {tier(s)}
+                    {display(tier(s))}
                   </div>
                 </div>
 
@@ -200,13 +206,13 @@ export function SurvivalMapView() {
                   ))}
                 </div>
 
-                <div className="label-caps mt-6 mb-2">Why this area?</div>
+                <div className="label-caps mt-6 mb-2">{t("Why this area?")}</div>
 
                 <ul className="space-y-1.5 text-sm">
                   {zone.reasons.map((reason) => (
                     <li key={reason} className="flex gap-2">
                       <Check className="mt-0.5 h-4 w-4 shrink-0" style={{ color: tierColor(s) }} />
-                      {reason}
+                      {display(reason)}
                     </li>
                   ))}
                 </ul>
@@ -220,7 +226,7 @@ export function SurvivalMapView() {
                   }}
                   className="btn-mars mt-6 flex w-full items-center justify-center gap-2 py-3 text-xs"
                 >
-                  Select as Destination
+                  {t("Select as Destination")}
                   <ArrowRight className="h-4 w-4" />
                 </button>
               </div>

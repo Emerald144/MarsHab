@@ -1,3 +1,4 @@
+import { useLanguage } from "@/i18n/useLanguage";
 import { FlaskConical, Image as ImageIcon, Satellite } from "lucide-react";
 
 export type DataKind = "real" | "simulated" | "illustrative";
@@ -34,14 +35,15 @@ type Props = {
 };
 
 export function DataBadge({ kind, label, className = "" }: Props) {
+  const { display } = useLanguage();
   const { label: defaultLabel, hint, icon: Icon, cls } = KINDS[kind];
   return (
     <span
-      title={hint}
+      title={display(hint)}
       className={`inline-flex items-center gap-1 rounded-sm border px-1.5 py-0.5 font-mono text-[11px] leading-none tracking-[0.12em] whitespace-nowrap ${cls} ${className}`}
     >
       <Icon className="h-3 w-3 shrink-0" aria-hidden="true" />
-      {label ?? defaultLabel}
+      {display(label ?? defaultLabel)}
     </span>
   );
 }

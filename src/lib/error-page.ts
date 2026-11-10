@@ -1,4 +1,13 @@
+import { LANGUAGE_STORAGE_KEY, myanmar, type TranslationKey } from "@/i18n/translations";
+
 export function renderErrorPage(): string {
+  const keys: TranslationKey[] = [
+    "This page didn't load",
+    "Something went wrong on our end. You can try refreshing or head back home.",
+    "Try again",
+    "Go home",
+  ];
+  const messages = JSON.stringify(keys.map((key) => myanmar[key])).replace(/</g, "\\u003c");
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -18,13 +27,19 @@ export function renderErrorPage(): string {
   </head>
   <body>
     <div class="card">
-      <h1>This page didn't load</h1>
-      <p>Something went wrong on our end. You can try refreshing or head back home.</p>
+      <h1 data-error-message="0">This page didn't load</h1>
+      <p data-error-message="1">Something went wrong on our end. You can try refreshing or head back home.</p>
       <div class="actions">
-        <button class="primary" onclick="location.reload()">Try again</button>
-        <a class="secondary" href="/">Go home</a>
+        <button data-error-message="2" class="primary" onclick="location.reload()">Try again</button>
+        <a data-error-message="3" class="secondary" href="/">Go home</a>
       </div>
     </div>
+    <script>try { if (localStorage.getItem(${JSON.stringify(LANGUAGE_STORAGE_KEY)}) === "my") {
+      var messages = ${messages};
+      document.documentElement.lang = "my";
+      document.title = messages[0];
+      document.querySelectorAll("[data-error-message]").forEach(function (node) { node.textContent = messages[Number(node.dataset.errorMessage)]; });
+    } } catch (_) { /* Keep readable English when storage is unavailable. */ }</script>
   </body>
 </html>`;
 }

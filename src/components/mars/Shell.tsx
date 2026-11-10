@@ -1,3 +1,5 @@
+import { useLanguage } from "@/i18n/useLanguage";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useMemo, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { MapPin, Orbit } from "lucide-react";
@@ -40,6 +42,7 @@ function Stars() {
 }
 
 export function Shell({ children }: { children: ReactNode }) {
+  const { t, display } = useLanguage();
   const { view, mode } = useMission();
   const { theme, toggle } = useTheme();
 
@@ -48,19 +51,21 @@ export function Shell({ children }: { children: ReactNode }) {
       {/* Map view တွင် ကြယ်မပြ */}
       {view !== "map" && <Stars />}
 
-      <header className="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-border bg-background/60 px-4 py-2.5 backdrop-blur-xl md:px-6">
+      <header className="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-data/15 bg-background/90 px-4 py-2.5 backdrop-blur-xl md:px-6">
         {/* ဘယ်: Logo */}
         <Link
           to="/"
-          aria-label="Martian Map, back to landing page"
+          aria-label={t("Martian Map, back to landing page")}
           className="focus-ring flex items-center gap-2 rounded-md"
         >
           <Orbit className="h-6 w-6 text-mars" aria-hidden="true" />
-          <span className="font-display text-lg font-semibold">Martian Map</span>
+          <span className="font-display text-lg font-semibold tracking-tight">
+            {t("Martian Map")}
+          </span>
         </Link>
 
         {/* အလယ်: Step Indicator */}
-        <div className="order-last flex w-full justify-center xl:order-none xl:w-auto">
+        <div className="order-last flex w-full min-w-0 overflow-x-auto xl:order-none xl:w-auto">
           <StepIndicator />
         </div>
 
@@ -68,30 +73,35 @@ export function Shell({ children }: { children: ReactNode }) {
         <div className="flex items-center gap-3 font-mono text-[11px] text-muted-foreground md:gap-4">
           <span className="hidden items-center gap-1.5 2xl:flex">
             <MapPin className="h-3.5 w-3.5 text-mars" aria-hidden="true" />
-            Jezero Crater
+            {t("Jezero Crater")}
           </span>
           <span className="hidden 2xl:inline">
-            ID: <span className="text-foreground">MARS-026</span>
+            {t("ID:")}
+            <span className="text-foreground">MARS-026</span>
           </span>
           <span className="hidden sm:inline">
-            Mode:{" "}
+            {t("Mode:")}{" "}
             <span className={mode === "emergency" ? "text-danger" : "text-data"}>
-              {MODE_WEIGHTS[mode].label}
+              {display(MODE_WEIGHTS[mode].label)}
             </span>
           </span>
-          <DataBadge kind="simulated" label="DEMO SIM" />
+          <DataBadge kind="simulated" label={t("DEMO SIM")} />
+          <LanguageSwitcher />
           <ThemeToggle theme={theme} onToggle={toggle} />
         </div>
       </header>
 
-      <main key={view} className="animate-rise flex-1 p-4 md:p-6">
+      <main
+        key={view}
+        className={`${view === "map" || view === "execution" ? "animate-rise " : ""}flex-1 p-4 md:p-6`}
+      >
         {children}
       </main>
 
       <footer className="border-t border-border px-6 py-3 text-[11px] text-muted-foreground">
-        Prototype simulation using selected NASA datasets and modeled mission parameters.
-        Suitability scores, route costs and resource estimates are illustrative and not official
-        NASA safety classifications or operational routes.
+        {t(
+          "Prototype simulation using selected NASA datasets and modeled mission parameters. Suitability scores, route costs and resource estimates are illustrative and not official NASA safety classifications or operational routes.",
+        )}
       </footer>
     </div>
   );

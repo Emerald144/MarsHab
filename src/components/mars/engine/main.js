@@ -85,8 +85,25 @@ export function initMarsScene(container) {
   let mode = "ORBIT";
   let lastTime = performance.now();
   let animationFrameId;
+  let approach = null;
+
+  function setApproach(progress) {
+    if (progress <= 0) return;
+    if (!approach) {
+      orbitControls.enabled = false;
+      if (player.isLocked) player.unlock();
+      approach = {
+        from: camera.position.clone(),
+        target: orbitControls.target.clone(),
+        orientation: camera.quaternion.clone(),
+        progress: 0,
+      };
+    }
+    approach.progress = Math.min(1, progress);
+  }
 
   function handleKeyDown(e) {
+    if (approach) return;
     if (e.code === "KeyP") {
       toggleMode();
     }
@@ -136,14 +153,14 @@ export function initMarsScene(container) {
     atmosphere.mesh.rotation.y = sec * rotationSpeed;
 
     if (mode === "ORBIT") {
-      orbitControls.update();
+      if (!approach) orbitControls.update();
       const lightSpeed = 0.015;
       sunDir.x = Math.cos(sec * lightSpeed);
       sunDir.z = Math.sin(sec * lightSpeed);
       sunDir.normalize();
       sunLight.position.copy(sunDir).multiplyScalar(PLANET_RADIUS * 5);
     } else {
-      player.update(delta, terrain);
+      if (!approach) player.update(delta, terrain);
       const lightSpeed = 0.015;
       sunDir.x = Math.cos(sec * lightSpeed);
       sunDir.z = Math.sin(sec * lightSpeed);
@@ -155,18 +172,48 @@ export function initMarsScene(container) {
     celestials.update(sec);
     spaceDust.update(delta);
 
+    if (approach) {
+      const t = approach.progress;
+      const eased = t * t * (3 - 2 * t);
+      const distance = approach.from.length();
+      const destination = Math.min(distance, PLANET_RADIUS + 160);
+      camera.position
+        .copy(approach.from)
+        .normalize()
+        .multiplyScalar(THREE.MathUtils.lerp(distance, destination, eased));
+      camera.lookAt(approach.target.clone().multiplyScalar(1 - eased));
+      camera.quaternion.slerpQuaternions(approach.orientation, camera.quaternion.clone(), eased);
+    }
+
     renderer.render(scene, camera);
   }
   animate();
 
   // Cleanup function when component unmounts
-  return () => {
-    cancelAnimationFrame(animationFrameId);
-    window.removeEventListener("keydown", handleKeyDown);
-    window.removeEventListener("resize", handleResize);
-    renderer.dispose();
-    if (renderer.domElement.parentNode) {
-      renderer.domElement.parentNode.removeChild(renderer.domElement);
-    }
-  };
+  return Object.assign(
+    () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("resize", handleResize);
+      orbitControls.dispose();
+      player.dispose();
+      scene.traverse((object) => {
+        object.geometry?.dispose();
+        const materials = Array.isArray(object.material) ? object.material : [object.material];
+        materials.filter(Boolean).forEach((material) => {
+          Object.values(material).forEach((value) => {
+            if (value?.isTexture) value.dispose();
+          });
+          material.dispose();
+        });
+      });
+      lensflare.dispose();
+      textureFlare.dispose();
+      renderer.dispose();
+      if (renderer.domElement.parentNode) {
+        renderer.domElement.parentNode.removeChild(renderer.domElement);
+      }
+    },
+    { setApproach },
+  );
 }

@@ -1,3 +1,4 @@
+import { useLanguage } from "@/i18n/useLanguage";
 import { useEffect, useState, type ReactNode } from "react";
 import { tierColor } from "@/lib/mission-data";
 
@@ -29,11 +30,14 @@ export function Panel({
   className?: string;
   right?: ReactNode;
 }) {
+  const { display } = useLanguage();
   return (
     <section className={`glass p-5 ${className}`}>
       {title && (
         <div className="mb-4 flex items-center justify-between">
-          <h3 className="label-caps text-data">{title}</h3>
+          <h3 className="label-caps text-data">
+            {typeof title === "string" ? display(title) : title}
+          </h3>
           {right}
         </div>
       )}
@@ -79,6 +83,7 @@ export function Ring({ value, size = 140 }: { value: number; size?: number }) {
 }
 
 export function Bar({ label, value }: { label: string; value: number }) {
+  const { display } = useLanguage();
   const [w, setW] = useState(0);
   useEffect(() => {
     const t = setTimeout(() => setW(value), 50);
@@ -87,7 +92,7 @@ export function Bar({ label, value }: { label: string; value: number }) {
   return (
     <div>
       <div className="mb-1 flex justify-between text-xs">
-        <span className="text-muted-foreground">{label}</span>
+        <span className="text-muted-foreground">{display(label)}</span>
         <span className="font-mono">{value}%</span>
       </div>
       <div className="h-1.5 overflow-hidden rounded-full bg-muted">
@@ -123,23 +128,24 @@ export function Counter({
 }
 
 export function Legend() {
+  const { t } = useLanguage();
   return (
-    <div className="glass space-y-1.5 p-3 text-xs">
-      <div className="label-caps mb-1">Survival Suitability</div>
+    <div className="glass glass-overlay space-y-1.5 p-3 text-xs">
+      <div className="label-caps mb-1">{t("Survival Suitability")}</div>
       <div className="flex items-center gap-2">
         <span className="h-2.5 w-2.5 rounded-sm bg-safe" />
-        80–100 HIGH
+        {t("80–100 HIGH")}
       </div>
       <div className="flex items-center gap-2">
         <span className="h-2.5 w-2.5 rounded-sm bg-caution" />
-        60–79 MODERATE
+        {t("60–79 MODERATE")}
       </div>
       <div className="flex items-center gap-2">
         <span className="h-2.5 w-2.5 rounded-sm bg-danger" />
-        0–59 LOW
+        {t("0–59 LOW")}
       </div>
       <div className="pt-1 text-[10px] text-muted-foreground">
-        Prototype calculations, not official NASA classifications.
+        {t("Prototype calculations, not official NASA classifications.")}
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import { useLanguage } from "@/i18n/useLanguage";
 import { Check, Lock } from "lucide-react";
 import { useMission, type View } from "@/lib/mission-store";
 
@@ -10,6 +11,7 @@ const STEPS: { id: View; label: string; needsRoutes?: boolean }[] = [
 ];
 
 export function StepIndicator() {
+  const { t, display } = useLanguage();
   const { view, setView, routesGenerated } = useMission();
 
   // Step 7 မတိုင်မီ "planner" view သည် Survival Map အဆင့်ဟု ယူဆ (ယာယီ)
@@ -17,7 +19,7 @@ export function StepIndicator() {
   const currentIndex = STEPS.findIndex((s) => s.id === activeView);
 
   return (
-    <nav aria-label="Mission steps">
+    <nav aria-label={t("Mission steps")} className="mx-auto shrink-0">
       <ol className="flex items-center">
         {STEPS.map((step, i) => {
           const done = i < currentIndex;
@@ -34,16 +36,19 @@ export function StepIndicator() {
               <button
                 type="button"
                 onClick={() => setView(step.id)}
+                disabled={locked}
+                aria-label={
+                  locked
+                    ? t("{step}: generate routes first", { step: display(step.label) })
+                    : display(step.label)
+                }
                 aria-current={current ? "step" : undefined}
-                title={locked ? "Generate routes first" : step.label}
-                className={`focus-ring group flex items-center gap-2 rounded-md px-1.5 py-1 transition-colors ${
-                  locked ? "opacity-60" : ""
-                }`}
+                title={locked ? t("Generate routes first") : display(step.label)}
+                className={`focus-ring group flex min-h-11 items-center gap-2 rounded-lg border px-1.5 py-1 transition-colors ${
+                  current ? "border-mars/35 bg-mars/10" : "border-transparent"
+                } ${locked ? "cursor-not-allowed opacity-50" : "hover:bg-data/5"}`}
               >
                 <span className="relative flex h-7 w-7 shrink-0 items-center justify-center">
-                  {current && (
-                    <span className="absolute inset-0 animate-ping rounded-full bg-mars/40" />
-                  )}
                   <span
                     className={`relative flex h-7 w-7 items-center justify-center rounded-full font-mono text-[11px] font-semibold ${circle}`}
                   >
@@ -59,11 +64,11 @@ export function StepIndicator() {
                 <span
                   className={`hidden whitespace-nowrap text-sm md:inline ${
                     current
-                      ? "font-medium text-foreground"
+                      ? "font-medium text-mars"
                       : "text-muted-foreground group-hover:text-foreground"
                   }`}
                 >
-                  {step.label}
+                  {display(step.label)}
                 </span>
               </button>
 
