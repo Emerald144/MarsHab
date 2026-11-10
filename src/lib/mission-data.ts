@@ -51,6 +51,11 @@ export const tier = (s: number) => (s >= 80 ? "HIGH" : s >= 60 ? "MODERATE" : "L
 export const tierColor = (s: number) =>
   s >= 80 ? "var(--safe)" : s >= 60 ? "var(--caution)" : "var(--danger)";
 
+type MapPoint = {
+  name: string;
+  p: [number, number];
+};
+
 // Map coordinate space: 1000 x 680
 export const BASE: [number, number] = [170, 560];
 
@@ -131,24 +136,27 @@ export const ZONES: Zone[] = [
   },
 ];
 
-export const SCIENCE_TARGETS = [
+export const SCIENCE_TARGETS: MapPoint[] = [
   { name: "Delta Front", p: [700, 260] },
   { name: "Séítah Ridge", p: [430, 180] },
   { name: "Belva Crater", p: [860, 420] },
   { name: "Kodiak Butte", p: [560, 520] },
   { name: "Margin Unit", p: [880, 140] },
 ];
-export const RESOURCES = [
+
+export const RESOURCES: MapPoint[] = [
   { name: "Ice signature R1", p: [220, 340] },
   { name: "Hydrated minerals R2", p: [820, 240] },
   { name: "Ice signature R3", p: [740, 560] },
 ];
-export const HAZARDS = [
+
+export const HAZARDS: (MapPoint & { r: number })[] = [
   { name: "Rim slopes", p: [580, 110], r: 55 },
   { name: "Boulder field", p: [620, 350], r: 45 },
   { name: "Dune trap", p: [400, 330], r: 35 },
 ];
-export const ROVER_OBS = [
+
+export const ROVER_OBS: MapPoint[] = [
   { name: "Sol 412", p: [260, 500] },
   { name: "Sol 518", p: [450, 450] },
   { name: "Sol 603", p: [640, 400] },

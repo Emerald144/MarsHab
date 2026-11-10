@@ -1,3 +1,4 @@
+import { useLanguage } from "@/i18n/useLanguage";
 import { useEffect, useRef, useState } from "react";
 import mapImg from "@/assets/jezero-map.jpg";
 import {
@@ -45,6 +46,7 @@ export function MarsMap({
   riskZone,
   className,
 }: Props) {
+  const { t, display } = useLanguage();
   const { mode, destination } = useMission();
   const dest = ZONES.find((z) => z.id === destination)!;
   const pathRefs = useRef<Record<string, SVGPathElement | null>>({});
@@ -59,8 +61,13 @@ export function MarsMap({
   }, [progress, highlightRoute, destination]);
 
   return (
-    <div className={`relative overflow-hidden rounded-xl border border-border ${className ?? ""}`}>
+    <div
+      data-theme="dark"
+      className={`relative overflow-hidden rounded-xl border border-border ${className ?? ""}`}
+    >
       <svg
+        role="img"
+        aria-label={t("JEZERO REGIONAL MAP")}
         viewBox="0 0 1000 680"
         className="block h-full w-full"
         preserveAspectRatio="xMidYMid slice"
@@ -121,6 +128,9 @@ export function MarsMap({
                 onClick={() => onZoneClick?.(z.id)}
                 className={onZoneClick ? "cursor-pointer" : ""}
               >
+                <title>
+                  {t("Area {id}", { id: z.id })} · {s}%
+                </title>
                 <polygon
                   points={z.points}
                   fill={c}
@@ -170,7 +180,7 @@ export function MarsMap({
               textAnchor="middle"
               className="fill-foreground font-mono text-[12px] font-bold"
             >
-              ⚠ RISK ↑
+              {t("⚠ RISK ↑")}
             </text>
           </g>
         )}
@@ -193,7 +203,7 @@ export function MarsMap({
                 textAnchor="middle"
                 className="fill-foreground font-mono text-[11px]"
               >
-                ⚠ {h.name}
+                ⚠ {display(h.name)}
               </text>
             </g>
           ))}
@@ -206,7 +216,7 @@ export function MarsMap({
                 y={r.p[1] + 4}
                 className="fill-foreground font-mono text-[11px]"
               >
-                ❄ {r.name}
+                ❄ {display(r.name)}
               </text>
             </g>
           ))}
@@ -236,8 +246,8 @@ export function MarsMap({
             <g key={o.name}>
               {i > 0 && (
                 <line
-                  x1={ROVER_OBS[i - 1].p[0]}
-                  y1={ROVER_OBS[i - 1].p[1]}
+                  x1={ROVER_OBS[i - 1]!.p[0]}
+                  y1={ROVER_OBS[i - 1]!.p[1]}
                   x2={o.p[0]}
                   y2={o.p[1]}
                   stroke="oklch(1 0 0 / 0.5)"
@@ -316,7 +326,7 @@ export function MarsMap({
             y={BASE[1] + 24}
             className="fill-foreground font-mono text-[12px] font-semibold"
           >
-            PERSEVERANCE BASE
+            {t("PERSEVERANCE BASE")}
           </text>
         </g>
         {/* destination */}
@@ -358,9 +368,11 @@ export function MarsMap({
         <rect width="1000" height="680" fill="url(#vig)" pointerEvents="none" />
       </svg>
       <div className="pointer-events-none absolute left-3 top-3 label-caps">
-        JEZERO CRATER · 18.38°N 77.58°E
+        {t("JEZERO CRATER · 18.38°N 77.58°E")}
       </div>
-      <div className="pointer-events-none absolute bottom-3 right-3 label-caps">SIMULATED DATA</div>
+      <div className="pointer-events-none absolute bottom-3 right-3 label-caps">
+        {t("SIMULATED DATA")}
+      </div>
     </div>
   );
 }

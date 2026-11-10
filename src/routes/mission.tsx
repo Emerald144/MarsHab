@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { usePageTranslation } from "@/i18n/usePageTranslation";
 import { MissionProvider, useMission } from "@/lib/mission-store";
 import { Shell } from "@/components/mars/Shell";
 import {
@@ -29,6 +30,10 @@ export const Route = createFileRoute("/mission")({
 });
 
 function App() {
+  usePageTranslation(
+    "Interplanetary Survival Guide: Martian Map",
+    "Prototype Mars mission planner: survival suitability map of Jezero Crater, feasibility checks, route comparison and dynamic rerouting.",
+  );
   const { view } = useMission();
   const V = {
     overview: Overview,
@@ -40,8 +45,10 @@ function App() {
   }[view];
 
   return (
-    <Shell>
-      <V />
-    </Shell>
+    <div className="mission-reveal">
+      <Shell>
+        <V />
+      </Shell>
+    </div>
   );
 }
