@@ -1,0 +1,356 @@
+Mars 2020 Rover PLACES Bundle Release Notes
+
+Users are encouraged to provide comments to the PDS Geosciences Node
+if errors are found either in data or in documentation in this archive.
+Please send comments by e-mail or U.S. mail to the Geosciences Node:
+
+          PDS Geosciences Node
+          Washington University
+          Dept. of Earth and Planetary Sciences
+          1 Brookings Drive
+          St. Louis, MO 63130
+          U.S.A.
+
+          Web:   https://pds-geosciences.wustl.edu
+          Email: geosci@wunder.wustl.edu
+
+
+This document, release_notes.txt, contains release notes and errata concerning
+the Mars 2020 Rover PLACES Bundle. It is updated with each bundle release.
+
+Section A of this document contains an entry for each bundle release with
+general information about the contents of the release, in decreasing release
+order.  Updates to previously released files are reported in these entries,
+along with any known errata.
+
+Section B of this file contains general notes, if any, concerning the archive
+as a whole.
+
+******** SECTION A ********
+
+Note that the PLACES bundle was first released with the third release of
+Mars 2020 data.  Rather than maintain a separate versioning scheme for the
+PLACES bundle, we instead keep in sync with the rest of the Mars 2020 data
+releases; therefore, the first Rover PLACES release is release 3.
+
+------------------------------------------------------------
+
+Release Number: 16
+Release Date: 2026-08-11
+
+Release 16 covers all data from 2022-02-18 through 2026-06-21, or sols 0 to 1897
+
+PLACES Release Note:
+For release 16, due to technical difficulties, the ROVER,n,0 entries in
+best_interp.csv and best_tactical.csv have been eliminated for all sites.
+The information is available, however.  The position is by definition the
+same as the SITE,n entry, so that information can be used.  For orientation
+(roll, pitch, yaw, and quaternion), the information can be obtained by
+looking at the ROVER,n,0 entries in telemetry.csv (for multiple poses, pick
+the highest pose).  The localization process used does not (currently)
+adjust orientation so those fields are the same as telemetry.  We hope
+to have this resolved (with the ROVER,n,0 entries restored) in a future
+release.
+
+------------------------------------------------------------
+Release Number: 15
+Release Date: 2026-04-07
+
+Release 15 covers all data from 2022-02-18 through 2026-02-03, or sols 0 to 1762
+
+PLACES Release Note:
+For release 15, due to technical difficulties, the ROVER,n,0 entries in
+best_interp.csv and best_tactical.csv have been eliminated for all sites.
+The information is available, however.  The position is by definition the
+same as the SITE,n entry, so that information can be used.  For orientation
+(roll, pitch, yaw, and quaternion), the information can be obtained by
+looking at the ROVER,n,0 entries in telemetry.csv (for multiple poses, pick
+the highest pose).  The localization process used does not (currently)
+adjust orientation so those fields are the same as telemetry.  We hope
+to have this resolved (with the ROVER,n,0 entries restored) in a future
+release.
+
+------------------------------------------------------------
+Release Number: 14
+Release Date: 2025-12-04
+
+Release 14 covers all data from 2022-02-18 through 2025-09-09, or sols 0 to 1619
+
+PLACES Release Note:
+For release 14, due to technical difficulties, the ROVER,n,0 entries in
+best_interp.csv and best_tactical.csv have been eliminated for all sites.
+The information is available, however.  The position is by definition the
+same as the SITE,n entry, so that information can be used.  For orientation
+(roll, pitch, yaw, and quaternion), the information can be obtained by
+looking at the ROVER,n,0 entries in telemetry.csv (for multiple poses, pick
+the highest pose).  The localization process used does not (currently)
+adjust orientation so those fields are the same as telemetry.  We hope
+to have this resolved (with the ROVER,n,0 entries restored) in a future
+release.
+
+------------------------------------------------------------
+
+Release Number: 13
+Release Date: 2025-08-05
+
+Release 13 covers all data from 2022-02-18 through 2025-05-20, or sols 0 to 1511
+
+PLACES Release Note:
+For release 13, due to technical difficulties, the ROVER,n,0 entries in
+best_interp.csv and best_tactical.csv have been eliminated for all sites.
+The information is available, however.  The position is by definition the
+same as the SITE,n entry, so that information can be used.  For orientation
+(roll, pitch, yaw, and quaternion), the information can be obtained by
+looking at the ROVER,n,0 entries in telemetry.csv (for multiple poses, pick
+the highest pose).  The localization process used does not (currently)
+adjust orientation so those fields are the same as telemetry.  We hope
+to have this resolved (with the ROVER,n,0 entries restored) in a future
+release.
+
+------------------------------------------------------------
+
+Release Number: 12
+Release Date: 2025-04-03
+
+Release 12 covers all data from 2022-02-18 through 2025-01-08, or sols 0 to 1381
+
+PLACES Release Note:
+For release 12, due to technical difficulties, the ROVER,n,0 entries in 
+best_interp.csv and best_tactical.csv have been eliminated for all sites.  
+The information is available, however.  The position is by definition the 
+same as the SITE,n entry, so that information can be used.  For orientation 
+(roll, pitch, yaw, and quaternion), the information can be obtained by 
+looking at the ROVER,n,0 entries in telemetry.csv (for multiple poses, pick 
+the highest pose).  The localization process used does not (currently) 
+adjust orientation so those fields are the same as telemetry.  We hope 
+to have this resolved (with the ROVER,n,0 entries restored) in a future 
+release.
+
+------------------------------------------------------------
+
+Release Number: 11
+Release Date: 2024-12-03
+
+Release 11 covers all data 2022-02-18 23:00 PST through 2024-09-24 13:01 PST, or approximately
+sols 0-1279
+
+PLACES Release Note:
+For release 11, due to technical difficulties, the ROVER,n,0 entries in 
+best_interp.csv and best_tactical.csv have been eliminated for all sites.  
+The information is available, however.  The position is by definition the 
+same as the SITE,n entry, so that information can be used.  For orientation 
+(roll, pitch, yaw, and quaternion), the information can be obtained by 
+looking at the ROVER,n,0 entries in telemetry.csv (for multiple poses, pick 
+the highest pose).  The localization process used does not (currently) 
+adjust orientation so those fields are the same as telemetry.  We hope 
+to have this resolved (with the ROVER,n,0 entries restored) in a future 
+release.
+
+------------------------------------------------------------
+
+Release Number: 10
+Release Date: 2024-07-30
+
+Release 10 covers all data 2022-02-18 23:00 PST through 2024-06-11 14:53 PST, or approximately
+sols 0-1176
+
+PLACES Release Note:
+For release 10, due to technical difficulties, the ROVER,n,0 entries in 
+best_interp.csv and best_tactical.csv have been eliminated for all sites.  
+The information is available, however.  The position is by definition the 
+same as the SITE,n entry, so that information can be used.  For orientation 
+(roll, pitch, yaw, and quaternion), the information can be obtained by 
+looking at the ROVER,n,0 entries in telemetry.csv (for multiple poses, pick 
+the highest pose).  The localization process used does not (currently) 
+adjust orientation so those fields are the same as telemetry.  We hope 
+to have this resolved (with the ROVER,n,0 entries restored) in a future 
+release.
+
+------------------------------------------------------------
+
+Release Number: 9
+Release Date: 2023-03-29
+
+Release 9 covers all data 2022-02-18 23:00 PST through 2024-02-07 12:25 PST, or approximately
+sols 0-1055
+
+PLACES Release Note:
+For release 9, due to technical difficulties, the ROVER,n,0 entries in 
+best_interp.csv and best_tactical.csv have been eliminated for all sites.  
+The information is available, however.  The position is by definition the 
+same as the SITE,n entry, so that information can be used.  For orientation 
+(roll, pitch, yaw, and quaternion), the information can be obtained by 
+looking at the ROVER,n,0 entries in telemetry.csv (for multiple poses, pick 
+the highest pose).  The localization process used does not (currently) 
+adjust orientation so those fields are the same as telemetry.  We hope 
+to have this resolved (with the ROVER,n,0 entries restored) in a future 
+release.
+
+------------------------------------------------------------
+
+Release Number: 8
+Release Date: 2023-11-27
+
+Release 8 covers all data 2022-02-18 23:00 PST through 2023-09-19 18:05 PST, or approximately
+sols 0-911
+
+PLACES Release Note:
+For release 8, due to technical difficulties, the ROVER,n,0 entries in 
+best_interp.csv and best_tactical.csv have been eliminated for all sites.  
+The information is available, however.  The position is by definition the 
+same as the SITE,n entry, so that information can be used.  For orientation 
+(roll, pitch, yaw, and quaternion), the information can be obtained by 
+looking at the ROVER,n,0 entries in telemetry.csv (for multiple poses, pick 
+the highest pose).  The localization process used does not (currently) 
+adjust orientation so those fields are the same as telemetry.  We hope 
+to have this resolved (with the ROVER,n,0 entries restored) in a future 
+release.
+
+------------------------------------------------------------
+
+Release Number: 7
+Release Date: 2023-07-27
+
+Release 7 covers all data 2022-02-18 23:00 PST through 2023-05-26 05:00 PST, or approximately
+sols 0-803
+
+PLACES Release Note:
+For release 7, due to technical difficulties, the ROVER,n,0 entries in 
+best_interp.csv and best_tactical.csv have been eliminated for all sites.  
+The information is available, however.  The position is by definition the 
+same as the SITE,n entry, so that information can be used.  For orientation 
+(roll, pitch, yaw, and quaternion), the information can be obtained by 
+looking at the ROVER,n,0 entries in telemetry.csv (for multiple poses, pick 
+the highest pose).  The localization process used does not (currently) 
+adjust orientation so those fields are the same as telemetry.  We hope 
+to have this resolved (with the ROVER,n,0 entries restored) in a future 
+release.
+
+------------------------------------------------------------
+
+Release Number: 6
+Release Date: 2023-03-24
+
+Release 6 covers all data 2022-02-18 23:00 PST through 2023-01-19 11:05 PST, or approximately
+sols 0-681
+
+PLACES Release Note:
+For release 6, due to technical difficulties, the ROVER,n,0 entries in 
+best_interp.csv and best_tactical.csv have been eliminated for all sites.  
+The information is available, however.  The position is by definition the 
+same as the SITE,n entry, so that information can be used.  For orientation 
+(roll, pitch, yaw, and quaternion), the information can be obtained by 
+looking at the ROVER,n,0 entries in telemetry.csv (for multiple poses, pick 
+the highest pose).  The localization process used does not (currently) 
+adjust orientation so those fields are the same as telemetry.  We hope 
+to have this resolved (with the ROVER,n,0 entries restored) in a future 
+release.
+
+------------------------------------------------------------
+
+Release Number: 5
+Release Date: 2022-11-21
+
+Release 5 covers all data 2022-02-18 23:00 PST through 2022-09-12 01:56 PST, or approximately
+sols 0-555.
+
+PLACES Release Note:
+For release 5, due to technical difficulties, the ROVER,n,0 entries in 
+best_interp.csv and best_tactical.csv have been eliminated for all sites.  
+The information is available, however.  The position is by definition the 
+same as the SITE,n entry, so that information can be used.  For orientation 
+(roll, pitch, yaw, and quaternion), the information can be obtained by 
+looking at the ROVER,n,0 entries in telemetry.csv (for multiple poses, pick 
+the highest pose).  The localization process used does not (currently) 
+adjust orientation so those fields are the same as telemetry.  We hope 
+to have this resolved (with the ROVER,n,0 entries restored) in a future 
+release.
+
+------------------------------------------------------------
+
+Release Number: 4
+Release Date: 2022-07-06
+
+Release 4 covers all data 2022-02-18 23:00 PST through 2022-04-24 16:00 PST, or approximately
+sols 0-419.
+
+PLACES Release Note:
+For release 4, due to technical difficulties, the ROVER,n,0 entries in 
+best_interp.csv and best_tactical.csv have been eliminated for all sites.  
+The information is available, however.  The position is by definition the 
+same as the SITE,n entry, so that information can be used.  For orientation 
+(roll, pitch, yaw, and quaternion), the information can be obtained by 
+looking at the ROVER,n,0 entries in telemetry.csv (for multiple poses, pick 
+the highest pose).  The localization process used does not (currently) 
+adjust orientation so those fields are the same as telemetry.  We hope 
+to have this resolved (with the ROVER,n,0 entries restored) in a future 
+release.
+
+------------------------------------------------------------
+
+Release Number: 3
+Release Date: 2022-03-22
+
+Release 3 covers all data through 2022-02-18 23:00 PST, or approximately
+sols 0-355.
+
+----
+
+Not all mechanisms are ready for release at this time.  Once the appropriate
+development is done for the missing mechanisms in operations, all existing
+data will be run through the PLACES ingesters to populate the database for
+the entire mission for these mechanisms.  The missing mechanisms are:
+
+SHA
+DRILL
+Suspension
+
+----
+
+For the mechanisms that are available, not all data sources are currently
+being ingested into PLACES.  This results in holes or gaps in the data set.
+Future releases will likely include additional data throughout the sol range
+to fill those gaps.
+
+----
+
+Wheel rotation data for the Drive mechanism is not available at this time,
+and may never be available due to limitations in available telemetry.
+
+----
+
+There are known issues and inconsistencies in the spacecraft clock SCLK table.
+These are being addressed in operations and will be fixed in future Rover
+PLACES deliveries.  These issues generally manifest as overlapping SCLK
+ranges, but also include clearly invalid SCLKs such as 0 or 1.  Users are
+advised to ignore any such anomalies.  If feasible, please report issues
+you discover (other than SCLKs of 0 or 1) to the data providers.
+
+----
+
+The browse and collection labels contain a pointer to the instrument context
+product.  In the case of PLACES, there is no specific instrument, so "rover"
+is use as the instrument.  Consideration is being given to including a pointer
+to the "rover" instrument context product in all labels in future releases.
+
+----
+
+The data_maps collection label has an External_Reference to a page describing
+the map construction (the pointer is also in the SIS).  Consideration is being
+given to including this reference in the actual map and DEM image labels in
+future releases.
+
+
+******** SECTION B ********
+
+Note that PLACES is based on rover motion counter (RMC), not Sol.  For a
+given release, the sol range of data included in the Rover PLACES bundle
+is greater than the nominal range for the other Mars 2020 instruments.
+For example, the nominal sol range for Release 3 is 0-299.  On sol 299, the
+rover was at Site 9.  It was still at Site 9 at the time the Rover PLACES
+database was snapshotted for this release.  Thus, Release 3 covers all
+data available at the time the release was generated, up to 2022-02-18
+23:00 PST, or sols 0-355.  In general, each PLACES delivery will include
+all data for the nominal sol range, but will go beyond that to some
+extent (either to the next Site increment or to data current when the
+database snapshot was taken).

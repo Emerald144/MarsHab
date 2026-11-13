@@ -1,0 +1,31 @@
+{
+  "project": "Interplanetary Survival Guide — Jezero prototype",
+  "source_file": "Jezero_Final_Terrain_Stats.gpkg",
+  "feature_count": 8,
+  "coordinate_reference_system": {
+    "name": "Jezero_Crater_Projection",
+    "planet": "Mars",
+    "coordinate_units": "meters",
+    "wkt": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1]],ID[\"ESRI\",106971]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]"
+  },
+  "raster_source": "CTX DEM 20 m; derived slope raster and prototype terrain cost raster, as described in project workflow",
+  "terrain_cost_bins": {
+    "slope_0_to_3_degrees": 1,
+    "slope_over_3_to_5_degrees": 2,
+    "slope_over_5_to_10_degrees": 4,
+    "slope_over_10_to_15_degrees": 8,
+    "slope_over_15_degrees": 100
+  },
+  "validation": {
+    "feature_count": 8,
+    "individual_geometries_valid": true,
+    "overlap_area_square_meters": 0.0,
+    "note": "No positive-area overlaps found; complete coverage of original intended study region not independently verified."
+  },
+  "limitations": [
+    "Zones are project-defined prototype regions, not official NASA hazard zones.",
+    "The GeoJSON coordinates are Mars projected meters, NOT Earth longitude/latitude. Do not load directly into Earth EPSG:4326 mapping libraries.",
+    "Slope and terrain cost statistics reflect zonal raster analysis, not a survival probability or NASA-certified safety rating.",
+    "Zone geometry was reconstructed; original extent and partition design should be reviewed by the team."
+  ]
+}

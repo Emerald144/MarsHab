@@ -1,0 +1,133 @@
+{
+  "dataset": "Jezero final repaired zones",
+  "zones": [
+    {
+      "area_id": "JZ-01",
+      "area_km2": 846.609,
+      "slope": {
+        "valid_pixels": 2116768,
+        "mean_degrees": 5.676452,
+        "min_degrees": 0.001106,
+        "max_degrees": 75.725288
+      },
+      "terrain_cost": {
+        "valid_pixels": 2116768,
+        "mean": 8.121175,
+        "min": 1.0,
+        "max": 100.0
+      }
+    },
+    {
+      "area_id": "JZ-02",
+      "area_km2": 832.753,
+      "slope": {
+        "valid_pixels": 2081898,
+        "mean_degrees": 11.045243,
+        "min_degrees": 0.0,
+        "max_degrees": 87.546944
+      },
+      "terrain_cost": {
+        "valid_pixels": 2081898,
+        "mean": 23.555129,
+        "min": 1.0,
+        "max": 100.0
+      }
+    },
+    {
+      "area_id": "JZ-03",
+      "area_km2": 808.43,
+      "slope": {
+        "valid_pixels": 2021063,
+        "mean_degrees": 5.920873,
+        "min_degrees": 0.0,
+        "max_degrees": 86.721161
+      },
+      "terrain_cost": {
+        "valid_pixels": 2021063,
+        "mean": 9.243673,
+        "min": 1.0,
+        "max": 100.0
+      }
+    },
+    {
+      "area_id": "JZ-04",
+      "area_km2": 844.748,
+      "slope": {
+        "valid_pixels": 2112784,
+        "mean_degrees": 6.996988,
+        "min_degrees": 0.0,
+        "max_degrees": 79.962196
+      },
+      "terrain_cost": {
+        "valid_pixels": 2112784,
+        "mean": 12.959561,
+        "min": 1.0,
+        "max": 100.0
+      }
+    },
+    {
+      "area_id": "JZ-05",
+      "area_km2": 755.038,
+      "slope": {
+        "valid_pixels": 1887592,
+        "mean_degrees": 4.999751,
+        "min_degrees": 0.000782,
+        "max_degrees": 46.446777
+      },
+      "terrain_cost": {
+        "valid_pixels": 1887592,
+        "mean": 7.595737,
+        "min": 1.0,
+        "max": 100.0
+      }
+    },
+    {
+      "area_id": "JZ-06",
+      "area_km2": 1009.861,
+      "slope": {
+        "valid_pixels": 2524663,
+        "mean_degrees": 5.041516,
+        "min_degrees": 0.002448,
+        "max_degrees": 59.341209
+      },
+      "terrain_cost": {
+        "valid_pixels": 2524663,
+        "mean": 6.507098,
+        "min": 1.0,
+        "max": 100.0
+      }
+    },
+    {
+      "area_id": "JZ-07",
+      "area_km2": 402.07,
+      "slope": {
+        "valid_pixels": 1004922,
+        "mean_degrees": 4.280222,
+        "min_degrees": 0.002731,
+        "max_degrees": 81.538078
+      },
+      "terrain_cost": {
+        "valid_pixels": 1004922,
+        "mean": 4.973834,
+        "min": 1.0,
+        "max": 100.0
+      }
+    },
+    {
+      "area_id": "JZ-08",
+      "area_km2": 328.16,
+      "slope": {
+        "valid_pixels": 819480,
+        "mean_degrees": 8.057444,
+        "min_degrees": 0.0,
+        "max_degrees": 83.872139
+      },
+      "terrain_cost": {
+        "valid_pixels": 819480,
+        "mean": 17.331985,
+        "min": 1.0,
+        "max": 100.0
+      }
+    }
+  ]
+}
