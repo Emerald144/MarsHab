@@ -1,0 +1,26 @@
+{
+  "slope_classes_degrees": [
+    {
+      "name": "gentle",
+      "min_exclusive": null,
+      "max_inclusive": 5.0
+    },
+    {
+      "name": "moderate",
+      "min_exclusive": 5.0,
+      "max_inclusive": 15.0
+    },
+    {
+      "name": "steep",
+      "min_exclusive": 15.0,
+      "max_inclusive": null
+    }
+  ],
+  "extra_slope_thresholds_degrees": [
+    10.0,
+    20.0,
+    30.0
+  ],
+  "min_coverage_percent_for_heuristic_index": 90.0,
+  "preview_downsample_factor": 4
+}

@@ -1,0 +1,536 @@
+{
+  "generated": "2026-11-14T02:49:20+00:00",
+  "workspace": "D:\\Martain",
+  "files": [
+    {
+      "path": "Jezero_CTX_DEM/Jezero_CTX_DEM.qgz",
+      "full_path": "D:\\Martain\\Jezero_CTX_DEM\\Jezero_CTX_DEM.qgz",
+      "format": "qgz",
+      "size_bytes": 9328,
+      "role": "QGIS project",
+      "source": "Project QGIS project; references only the three rasters above (no vector/zone layers)",
+      "phase1": "Inspected only",
+      "archive_members": [
+        "Jezero_CTX_DEM.qgs",
+        "qAlucY_styles.db"
+      ]
+    },
+    {
+      "path": "Jezero_CTX_DEM/Jezero_Slope.tif",
+      "full_path": "D:\\Martain\\Jezero_CTX_DEM\\Jezero_Slope.tif",
+      "format": "tif",
+      "size_bytes": 90345282,
+      "role": "derived",
+      "source": "Project-derived slope from the CTX DEM (QGIS). Validated against an independent GDAL Horn slope recomputation in process_terrain.py",
+      "phase1": "REUSED if validation passes (see processing_metadata.json)",
+      "raster": {
+        "driver": "GTiff",
+        "width": 4456,
+        "height": 5067,
+        "bands": 1,
+        "data_type": "Float32",
+        "pixel_size": [
+          20.0,
+          -20.0
+        ],
+        "extent_projected": {
+          "xmin": 4328999.999999998,
+          "ymax": 1143420.0000000028,
+          "xmax": 4418119.999999998,
+          "ymin": 1042080.0000000028
+        },
+        "nodata": -9999.0,
+        "crs_name": "Jezero_Crater_Projection",
+        "crs_proj4": "+proj=eqc +lat_ts=18.4663 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+        "linear_unit": "metre",
+        "compression": null,
+        "stats_exact": {
+          "min": 0.0,
+          "max": 87.54694366455078,
+          "mean": 6.5187715915084485,
+          "std": 6.867996395186529
+        }
+      },
+      "sha256": "99a3c3b9887fd248350b3564375038b87023a1cf8781cd40ab7b3d3465324ceb"
+    },
+    {
+      "path": "Jezero_CTX_DEM/Jezero_Slope.tif.aux.xml",
+      "full_path": "D:\\Martain\\Jezero_CTX_DEM\\Jezero_Slope.tif.aux.xml",
+      "format": "xml",
+      "size_bytes": 434
+    },
+    {
+      "path": "Jezero_CTX_DEM/Jezero_Terrain_Cost.tif",
+      "full_path": "D:\\Martain\\Jezero_CTX_DEM\\Jezero_Terrain_Cost.tif",
+      "format": "tif",
+      "size_bytes": 90376794,
+      "role": "derived (prototype)",
+      "source": "Project-derived reclassification of slope into cost bins 1/2/4/8/100 (bins documented in Jezero_HiRISE_DEM/jezero_dataset_metadata.json)",
+      "phase1": "NOT USED for statistics - heuristic prototype cost, not a measurement",
+      "raster": {
+        "driver": "GTiff",
+        "width": 4456,
+        "height": 5067,
+        "bands": 1,
+        "data_type": "Float32",
+        "pixel_size": [
+          20.0,
+          -20.0
+        ],
+        "extent_projected": {
+          "xmin": 4328999.999999998,
+          "ymax": 1143420.0000000028,
+          "xmax": 4418119.999999998,
+          "ymin": 1042080.0000000028
+        },
+        "nodata": -3.4028234663852886e+38,
+        "crs_name": "Jezero_Crater_Projection",
+        "crs_proj4": "+proj=eqc +lat_ts=18.4663 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+        "linear_unit": "metre",
+        "compression": null,
+        "stats_exact": {
+          "min": 1.0,
+          "max": 100.0,
+          "mean": 10.721555159978156,
+          "std": 26.498246601903585
+        }
+      },
+      "sha256": "c650d5b157d3443a152219f3cb3bec477ab8807c8b1a2adc316749cfcd6301aa"
+    },
+    {
+      "path": "Jezero_CTX_DEM/M20_JezeroCrater_CTXDEM_20m.tif",
+      "full_path": "D:\\Martain\\Jezero_CTX_DEM\\M20_JezeroCrater_CTXDEM_20m.tif",
+      "format": "tif",
+      "size_bytes": 90345300,
+      "role": "original",
+      "source": "USGS Astrogeology, Mars 2020 Science Investigation CTX DEM Mosaic (filename matches the USGS-distributed product; size ~86 MB matches the published ~87 MB file)",
+      "phase1": "REUSED - primary elevation source",
+      "raster": {
+        "driver": "GTiff",
+        "width": 4456,
+        "height": 5067,
+        "bands": 1,
+        "data_type": "Float32",
+        "pixel_size": [
+          20.0,
+          -20.0
+        ],
+        "extent_projected": {
+          "xmin": 4328999.999999998,
+          "ymax": 1143420.0000000028,
+          "xmax": 4418119.999999998,
+          "ymin": 1042080.0000000028
+        },
+        "nodata": -3.4028234663852886e+38,
+        "crs_name": "Jezero_Crater_Projection",
+        "crs_proj4": "+proj=eqc +lat_ts=18.4663 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+        "linear_unit": "metre",
+        "compression": null,
+        "stats_exact": {
+          "min": -3504.645263671875,
+          "max": -475.8408203125,
+          "mean": -2316.0814197471823,
+          "std": 403.92990406635295
+        }
+      },
+      "sha256": "ba7f706ea1b5d63a562f28a7dcf7a7f3c79bce7f048e6974b57e8a33c30d1ba2"
+    },
+    {
+      "path": "Jezero_CTX_DEM/M20_JezeroCrater_CTXDEM_20m.tif.aux.xml",
+      "full_path": "D:\\Martain\\Jezero_CTX_DEM\\M20_JezeroCrater_CTXDEM_20m.tif.aux.xml",
+      "format": "xml",
+      "size_bytes": 451
+    },
+    {
+      "path": "Jezero_HiRISE_DEM/jezero_dataset_metadata.json",
+      "full_path": "D:\\Martain\\Jezero_HiRISE_DEM\\jezero_dataset_metadata.json",
+      "format": "json",
+      "size_bytes": 2312,
+      "role": "metadata",
+      "source": "Project metadata for the zones (CRS WKT, cost bins, limitations)",
+      "phase1": "Used as provenance input"
+    },
+    {
+      "path": "Jezero_HiRISE_DEM/jezero_final_zones.geojson",
+      "full_path": "D:\\Martain\\Jezero_HiRISE_DEM\\jezero_final_zones.geojson",
+      "format": "geojson",
+      "size_bytes": 11344,
+      "role": "derived (study zones)",
+      "source": "Export of 8 project-defined study zones JZ-01..JZ-08 from Jezero_Final_Terrain_Stats.gpkg (gpkg itself is NOT present in this workspace). Folder name says HiRISE but the zones and statistics are on the CTX DEM grid/CRS",
+      "phase1": "REUSED - zone geometry and IDs (statistics recomputed)",
+      "vector": {
+        "driver": "GeoJSON",
+        "layers": [
+          {
+            "name": "Jezero final repaired zones",
+            "feature_count": 8,
+            "geometry_type": "Multi Polygon",
+            "fields": [
+              "id",
+              "area_id",
+              "area_km2",
+              "slope_mean",
+              "slope_min",
+              "slope_max",
+              "slope_count",
+              "cost_mean",
+              "cost_min",
+              "cost_max",
+              "cost_count"
+            ],
+            "crs_name": "WGS 84",
+            "extent": {
+              "xmin": 4335668.5,
+              "xmax": 4408152.1,
+              "ymin": 1047223.8,
+              "ymax": 1136695.7
+            }
+          }
+        ]
+      },
+      "sha256": "6d422c4e9accbaf1f3225a4c9611005e0541f5c00ac7dc1162a5a7cb2bff3858"
+    },
+    {
+      "path": "Jezero_HiRISE_DEM/jezero_terrain_statistics.json",
+      "full_path": "D:\\Martain\\Jezero_HiRISE_DEM\\jezero_terrain_statistics.json",
+      "format": "json",
+      "size_bytes": 3033,
+      "role": "derived (superseded)",
+      "source": "Earlier slope/cost zonal stats for JZ-01..JZ-08",
+      "phase1": "SUPERSEDED by statistics/zone_terrain_statistics.json; used only for cross-check"
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_Air_Sol36-39/WE__0036___________CAL_ATS_________________P01.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_Air_Sol36-39\\WE__0036___________CAL_ATS_________________P01.csv",
+      "format": "csv",
+      "size_bytes": 8825216
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_Air_Sol36-39/WE__0037___________CAL_ATS_________________P01.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_Air_Sol36-39\\WE__0037___________CAL_ATS_________________P01.csv",
+      "format": "csv",
+      "size_bytes": 9547776
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_Air_Sol36-39/WE__0038___________CAL_ATS_________________P01.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_Air_Sol36-39\\WE__0038___________CAL_ATS_________________P01.csv",
+      "format": "csv",
+      "size_bytes": 9023456
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_Air_Sol36-39/WE__0039___________CAL_ATS_________________P01.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_Air_Sol36-39\\WE__0039___________CAL_ATS_________________P01.csv",
+      "format": "csv",
+      "size_bytes": 9724416
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_Ancillary_Sol-36-39/WE__0036___________DER_ANCILLARY___________P03.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_Ancillary_Sol-36-39\\WE__0036___________DER_ANCILLARY___________P03.csv",
+      "format": "csv",
+      "size_bytes": 10940419
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_Ancillary_Sol-36-39/WE__0037___________DER_ANCILLARY___________P03.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_Ancillary_Sol-36-39\\WE__0037___________DER_ANCILLARY___________P03.csv",
+      "format": "csv",
+      "size_bytes": 11821025
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_Ancillary_Sol-36-39/WE__0038___________DER_ANCILLARY___________P03.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_Ancillary_Sol-36-39\\WE__0038___________DER_ANCILLARY___________P03.csv",
+      "format": "csv",
+      "size_bytes": 11185439
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_Ancillary_Sol-36-39/WE__0039___________DER_ANCILLARY___________P03.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_Ancillary_Sol-36-39\\WE__0039___________DER_ANCILLARY___________P03.csv",
+      "format": "csv",
+      "size_bytes": 12044610
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_PS_Sol36-39/WE__0036___________DER_PS__________________P01.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_PS_Sol36-39\\WE__0036___________DER_PS__________________P01.csv",
+      "format": "csv",
+      "size_bytes": 2967735
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_PS_Sol36-39/WE__0037___________DER_PS__________________P01.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_PS_Sol36-39\\WE__0037___________DER_PS__________________P01.csv",
+      "format": "csv",
+      "size_bytes": 3214731
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_PS_Sol36-39/WE__0038___________DER_TIRS________________P04 (1).csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_PS_Sol36-39\\WE__0038___________DER_TIRS________________P04 (1).csv",
+      "format": "csv",
+      "size_bytes": 4491659
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_PS_Sol36-39/WE__0039___________DER_PS__________________P01.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_PS_Sol36-39\\WE__0039___________DER_PS__________________P01.csv",
+      "format": "csv",
+      "size_bytes": 3274347
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_RDS_Sol36-39/WE__0036___________CAL_RDS_________________P01.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_RDS_Sol36-39\\WE__0036___________CAL_RDS_________________P01.csv",
+      "format": "csv",
+      "size_bytes": 13657821
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_RDS_Sol36-39/WE__0037___________CAL_RDS_________________P01.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_RDS_Sol36-39\\WE__0037___________CAL_RDS_________________P01.csv",
+      "format": "csv",
+      "size_bytes": 14762074
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_RDS_Sol36-39/WE__0038___________CAL_RDS_________________P01.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_RDS_Sol36-39\\WE__0038___________CAL_RDS_________________P01.csv",
+      "format": "csv",
+      "size_bytes": 13977947
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_RDS_Sol36-39/WE__0039___________CAL_RDS_________________P01.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_RDS_Sol36-39\\WE__0039___________CAL_RDS_________________P01.csv",
+      "format": "csv",
+      "size_bytes": 15101877
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_RHS_Sol36-39/WE__0036___________DER_RHS_________________P03 (1).csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_RHS_Sol36-39\\WE__0036___________DER_RHS_________________P03 (1).csv",
+      "format": "csv",
+      "size_bytes": 3297660
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_RHS_Sol36-39/WE__0037___________DER_RHS_________________P03.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_RHS_Sol36-39\\WE__0037___________DER_RHS_________________P03.csv",
+      "format": "csv",
+      "size_bytes": 3571980
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_RHS_Sol36-39/WE__0038___________DER_RHS_________________P03.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_RHS_Sol36-39\\WE__0038___________DER_RHS_________________P03.csv",
+      "format": "csv",
+      "size_bytes": 3372000
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_RHS_Sol36-39/WE__0039___________DER_RHS_________________P03.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_RHS_Sol36-39\\WE__0039___________DER_RHS_________________P03.csv",
+      "format": "csv",
+      "size_bytes": 3638220
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_TIRS_Sol36-39/WE__0036___________DER_TIRS________________P04.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_TIRS_Sol36-39\\WE__0036___________DER_TIRS________________P04.csv",
+      "format": "csv",
+      "size_bytes": 4391280
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_TIRS_Sol36-39/WE__0037___________DER_TIRS________________P04.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_TIRS_Sol36-39\\WE__0037___________DER_TIRS________________P04.csv",
+      "format": "csv",
+      "size_bytes": 4753397
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_TIRS_Sol36-39/WE__0038___________DER_TIRS________________P04.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_TIRS_Sol36-39\\WE__0038___________DER_TIRS________________P04.csv",
+      "format": "csv",
+      "size_bytes": 4491659
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_TIRS_Sol36-39/WE__0039___________DER_WS__________________P02 (1).csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_TIRS_Sol36-39\\WE__0039___________DER_WS__________________P02 (1).csv",
+      "format": "csv",
+      "size_bytes": 3023951
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_Wind_Sol36-39/WE__0037___________DER_WS__________________P02.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_Wind_Sol36-39\\WE__0037___________DER_WS__________________P02.csv",
+      "format": "csv",
+      "size_bytes": 2584114
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_Wind_Sol36-39/WE__0038___________DER_WS__________________P02.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_Wind_Sol36-39\\WE__0038___________DER_WS__________________P02.csv",
+      "format": "csv",
+      "size_bytes": 3571170
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_Wind_Sol36-39/WE__0039___________DER_WS__________________P02.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_Wind_Sol36-39\\WE__0039___________DER_WS__________________P02.csv",
+      "format": "csv",
+      "size_bytes": 3023951
+    },
+    {
+      "path": "Jezero_Weather_/MEDA Weather Data/MEDA_Wind_Sol36-39/wind_36.csv",
+      "full_path": "D:\\Martain\\Jezero_Weather_\\MEDA Weather Data\\MEDA_Wind_Sol36-39\\wind_36.csv",
+      "format": "csv",
+      "size_bytes": 2657575
+    },
+    {
+      "path": "Martian_Map_Rover_Files/Martian_Map_Rover_Files/best_interp.csv",
+      "full_path": "D:\\Martain\\Martian_Map_Rover_Files\\Martian_Map_Rover_Files\\best_interp.csv",
+      "format": "csv",
+      "size_bytes": 8717529
+    },
+    {
+      "path": "Martian_Map_Rover_Files/Martian_Map_Rover_Files/best_interp.csv.xml",
+      "full_path": "D:\\Martain\\Martian_Map_Rover_Files\\Martian_Map_Rover_Files\\best_interp.csv.xml",
+      "format": "xml",
+      "size_bytes": 16231
+    },
+    {
+      "path": "Martian_Map_Rover_Files/Martian_Map_Rover_Files/best_tactical.csv",
+      "full_path": "D:\\Martain\\Martian_Map_Rover_Files\\Martian_Map_Rover_Files\\best_tactical.csv",
+      "format": "csv",
+      "size_bytes": 172071
+    },
+    {
+      "path": "Martian_Map_Rover_Files/Martian_Map_Rover_Files/best_tactical.csv.xml",
+      "full_path": "D:\\Martain\\Martian_Map_Rover_Files\\Martian_Map_Rover_Files\\best_tactical.csv.xml",
+      "format": "xml",
+      "size_bytes": 16239
+    },
+    {
+      "path": "Martian_Map_Rover_Files/Martian_Map_Rover_Files/m20_orbital_dem.xml",
+      "full_path": "D:\\Martain\\Martian_Map_Rover_Files\\Martian_Map_Rover_Files\\m20_orbital_dem.xml",
+      "format": "xml",
+      "size_bytes": 16860
+    },
+    {
+      "path": "Martian_Map_Rover_Files/Martian_Map_Rover_Files/m20_orbital_map.xml",
+      "full_path": "D:\\Martain\\Martian_Map_Rover_Files\\Martian_Map_Rover_Files\\m20_orbital_map.xml",
+      "format": "xml",
+      "size_bytes": 17017
+    },
+    {
+      "path": "Martian_Map_Rover_Files/Martian_Map_Rover_Files/observations.csv",
+      "full_path": "D:\\Martain\\Martian_Map_Rover_Files\\Martian_Map_Rover_Files\\observations.csv",
+      "format": "csv",
+      "size_bytes": 11951803
+    },
+    {
+      "path": "Martian_Map_Rover_Files/Martian_Map_Rover_Files/observations.csv.xml",
+      "full_path": "D:\\Martain\\Martian_Map_Rover_Files\\Martian_Map_Rover_Files\\observations.csv.xml",
+      "format": "xml",
+      "size_bytes": 6033
+    },
+    {
+      "path": "Martian_Map_Rover_Files/Martian_Map_Rover_Files/sclk_table.csv",
+      "full_path": "D:\\Martain\\Martian_Map_Rover_Files\\Martian_Map_Rover_Files\\sclk_table.csv",
+      "format": "csv",
+      "size_bytes": 18387045
+    },
+    {
+      "path": "Martian_Map_Rover_Files/Martian_Map_Rover_Files/sclk_table.csv.xml",
+      "full_path": "D:\\Martain\\Martian_Map_Rover_Files\\Martian_Map_Rover_Files\\sclk_table.csv.xml",
+      "format": "xml",
+      "size_bytes": 10144
+    },
+    {
+      "path": "Martian_Map_Rover_Files/Martian_Map_Rover_Files/telemetry.csv",
+      "full_path": "D:\\Martain\\Martian_Map_Rover_Files\\Martian_Map_Rover_Files\\telemetry.csv",
+      "format": "csv",
+      "size_bytes": 16168156
+    },
+    {
+      "path": "Martian_Map_Rover_Files/Martian_Map_Rover_Files/telemetry.csv.xml",
+      "full_path": "D:\\Martain\\Martian_Map_Rover_Files\\Martian_Map_Rover_Files\\telemetry.csv.xml",
+      "format": "xml",
+      "size_bytes": 16221
+    },
+    {
+      "path": "NASADataSearch/NASADataSearch/best_interp.csv",
+      "full_path": "D:\\Martain\\NASADataSearch\\NASADataSearch\\best_interp.csv",
+      "format": "csv",
+      "size_bytes": 8717529
+    },
+    {
+      "path": "NASADataSearch/NASADataSearch/best_interp.csv.xml",
+      "full_path": "D:\\Martain\\NASADataSearch\\NASADataSearch\\best_interp.csv.xml",
+      "format": "xml",
+      "size_bytes": 16231
+    },
+    {
+      "path": "NASADataSearch/NASADataSearch/m20_orbital_dem.png",
+      "full_path": "D:\\Martain\\NASADataSearch\\NASADataSearch\\m20_orbital_dem.png",
+      "format": "png",
+      "size_bytes": 2451669
+    },
+    {
+      "path": "Perseverance_Places/Perseverance PLACES/data localization/best_tactical (1).csv",
+      "full_path": "D:\\Martain\\Perseverance_Places\\Perseverance PLACES\\data localization\\best_tactical (1).csv",
+      "format": "csv",
+      "size_bytes": 172071
+    },
+    {
+      "path": "Perseverance_Places/Perseverance PLACES/data localization/best_tactical.csv.xml",
+      "full_path": "D:\\Martain\\Perseverance_Places\\Perseverance PLACES\\data localization\\best_tactical.csv.xml",
+      "format": "xml",
+      "size_bytes": 16239
+    },
+    {
+      "path": "Perseverance_Places/Perseverance PLACES/data map/m20_orbital_dem.xml",
+      "full_path": "D:\\Martain\\Perseverance_Places\\Perseverance PLACES\\data map\\m20_orbital_dem.xml",
+      "format": "xml",
+      "size_bytes": 16860
+    },
+    {
+      "path": "Perseverance_Places/Perseverance PLACES/data map/m20_orbital_map.xml",
+      "full_path": "D:\\Martain\\Perseverance_Places\\Perseverance PLACES\\data map\\m20_orbital_map.xml",
+      "format": "xml",
+      "size_bytes": 17017
+    },
+    {
+      "path": "Perseverance_Places/Perseverance PLACES/document collection/Mars2020_Rover_PLACES_PDS_SIS.pdf",
+      "full_path": "D:\\Martain\\Perseverance_Places\\Perseverance PLACES\\document collection\\Mars2020_Rover_PLACES_PDS_SIS.pdf",
+      "format": "pdf",
+      "size_bytes": 1700553
+    },
+    {
+      "path": "Perseverance_Places/Perseverance PLACES/document collection/release_notes.txt",
+      "full_path": "D:\\Martain\\Perseverance_Places\\Perseverance PLACES\\document collection\\release_notes.txt",
+      "format": "txt",
+      "size_bytes": 16112
+    }
+  ],
+  "identical_duplicates": [
+    [
+      "Jezero_Weather_/MEDA Weather Data/MEDA_PS_Sol36-39/WE__0038___________DER_TIRS________________P04 (1).csv",
+      "Jezero_Weather_/MEDA Weather Data/MEDA_TIRS_Sol36-39/WE__0038___________DER_TIRS________________P04.csv"
+    ],
+    [
+      "Jezero_Weather_/MEDA Weather Data/MEDA_TIRS_Sol36-39/WE__0039___________DER_WS__________________P02 (1).csv",
+      "Jezero_Weather_/MEDA Weather Data/MEDA_Wind_Sol36-39/WE__0039___________DER_WS__________________P02.csv"
+    ],
+    [
+      "Martian_Map_Rover_Files/Martian_Map_Rover_Files/best_interp.csv",
+      "NASADataSearch/NASADataSearch/best_interp.csv"
+    ],
+    [
+      "Martian_Map_Rover_Files/Martian_Map_Rover_Files/best_interp.csv.xml",
+      "NASADataSearch/NASADataSearch/best_interp.csv.xml"
+    ],
+    [
+      "Martian_Map_Rover_Files/Martian_Map_Rover_Files/best_tactical.csv",
+      "Perseverance_Places/Perseverance PLACES/data localization/best_tactical (1).csv"
+    ],
+    [
+      "Martian_Map_Rover_Files/Martian_Map_Rover_Files/best_tactical.csv.xml",
+      "Perseverance_Places/Perseverance PLACES/data localization/best_tactical.csv.xml"
+    ],
+    [
+      "Martian_Map_Rover_Files/Martian_Map_Rover_Files/m20_orbital_dem.xml",
+      "Perseverance_Places/Perseverance PLACES/data map/m20_orbital_dem.xml"
+    ],
+    [
+      "Martian_Map_Rover_Files/Martian_Map_Rover_Files/m20_orbital_map.xml",
+      "Perseverance_Places/Perseverance PLACES/data map/m20_orbital_map.xml"
+    ]
+  ],
+  "expected_but_missing": [
+    "Jezero_Final_Terrain_Stats.gpkg",
+    "Jezero_CTX_DEM.zip",
+    "M20_JezeroCrater_CTXortho_mosaic_5m.tif"
+  ]
+}

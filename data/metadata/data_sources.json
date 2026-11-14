@@ -1,0 +1,89 @@
+{
+  "generated": "2026-11-14T02:50:11+00:00",
+  "datasets": [
+    {
+      "id": "ctx_dem",
+      "role": "original",
+      "file": "Jezero_CTX_DEM/M20_JezeroCrater_CTXDEM_20m.tif",
+      "source_agency": "USGS Astrogeology Science Center / NASA",
+      "product_name": "Mars 2020 Science Investigation CTX DEM Mosaic (M20_JezeroCrater_CTXDEM_20m)",
+      "source_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+      "catalog_url": "https://catalog.data.gov/dataset/context-camera-digital-terrain-model-mosaic-for-mars-2020-terrain-relative-navigation",
+      "publication_date": "2021-10-14 (USGS product page)",
+      "instrument": "MRO Context Camera (CTX)",
+      "resolution_m": 20,
+      "crs": "Jezero_Crater_Projection",
+      "processing": "Original, unmodified",
+      "limitations": "20 m posting; cannot resolve boulders or sub-pixel roughness; stereo artefacts possible near steep walls",
+      "usage": "USGS/NASA planetary data, public domain; cite USGS Astrogeology and the CTX team (Malin et al. 2007)",
+      "verification": "Filename, extent (Jezero), size and CRS match the USGS product; checksum vs. USGS server not compared"
+    },
+    {
+      "id": "slope",
+      "role": "derived (existing, validated)",
+      "file": "Jezero_CTX_DEM/Jezero_Slope.tif",
+      "source_agency": "TerraNexis team (derived)",
+      "product_name": "Jezero_Slope",
+      "processing": "GDAL DEMProcessing slope, Horn (1981) 3x3, scale=1 (metre/metre), degrees; bit-identical to independent recomputation",
+      "resolution_m": 20,
+      "crs": "Jezero_Crater_Projection",
+      "units": "degree"
+    },
+    {
+      "id": "hillshade",
+      "role": "derived (new)",
+      "file": "terranexis-phase1-data/rasters/hillshade.tif",
+      "source_agency": "TerraNexis Phase 1 (derived)",
+      "processing": "GDAL DEMProcessing hillshade, Horn, azimuth 315, altitude 45, z=1, scale=1",
+      "resolution_m": 20,
+      "crs": "Jezero_Crater_Projection",
+      "usage": "display only"
+    },
+    {
+      "id": "terrain_cost",
+      "role": "derived (prototype, not used)",
+      "file": "Jezero_CTX_DEM/Jezero_Terrain_Cost.tif",
+      "processing": "Slope reclassified to costs 1/2/4/8/100 (see jezero_dataset_metadata.json)",
+      "limitations": "Heuristic prototype; not a measurement"
+    },
+    {
+      "id": "zones",
+      "role": "derived (project-defined study zones)",
+      "file": "Jezero_HiRISE_DEM/jezero_final_zones.geojson",
+      "source_agency": "TerraNexis team",
+      "product_name": "Jezero final repaired zones JZ-01..JZ-08",
+      "origin": "Exported from Jezero_Final_Terrain_Stats.gpkg (not present in this workspace)",
+      "limitations": "Prototype study regions, not NASA hazard zones; geometry was reconstructed/repaired per original metadata"
+    },
+    {
+      "id": "ctx_orthomosaic",
+      "role": "NOT DOWNLOADED (recommended)",
+      "source_agency": "USGS Astrogeology",
+      "product_name": "M20_JezeroCrater_CTXortho_mosaic_5m.tif (companion orthomosaic to the CTX DEM)",
+      "source_url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+      "resolution_m": 5,
+      "note": "Large file; download only after confirming need. Hillshade used as basemap meanwhile."
+    },
+    {
+      "id": "geologic_map",
+      "role": "NOT PREPARED (optional)",
+      "source_agency": "USGS",
+      "product_name": "SIM 3464 Geologic Map of Jezero Crater and the Nili Planum Region, Mars (Sun & Stack 2020)",
+      "source_url": "https://pubs.usgs.gov/publication/sim3464",
+      "usage": "Public domain",
+      "note": "Distributed as ~349 MB Esri file geodatabase in a different projection; needs reprojection to Jezero_Crater_Projection"
+    },
+    {
+      "id": "m20_places",
+      "role": "present, not used in Phase 1",
+      "source_agency": "NASA PDS (Mars 2020 PLACES)",
+      "files": [
+        "Martian_Map_Rover_Files/*",
+        "Perseverance_Places/*",
+        "NASADataSearch/*"
+      ],
+      "product_name": "urn:nasa:pds:mars2020_rover_places (best_interp, best_tactical, m20_orbital_dem/map labels)",
+      "note": "Rover localization tables; the m20_orbital_dem.img/m20_orbital_map.img data files referenced by the labels are not present"
+    }
+  ]
+}

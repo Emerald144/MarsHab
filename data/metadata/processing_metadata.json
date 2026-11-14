@@ -1,0 +1,101 @@
+{
+  "generated": "2026-11-14T02:49:34+00:00",
+  "inputs": {
+    "dem": "Jezero_CTX_DEM/M20_JezeroCrater_CTXDEM_20m.tif",
+    "slope": "Jezero_CTX_DEM/Jezero_Slope.tif",
+    "zones": "Jezero_HiRISE_DEM/jezero_final_zones.geojson"
+  },
+  "slope_validation": {
+    "method": "GDAL DEMProcessing slope, Horn (1981) 3x3, scale=1 (metre/metre), degrees",
+    "existing_file": "Jezero_CTX_DEM/Jezero_Slope.tif",
+    "compared_pixels": 22545539,
+    "existing_valid_pixels": 22545539,
+    "recomputed_valid_pixels": 22545539,
+    "valid_only_in_existing": 0,
+    "valid_only_in_recomputed": 0,
+    "abs_diff_mean_deg": 0.0,
+    "abs_diff_p99_deg": 0.0,
+    "abs_diff_max_deg": 0.0,
+    "existing_range_deg": [
+      0.0,
+      87.54694366455078
+    ],
+    "same_grid": true,
+    "passed": true,
+    "decision": "Existing Jezero_Slope.tif reused (units = degrees, Horn method, metre scale)."
+  },
+  "slope_used": "Jezero_CTX_DEM/Jezero_Slope.tif",
+  "hillshade": {
+    "file": "terranexis-phase1-data/rasters/hillshade.tif",
+    "method": "GDAL DEMProcessing hillshade, Horn, azimuth 315, altitude 45, z=1, scale=1",
+    "data_type": "Byte (0 = NoData)",
+    "purpose": "display only"
+  },
+  "elevation_clipped": "NOT created: zones lie inside the DEM; a clip would duplicate the 86 MB original. The original DEM is referenced directly.",
+  "zonal": {
+    "generated": "2026-11-14T02:49:34+00:00",
+    "crs_projected": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+    "crs_proj4": "+proj=eqc +lat_ts=18.4663 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs +type=crs",
+    "slope_classes_degrees": [
+      {
+        "name": "gentle",
+        "min_exclusive": null,
+        "max_inclusive": 5.0
+      },
+      {
+        "name": "moderate",
+        "min_exclusive": 5.0,
+        "max_inclusive": 15.0
+      },
+      {
+        "name": "steep",
+        "min_exclusive": 15.0,
+        "max_inclusive": null
+      }
+    ],
+    "extra_thresholds_degrees": [
+      10.0,
+      20.0,
+      30.0
+    ],
+    "units": {
+      "elevation": "metre (relative to Mars 2000 sphere datum, MOLA-tied per USGS)",
+      "slope": "degree",
+      "area": "km2",
+      "centroid_projected": "metre (Jezero_Crater_Projection)",
+      "centroid_lon_lat": "degree, planetocentric latitude, east-positive longitude, Mars 2000 sphere R=3396190 m"
+    },
+    "zonal_method": "Polygon rasterised to the 20 m DEM grid using the pixel-centre rule (ALL_TOUCHED=FALSE); NoData pixels excluded; coverage = valid pixels / pixels inside polygon.",
+    "disclaimer": "Slope classes are analysis categories, not validated astronaut safety thresholds. Slope at 20 m does not measure boulders, loose regolith, sand or surface stability."
+  },
+  "config": {
+    "slope_classes_degrees": [
+      {
+        "name": "gentle",
+        "min_exclusive": null,
+        "max_inclusive": 5.0
+      },
+      {
+        "name": "moderate",
+        "min_exclusive": 5.0,
+        "max_inclusive": 15.0
+      },
+      {
+        "name": "steep",
+        "min_exclusive": 15.0,
+        "max_inclusive": null
+      }
+    ],
+    "extra_slope_thresholds_degrees": [
+      10.0,
+      20.0,
+      30.0
+    ],
+    "min_coverage_percent_for_heuristic_index": 90.0,
+    "preview_downsample_factor": 4
+  },
+  "software": {
+    "gdal": "3.13.3",
+    "numpy": "2.4.6"
+  }
+}
