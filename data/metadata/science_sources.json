@@ -40,5 +40,33 @@
       "official_pages_verified_online": false,
       "online_verification_note": "Official USGS and DOI URLs returned HTTP 403 in this environment on 2026-11-14; values above were read from the supplied official product metadata."
     }
+  },
+  {
+    "id": "nasa-pds-mars2020-rover-places",
+    "publisher": "NASA/JPL, distributed via the PDS Geosciences Node",
+    "title": "Mars 2020 Rover PLACES (Position and Attitude Computation Engine for Surface) data localization bundle",
+    "product_identifier": "urn:nasa:pds:mars2020_rover_places:data_localizations:best_tactical.csv / best_interp.csv",
+    "publication_year": 2026,
+    "original_url": "https://pds-geosciences.wustl.edu/missions/mars2020/places.htm",
+    "local_package": "data/raw/jezero/Martian_Map_Rover_Files/Martian_Map_Rover_Files and data/raw/jezero/Perseverance_Places/Perseverance PLACES",
+    "formats_present": ["PDS4-labeled delimited CSV (best_interp.csv, best_tactical.csv, observations.csv, telemetry.csv, sclk_table.csv)", "PDS4 XML product labels", "PDF Software Interface Specification (Mars2020_Rover_PLACES_PDS_SIS.pdf)"],
+    "coordinate_reference_system": {
+      "name": "Jezero site-frame localization (planetocentric lat/lon + projected northing/easting)",
+      "body": "Mars",
+      "datum": "reported alongside radius/areoid fields per record; not independently re-derived here",
+      "latitude_convention": "planetocentric (field: planetocentric_latitude); planetodetic latitude is also reported per-record",
+      "longitude_convention": "east-positive (field: longitude), consistent with this project's Jezero_Crater_Projection",
+      "projected_fields": "northing/easting in metres, described by the PDS4 label as meters north of the equator / east of the prime meridian at the projection's first standard parallel -- the same equidistant-cylindrical convention (standard parallel 18.4663N) recorded in data/metadata/spatial_reference.json for this project's DEM and zones",
+      "source_file": "best_tactical.csv.xml (Table_Delimited field definitions for northing/easting/planetocentric_latitude/longitude)"
+    },
+    "record_fields": ["frame (SITE|ROVER)", "site", "drive", "pose", "northing", "easting", "planetocentric_latitude", "planetodetic_latitude", "longitude", "elevation", "sclk", "sol"],
+    "attribution": "Mars 2020 Rover PLACES, PDS Geosciences Node, NASA/JPL-Caltech.",
+    "access_and_use_conditions": "Public NASA PDS archive product; no separate license beyond standard PDS usage terms.",
+    "verification": {
+      "local_metadata_verified": true,
+      "official_pages_verified_online": false,
+      "online_verification_note": "Verified from the locally bundled PDS4 XML labels and CSV data already present in the repository under data/raw/jezero/; the pds-geosciences.wustl.edu landing page was not re-fetched in this environment.",
+      "internal_cross_check": "The SITE 1 (sol 0) record in best_interp.csv matches the base_location() value already used by backend/app/zones.py (easting 4354494.09 / northing 1093299.70), confirming best_interp.csv and best_tactical.csv share one consistent localization and CRS."
+    }
   }
 ]

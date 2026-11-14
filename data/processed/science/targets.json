@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "id": "m2020-places-site08-cache-depot",
+    "name": "Rover Site 8 (Sols 239-278): sample-depot dwell location",
+    "kind": "rover_observation",
+    "location": {
+      "x_m": 4354051.81,
+      "y_m": 1092667.644,
+      "crs": "Jezero_Crater_Projection",
+      "mars_lon_deg": 77.44301922,
+      "mars_lat_deg": 18.433964063,
+      "location_verified": true
+    },
+    "geologic_unit_id": null,
+    "jz_zone_ids": ["JZ-06"],
+    "description": "Documented Perseverance rover position (RMC Site 8) where the rover remained stationary from sol 239 through sol 278 while CACHECAM imaged a sample-tube caching activity (558 CACHECAM frames recorded in this window). This is the rover's own localized stop, not a georeferenced rock or outcrop target: it establishes where the rover was during the caching campaign, not the precise position of any individual cached tube or depot marker.",
+    "source_id": "nasa-pds-mars2020-rover-places",
+    "evidence_level": "verified_observation_site",
+    "route_waypoint_eligible": true,
+    "is_historical": false,
+    "provenance_detail": {
+      "product": "best_interp.csv / best_tactical.csv (Mars2020 Rover PLACES, data localization bundle)",
+      "record": "frame=SITE, site=8, sol=239 (best_interp.csv line 1814)",
+      "cross_check": "best_tactical.csv ROVER record site=7 drive=2440 sol=239 (sclk 688162709) immediately precedes this SITE row; observations.csv shows CACHECAM frames beginning at sclk 690224439.974, inside the sol 239-278 dwell before the next drive (site=8 drive=64, sol 278).",
+      "sol_range": [239, 278],
+      "coordinate_reference_frame": "Site-frame rover localization reported in planetocentric latitude/longitude and in Jezero_Crater_Projection northing/easting (same equidistant-cylindrical convention, standard parallel 18.4663N, as this project's DEM/zone CRS); verified consistent across best_interp.csv and best_tactical.csv."
+    },
+    "snap_distance_m": 0,
+    "dem_validation": {
+      "elevation_m": -2565.8159,
+      "slope_degrees": 3.0962,
+      "terrain_cost": 2.0,
+      "data_covered": true,
+      "checked_via": "backend/app/data.py point_sample() against the project's resampled CTX DEM/slope/cost rasters"
+    },
+    "limitations": [
+      "Rover localization proves where the rover stood, not the exact position of a specific cached sample tube or rock target.",
+      "No independent georeferenced science-target product (e.g. an abrasion-patch or sample-tube coordinate list) was available locally to refine this beyond the rover's own position.",
+      "Horizontal uncertainty of the PLACES localization itself is not restated here; see the Mars2020_Rover_PLACES_PDS_SIS.pdf product documentation bundled with the source data for the stated per-product accuracy."
+    ]
+  }
+]
