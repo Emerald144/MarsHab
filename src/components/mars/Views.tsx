@@ -24,6 +24,8 @@ import {
 } from "@/lib/mission-api";
 import { useMission } from "@/lib/mission-store";
 import { RealTerrainMap } from "./RealTerrainMap";
+import { HistoricalObservationPanel } from "./HistoricalObservationPanel";
+import { ValueCategoryBadge, ValueCategoryLegend, type ValueCategory } from "./ValueCategory";
 import { Panel, Ring } from "./ui";
 export { SurvivalMapView } from "@/features/survival-map/SurvivalMapView";
 
@@ -800,13 +802,18 @@ export function Execution() {
             </div>
           </div>
           {!m.envChanged && (
-            <button
-              onClick={simulateEnvironmentalChange}
-              className="btn-ghost mt-5 flex w-full items-center justify-center gap-2 py-3 text-xs text-caution"
-            >
-              <AlertTriangle className="h-4 w-4" />
-              {t("Simulate Environmental Closure")}
-            </button>
+            <>
+              <button
+                onClick={simulateEnvironmentalChange}
+                className="btn-ghost mt-5 flex w-full items-center justify-center gap-2 py-3 text-xs text-caution"
+              >
+                <AlertTriangle className="h-4 w-4" />
+                {t("Simulate Environmental Closure")}
+              </button>
+              <p className="mt-2 text-[11px] text-muted-foreground">
+                {t("This closure is a user-configured scenario. It is not detected from, or driven by, MEDA observations.")}
+              </p>
+            </>
           )}
           {m.rerouted && (
             <div className="mt-4 rounded-md border border-safe/50 bg-safe/10 p-3 text-sm text-safe">
@@ -821,6 +828,7 @@ export function Execution() {
             {t("View Mission Report")}
           </button>
         </Panel>
+        <HistoricalObservationPanel />
       </div>
     </div>
   );
@@ -838,12 +846,17 @@ export function Report() {
   const partial = zone ? partialTerrainScore(zone.factors) : null;
   const resource = plan?.resource_assessment;
 
-  const facts: [string, string][] = [
-    ["Mission", m.setup.name],
-    ["Region", "Jezero Crater"],
-    ["Mode", MODE_WEIGHTS[m.mode].label],
-    ["Destination", m.destination],
-    ["Route Used", m.rerouted ? "Revised route (post-closure)" : preferred ? `Route ${preferred.id}` : "None available"],
+  // Every reported value is tagged Observed / Derived / Estimated / Simulated / Unavailable.
+  const facts: [string, string, ValueCategory][] = [
+    ["Mission", m.setup.name, "simulated"],
+    ["Region", "Jezero Crater", "derived"],
+    ["Mode", MODE_WEIGHTS[m.mode].label, "simulated"],
+    ["Destination", m.destination, "derived"],
+    [
+      "Route Used",
+      m.rerouted ? "Revised route (post-closure)" : preferred ? `Route ${preferred.id}` : "None available",
+      m.rerouted ? "simulated" : preferred ? "derived" : "unavailable",
+    ],
     [
       "Final Mission Status",
       plan?.feasibility?.feasible === null || plan?.feasibility?.feasible === undefined
@@ -851,8 +864,13 @@ export function Report() {
         : plan.feasibility.feasible
           ? "FEASIBLE"
           : "NOT FEASIBLE",
+      plan?.feasibility?.feasible === null || plan?.feasibility?.feasible === undefined ? "unavailable" : "estimated",
     ],
-    ["Total Mission Time", plan?.feasibility ? `${plan.feasibility.estimated_total_hours.toFixed(1)} h` : "Not available"],
+    [
+      "Total Mission Time",
+      plan?.feasibility ? `${plan.feasibility.estimated_total_hours.toFixed(1)} h` : "Not available",
+      plan?.feasibility ? "estimated" : "unavailable",
+    ],
     [
       "Resource Status",
       resource?.available
@@ -860,6 +878,7 @@ export function Report() {
           ? `${resource.remaining_after_reserve_percent?.toFixed(1)}% margin after reserve`
           : "INSUFFICIENT ABSTRACT RESOURCE BUDGET"
         : "Not available",
+      resource?.available ? "estimated" : "unavailable",
     ],
   ];
 
@@ -881,30 +900,38 @@ export function Report() {
       <AnimatedContent distance={35} duration={0.8} scale={0.98} blur={2}>
         <Panel>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {facts.map(([k, v]) => (
+            {facts.map(([k, v, category]) => (
               <div key={k}>
                 <div className="label-caps">{display(k)}</div>
                 <div className="mt-1 font-display">{k === "Mission" || k === "Destination" ? v : display(v)}</div>
+                <ValueCategoryBadge category={category} className="mt-1" />
               </div>
             ))}
           </div>
+          <ValueCategoryLegend className="mt-4 border-t border-border/60 pt-3" />
         </Panel>
       </AnimatedContent>
       <div className="grid gap-4 md:grid-cols-2">
-        <Panel title={t("Real Terrain Assessment")}>
+        <Panel title={t("Real Terrain Assessment")} right={<ValueCategoryBadge category={zone ? "derived" : "unavailable"} />}>
           {zone ? (
             <div className="flex items-center gap-5">
               <Ring value={partial ?? 0} size={110} />
               <div className="flex-1 space-y-1 text-xs text-muted-foreground">
-                <div>{t("Terrain-only / Partial — not a validated safety classification")}</div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span>{t("Terrain-only / Partial — not a validated safety classification")}</span>
+                  <ValueCategoryBadge category="estimated" />
+                </div>
                 <div>
                   {t("Elevation mean:")} {zone.elevation.mean.toFixed(0)} m
                 </div>
                 <div>
                   {t("Slope mean / p90:")} {zone.slope.mean.toFixed(1)}° / {zone.slope.p90.toFixed(1)}°
                 </div>
-                <div>
-                  {t("Resource / Access / Environmental Risk / Science:")} {t("Not available")}
+                <div className="flex flex-wrap items-center gap-2">
+                  <span>
+                    {t("Resource / Access / Environmental Risk / Science:")} {t("Not available")}
+                  </span>
+                  <ValueCategoryBadge category="unavailable" />
                 </div>
               </div>
             </div>
@@ -912,7 +939,7 @@ export function Report() {
             <span className="text-muted-foreground">{t("Not available")}</span>
           )}
         </Panel>
-        <Panel title={t("Route Decision")}>
+        <Panel title={t("Route Decision")} right={<ValueCategoryBadge category={m.rerouted ? "simulated" : preferred ? "derived" : "unavailable"} />}>
           <p className="text-sm text-muted-foreground">
             {preferred
               ? t(
@@ -928,7 +955,7 @@ export function Report() {
               : t("No traversable route was found to this destination.")}
           </p>
         </Panel>
-        <Panel title={t("Mission Feasibility")}>
+        <Panel title={t("Mission Feasibility")} right={<ValueCategoryBadge category={plan?.feasibility ? "estimated" : "unavailable"} />}>
           <p className="text-sm text-muted-foreground">
             {plan?.feasibility
               ? t("Total {total} h against {eva} h available EVA — {result}", {
@@ -963,7 +990,7 @@ export function Report() {
             </div>
           )}
         </Panel>
-        <Panel title={t("Simulated Events")}>
+        <Panel title={t("Simulated Events")} right={<ValueCategoryBadge category="simulated" />}>
           <p className="text-sm text-muted-foreground">
             {m.envChanged
               ? t("A simulated closure was placed near the route midpoint and the terrain cost grid was recalculated. {result}", {
@@ -981,6 +1008,12 @@ export function Report() {
                 : t("Emergency return could not be calculated: {reason}", { reason: m.emergencyRoute.reason })}
             </p>
           )}
+        </Panel>
+        <HistoricalObservationPanel />
+        <Panel title={t("Science targets")} right={<ValueCategoryBadge category="unavailable" />}>
+          <p className="text-sm text-muted-foreground">
+            {t("Science targets and Route C (Science Priority) are unavailable until verified science-target data is delivered.")}
+          </p>
         </Panel>
       </div>
       <AnimatedContent distance={40} duration={0.85} scale={0.98} blur={2}>

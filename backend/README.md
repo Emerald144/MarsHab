@@ -21,3 +21,10 @@ Every routing and terrain endpoint takes `easting` / `northing` in the supplied 
 `POST /api/v1/routes` implements A* over the supplied terrain-cost and slope rasters. It supports `shortest` and `terrain_aware` modes, transit-time assumptions, and explicitly **simulated** circular closures. The response is GeoJSON and labels the result as a non-certified prototype estimate.
 
 The front end currently contains presentation-only simulated map data. Its integration layer can call this API at `/api/v1` when it is ready to replace those placeholders.
+
+## Historical environment API (NASA MEDA)
+
+Read-only endpoints under `/api/v1/environment/` (`observations`, `summary`, `availability`, `metadata`) serve
+historical Perseverance MEDA measurements for sols 36-39. They are **not** live weather and do not affect routing.
+Data, provenance and processing decisions: `docs/datasets/MEDA_ENVIRONMENT.md`. Rebuild the processed files with
+`python scripts/gis/prepare_meda.py` (offline). Tests run without `httpx`: `pytest` (see `tests/asgi_client.py`).

@@ -1,0 +1,369 @@
+{
+  "schema_version": "1.0",
+  "archive": "urn:nasa:pds:mars2020_meda",
+  "archive_base_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda",
+  "products": [
+    {
+      "product_id": "WE__0036___________CAL_ATS_________________P01",
+      "instrument": "ATS",
+      "processing_level": "calibrated",
+      "sol": 36,
+      "version": "P01",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_0000_0089/sol_0036/WE__0036___________CAL_ATS_________________P01.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_0000_0089/sol_0036/WE__0036___________CAL_ATS_________________P01.xml",
+      "label_file": "raw/meda/labels/WE__0036___________CAL_ATS_________________P01.xml",
+      "label_sha256": "a347a815e36a72cc65a54069e8275d550358bfa686027aeed943cdcfed8df337",
+      "official_sha256": "553991e16b66b9afb8e4edf12e7ea5cea665254232fef144cd51cdb7cb4e3064",
+      "official_size_bytes": 8825216,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Air_Sol36-39/WE__0036___________CAL_ATS_________________P01.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Air_Sol36-39/WE__0036___________CAL_ATS_________________P01.csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0037___________CAL_ATS_________________P01",
+      "instrument": "ATS",
+      "processing_level": "calibrated",
+      "sol": 37,
+      "version": "P01",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_0000_0089/sol_0037/WE__0037___________CAL_ATS_________________P01.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_0000_0089/sol_0037/WE__0037___________CAL_ATS_________________P01.xml",
+      "label_file": "raw/meda/labels/WE__0037___________CAL_ATS_________________P01.xml",
+      "label_sha256": "c415f7d042f7cf9840b45ebf5b1eeafea96074b1fccc40c34b846df5d2474b71",
+      "official_sha256": "611dc6c91aaa952880d766070d497683d90da4c8e34768cc8b0f09273ea19651",
+      "official_size_bytes": 9547776,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Air_Sol36-39/WE__0037___________CAL_ATS_________________P01.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Air_Sol36-39/WE__0037___________CAL_ATS_________________P01.csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0038___________CAL_ATS_________________P01",
+      "instrument": "ATS",
+      "processing_level": "calibrated",
+      "sol": 38,
+      "version": "P01",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_0000_0089/sol_0038/WE__0038___________CAL_ATS_________________P01.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_0000_0089/sol_0038/WE__0038___________CAL_ATS_________________P01.xml",
+      "label_file": "raw/meda/labels/WE__0038___________CAL_ATS_________________P01.xml",
+      "label_sha256": "24a57d09e14b589a417643f415d244a20d6a38837dbf77b3b35ab440148fd7e8",
+      "official_sha256": "40c0633e59bc421a49fb2374aec12383bc8512cbe83d5ebcccc1d08beb90f05c",
+      "official_size_bytes": 9023456,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Air_Sol36-39/WE__0038___________CAL_ATS_________________P01.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Air_Sol36-39/WE__0038___________CAL_ATS_________________P01.csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0039___________CAL_ATS_________________P01",
+      "instrument": "ATS",
+      "processing_level": "calibrated",
+      "sol": 39,
+      "version": "P01",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_0000_0089/sol_0039/WE__0039___________CAL_ATS_________________P01.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/sol_0000_0089/sol_0039/WE__0039___________CAL_ATS_________________P01.xml",
+      "label_file": "raw/meda/labels/WE__0039___________CAL_ATS_________________P01.xml",
+      "label_sha256": "6fbcfe5c917b0e0aa1690242374d845cfa5c2cde391a029ececaa7ae0a252137",
+      "official_sha256": "0736cbf3702edd97ca03f62e16dffc57b3a4f185606f8175834eba2049e847ef",
+      "official_size_bytes": 9724416,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Air_Sol36-39/WE__0039___________CAL_ATS_________________P01.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Air_Sol36-39/WE__0039___________CAL_ATS_________________P01.csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0036___________DER_PS__________________P01",
+      "instrument": "PS",
+      "processing_level": "derived",
+      "sol": 36,
+      "version": "P01",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0036/WE__0036___________DER_PS__________________P01.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0036/WE__0036___________DER_PS__________________P01.xml",
+      "label_file": "raw/meda/labels/WE__0036___________DER_PS__________________P01.xml",
+      "label_sha256": "36790f36789f404fc6db3dbc11bd7917c8ebfa78f0250f89b542c6b57f6398be",
+      "official_sha256": "b2904ca18014f5950382cd8340e5e8876a072781bd6219e3166aa5bba21539e9",
+      "official_size_bytes": 2967735,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_PS_Sol36-39/WE__0036___________DER_PS__________________P01.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_PS_Sol36-39/WE__0036___________DER_PS__________________P01.csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0037___________DER_PS__________________P01",
+      "instrument": "PS",
+      "processing_level": "derived",
+      "sol": 37,
+      "version": "P01",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0037/WE__0037___________DER_PS__________________P01.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0037/WE__0037___________DER_PS__________________P01.xml",
+      "label_file": "raw/meda/labels/WE__0037___________DER_PS__________________P01.xml",
+      "label_sha256": "ef271e1bd4649064b826bc0c0f4b5894238b28a34acd7b6020f6684c6a428160",
+      "official_sha256": "babc268af248e5c72af233e47ee50c72cec49af23e5f1747ebadb2829aa04aff",
+      "official_size_bytes": 3214731,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_PS_Sol36-39/WE__0037___________DER_PS__________________P01.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_PS_Sol36-39/WE__0037___________DER_PS__________________P01.csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0038___________DER_PS__________________P01",
+      "instrument": "PS",
+      "processing_level": "derived",
+      "sol": 38,
+      "version": "P01",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0038/WE__0038___________DER_PS__________________P01.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0038/WE__0038___________DER_PS__________________P01.xml",
+      "label_file": "raw/meda/labels/WE__0038___________DER_PS__________________P01.xml",
+      "label_sha256": "c701f0edb060e5ca2537adec1f264995f15b1a044e596743b29fc389b3375b1c",
+      "official_sha256": "475e2fb38f47e752dc339f4b1dcd32c1cc3e98fc491ec7303d2210c205f80293",
+      "official_size_bytes": 3034641,
+      "local_path": "raw/meda/products/WE__0038___________DER_PS__________________P01.csv",
+      "local_files": [
+        "raw/meda/products/WE__0038___________DER_PS__________________P01.csv"
+      ],
+      "verification": "no identical local copy existed; official product downloaded into data/raw/meda/products/"
+    },
+    {
+      "product_id": "WE__0039___________DER_PS__________________P01",
+      "instrument": "PS",
+      "processing_level": "derived",
+      "sol": 39,
+      "version": "P01",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0039/WE__0039___________DER_PS__________________P01.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0039/WE__0039___________DER_PS__________________P01.xml",
+      "label_file": "raw/meda/labels/WE__0039___________DER_PS__________________P01.xml",
+      "label_sha256": "99900d7b0651cf432be3fed9c05942dfc715ef3ce20cd1bb84f029fe4b16f59b",
+      "official_sha256": "db2bcf36d1b9946899f086fc4b0e0b219b292a7fd12bfa29a005349ea4c9d07a",
+      "official_size_bytes": 3274347,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_PS_Sol36-39/WE__0039___________DER_PS__________________P01.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_PS_Sol36-39/WE__0039___________DER_PS__________________P01.csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0036___________DER_WS__________________P02",
+      "instrument": "WS",
+      "processing_level": "derived",
+      "sol": 36,
+      "version": "P02",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0036/WE__0036___________DER_WS__________________P02.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0036/WE__0036___________DER_WS__________________P02.xml",
+      "label_file": "raw/meda/labels/WE__0036___________DER_WS__________________P02.xml",
+      "label_sha256": "ca9a6770fd831f4c121ae7f63e25c180a4e09b899f062edebaf16ddd848abaa3",
+      "official_sha256": "cad6cf9c2fb2918c4047d254f682663d241eceaea20ae60cd3fa3e07ffd3c426",
+      "official_size_bytes": 2657575,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Wind_Sol36-39/wind_36.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Wind_Sol36-39/wind_36.csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0037___________DER_WS__________________P02",
+      "instrument": "WS",
+      "processing_level": "derived",
+      "sol": 37,
+      "version": "P02",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0037/WE__0037___________DER_WS__________________P02.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0037/WE__0037___________DER_WS__________________P02.xml",
+      "label_file": "raw/meda/labels/WE__0037___________DER_WS__________________P02.xml",
+      "label_sha256": "427b38bf91d376b2ad881ddbd8bf5c89d1dca49ec8a54d1d82ba3df0016a75aa",
+      "official_sha256": "bcf938d4c06e188674f6a310b8d6c177437c436240280536b6623eb51e1a4922",
+      "official_size_bytes": 2584114,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Wind_Sol36-39/WE__0037___________DER_WS__________________P02.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Wind_Sol36-39/WE__0037___________DER_WS__________________P02.csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0038___________DER_WS__________________P02",
+      "instrument": "WS",
+      "processing_level": "derived",
+      "sol": 38,
+      "version": "P02",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0038/WE__0038___________DER_WS__________________P02.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0038/WE__0038___________DER_WS__________________P02.xml",
+      "label_file": "raw/meda/labels/WE__0038___________DER_WS__________________P02.xml",
+      "label_sha256": "6fef8c5a387e2ed2ead8b98867cb1219a3cb8738300431a166ee1280267224af",
+      "official_sha256": "23854991b544fa6d51f17320c49b9d31eb5c76f1a66c796f7610105cfef75ea6",
+      "official_size_bytes": 3571170,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Wind_Sol36-39/WE__0038___________DER_WS__________________P02.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Wind_Sol36-39/WE__0038___________DER_WS__________________P02.csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0039___________DER_WS__________________P02",
+      "instrument": "WS",
+      "processing_level": "derived",
+      "sol": 39,
+      "version": "P02",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0039/WE__0039___________DER_WS__________________P02.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0039/WE__0039___________DER_WS__________________P02.xml",
+      "label_file": "raw/meda/labels/WE__0039___________DER_WS__________________P02.xml",
+      "label_sha256": "609be30f5200c369a15804a6c734546e121770e02573152da65be0f3e9c5b9e0",
+      "official_sha256": "9685412dc7942fe5f096e388c560c7ea9818e095a728f26917a00dfcdc6b0d6b",
+      "official_size_bytes": 3023951,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_TIRS_Sol36-39/WE__0039___________DER_WS__________________P02 (1).csv",
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Wind_Sol36-39/WE__0039___________DER_WS__________________P02.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_TIRS_Sol36-39/WE__0039___________DER_WS__________________P02 (1).csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0036___________DER_RHS_________________P03",
+      "instrument": "RHS",
+      "processing_level": "derived",
+      "sol": 36,
+      "version": "P03",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0036/WE__0036___________DER_RHS_________________P03.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0036/WE__0036___________DER_RHS_________________P03.xml",
+      "label_file": "raw/meda/labels/WE__0036___________DER_RHS_________________P03.xml",
+      "label_sha256": "1a63648defeb6a6b10afea05be6ac163b66b1dd7b3ad8245cbfbb8c80fd3d179",
+      "official_sha256": "020fc4a7649b079ceb7ed77075187b291594f35ce3122c266b8bdd6c42ce75d0",
+      "official_size_bytes": 3297660,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_RHS_Sol36-39/WE__0036___________DER_RHS_________________P03 (1).csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_RHS_Sol36-39/WE__0036___________DER_RHS_________________P03 (1).csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0037___________DER_RHS_________________P03",
+      "instrument": "RHS",
+      "processing_level": "derived",
+      "sol": 37,
+      "version": "P03",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0037/WE__0037___________DER_RHS_________________P03.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0037/WE__0037___________DER_RHS_________________P03.xml",
+      "label_file": "raw/meda/labels/WE__0037___________DER_RHS_________________P03.xml",
+      "label_sha256": "a7b80b56867a7a2b24d1df9a420a85e72ee20611753dcc3761372566c9c35a6a",
+      "official_sha256": "7d14587187a9b799f4a9ecb6a0e7ba79be058eb187eaa45adc275389138f04c7",
+      "official_size_bytes": 3571980,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_RHS_Sol36-39/WE__0037___________DER_RHS_________________P03.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_RHS_Sol36-39/WE__0037___________DER_RHS_________________P03.csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0038___________DER_RHS_________________P03",
+      "instrument": "RHS",
+      "processing_level": "derived",
+      "sol": 38,
+      "version": "P03",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0038/WE__0038___________DER_RHS_________________P03.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0038/WE__0038___________DER_RHS_________________P03.xml",
+      "label_file": "raw/meda/labels/WE__0038___________DER_RHS_________________P03.xml",
+      "label_sha256": "c9cb507bf411a00f6c899b1ca3b15eecdca214bfc5078446ebf520b657f84965",
+      "official_sha256": "1c0444a89b0ba5672a4e6e95f35758b1775a7fdb49f33355bac88531b186fc61",
+      "official_size_bytes": 3372000,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_RHS_Sol36-39/WE__0038___________DER_RHS_________________P03.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_RHS_Sol36-39/WE__0038___________DER_RHS_________________P03.csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0039___________DER_RHS_________________P03",
+      "instrument": "RHS",
+      "processing_level": "derived",
+      "sol": 39,
+      "version": "P03",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0039/WE__0039___________DER_RHS_________________P03.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0039/WE__0039___________DER_RHS_________________P03.xml",
+      "label_file": "raw/meda/labels/WE__0039___________DER_RHS_________________P03.xml",
+      "label_sha256": "48be393e2d3eb2c883ece6701cb79faaab7fe51594dbc6fe7edc415e7cfee134",
+      "official_sha256": "3a12bb1aee09c9eb2e6460b4e8c53435d8eedef391e08b9973d3ab460d6b90c0",
+      "official_size_bytes": 3638220,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_RHS_Sol36-39/WE__0039___________DER_RHS_________________P03.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_RHS_Sol36-39/WE__0039___________DER_RHS_________________P03.csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0036___________DER_ANCILLARY___________P03",
+      "instrument": "ANCILLARY",
+      "processing_level": "derived",
+      "sol": 36,
+      "version": "P03",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0036/WE__0036___________DER_ANCILLARY___________P03.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0036/WE__0036___________DER_ANCILLARY___________P03.xml",
+      "label_file": "raw/meda/labels/WE__0036___________DER_ANCILLARY___________P03.xml",
+      "label_sha256": "91af97927b60874dd00494c113f9b39b35308f9a62fc6567b01125b7639e6a8b",
+      "official_sha256": "f09f3e35b0b1d95b3b21d32cc62ba67ac8a25e30eb962902f41dfef326b18bd7",
+      "official_size_bytes": 10940419,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Ancillary_Sol-36-39/WE__0036___________DER_ANCILLARY___________P03.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Ancillary_Sol-36-39/WE__0036___________DER_ANCILLARY___________P03.csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0037___________DER_ANCILLARY___________P03",
+      "instrument": "ANCILLARY",
+      "processing_level": "derived",
+      "sol": 37,
+      "version": "P03",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0037/WE__0037___________DER_ANCILLARY___________P03.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0037/WE__0037___________DER_ANCILLARY___________P03.xml",
+      "label_file": "raw/meda/labels/WE__0037___________DER_ANCILLARY___________P03.xml",
+      "label_sha256": "e8a560f53a385ea929a1edbbbc395aede4d92f5968c8e7b0791722174238168e",
+      "official_sha256": "424019d45e1c78d612a7644852c2cc4ad083ad3d8249a13013f5f8b0a45dae06",
+      "official_size_bytes": 11821025,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Ancillary_Sol-36-39/WE__0037___________DER_ANCILLARY___________P03.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Ancillary_Sol-36-39/WE__0037___________DER_ANCILLARY___________P03.csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0038___________DER_ANCILLARY___________P03",
+      "instrument": "ANCILLARY",
+      "processing_level": "derived",
+      "sol": 38,
+      "version": "P03",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0038/WE__0038___________DER_ANCILLARY___________P03.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0038/WE__0038___________DER_ANCILLARY___________P03.xml",
+      "label_file": "raw/meda/labels/WE__0038___________DER_ANCILLARY___________P03.xml",
+      "label_sha256": "ddc6bc51b1f1819c9b2755e12754501b2aeb87d610cbe4796f651f0ffcf00245",
+      "official_sha256": "da8f2bd062893f392d3200b4dedd4e829d682385be829909faea81a17e7041e1",
+      "official_size_bytes": 11185439,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Ancillary_Sol-36-39/WE__0038___________DER_ANCILLARY___________P03.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Ancillary_Sol-36-39/WE__0038___________DER_ANCILLARY___________P03.csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    },
+    {
+      "product_id": "WE__0039___________DER_ANCILLARY___________P03",
+      "instrument": "ANCILLARY",
+      "processing_level": "derived",
+      "sol": 39,
+      "version": "P03",
+      "official_csv_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0039/WE__0039___________DER_ANCILLARY___________P03.CSV",
+      "official_label_url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/sol_0000_0089/sol_0039/WE__0039___________DER_ANCILLARY___________P03.xml",
+      "label_file": "raw/meda/labels/WE__0039___________DER_ANCILLARY___________P03.xml",
+      "label_sha256": "4c1df8877ab70c25957a2643a6d8cf1244a24fdb70e42f870f53caf0fcec807b",
+      "official_sha256": "64395815e7ab08705bb7c0019c9413b65f6b067bf7aaefe60dc8b67fe74930c9",
+      "official_size_bytes": 12044610,
+      "local_files": [
+        "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Ancillary_Sol-36-39/WE__0039___________DER_ANCILLARY___________P03.csv"
+      ],
+      "local_path": "raw/jezero/Jezero_Weather_/MEDA Weather Data/MEDA_Ancillary_Sol-36-39/WE__0039___________DER_ANCILLARY___________P03.csv",
+      "verification": "local copy is byte-identical to the official PDS product"
+    }
+  ],
+  "checked_at_utc": "2026-11-14T12:04:41+00:00"
+}

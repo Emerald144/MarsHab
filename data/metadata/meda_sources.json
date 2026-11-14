@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.1",
+  "dataset": "NASA Mars 2020 Perseverance MEDA (Mars Environmental Dynamics Analyzer) - historical environment subset",
+  "available": true,
+  "availability_note": "A verified subset (sols 36-39) is imported. This is NOT the full MEDA record; see selected_subset.",
+  "archive_identifier": "urn:nasa:pds:mars2020_meda",
+  "doi": "10.17189/1522849",
+  "citation": "J.A. Rodriguez-Manfredi et al. (2021), The Mars Environmental Dynamics Analyzer, MEDA, NASA Planetary Data System, DOI 10.17189/1522849 (citation text as printed on the PDS Atmospheres MEDA page).",
+  "related_publications": [
+    {"doi": "10.1007/s11214-021-00816-9", "text": "Rodriguez-Manfredi, J.A. et al. The Mars Environmental Dynamics Analyzer, MEDA. A Suite of Environmental Sensors for the Mars 2020 Mission. Space Sci Rev 217, 48 (2021)."},
+    {"doi": "10.1007/s11214-020-00762-y", "text": "Farley, K.A. et al. Mars 2020 Mission Overview. Space Sci Rev 216, 142 (2020)."}
+  ],
+  "official_sources": [
+    {"title": "PDS Atmospheres: Mars 2020 MEDA", "url": "https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/PERSEVERANCE/meda.html", "role": "instrument overview, citation, links to the archive"},
+    {"title": "MEDA PDS4 bundle readme", "url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/readme.txt", "role": "product levels, reliability caveats, file naming, duty cycle"},
+    {"title": "MEDA PDS4 bundle (archive root)", "url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/", "role": "data collections and documents"},
+    {"title": "PDS Atmospheres: retrieving MEDA data", "url": "https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/PERSEVERANCE/retrieving_meda.html", "role": "retrieval guidance"}
+  ],
+  "collections_used": [
+    {"collection": "data_calibrated_env", "lid": "urn:nasa:pds:mars2020_meda:data_calibrated_env", "url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/", "instrument_products": ["ATS (air temperature)"]},
+    {"collection": "data_derived_env", "lid": "urn:nasa:pds:mars2020_meda:data_derived_env", "collection_version_seen": "16.0", "url": "https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_derived_env/", "instrument_products": ["PS (pressure)", "WS (wind)", "RHS (humidity, imported only for diagnostics)", "ANCILLARY (rover position and geometry)"]}
+  ],
+  "selected_subset": {
+    "sols": [36, 37, 38, 39],
+    "instruments": ["ATS", "PS", "WS", "RHS", "ANCILLARY"],
+    "product_manifest": "data/metadata/meda_products.json",
+    "selection_reason": "Smallest contiguous span that already existed in the project's raw data and covers two full diurnal cycles (MEDA measures about 12 h per sol, even hours on even sols and odd hours on odd sols). Sol 36 is also the first sol for which the PDS readme considers wind data reliable. Sols were not chosen for their values.",
+    "not_representative_of": "Seasonal variation, dust events, other locations, or conditions at any other time. Four sols are a snapshot, not a climatology."
+  },
+  "verification": {
+    "method": "SHA-256 of each official PDS CSV (streamed from atmos.nmsu.edu) compared with the project's local copies by content; PDS4 XML labels downloaded to data/raw/meda/labels/.",
+    "result_file": "data/metadata/meda_products.json",
+    "note": "19 of 20 products were byte-identical to existing local files; the pressure product for sol 38 was missing locally (a TIRS file was stored in its place) and was downloaded from the official archive into data/raw/meda/products/."
+  },
+  "reliability_notes_from_pds_readme": [
+    "Humidity sensor data before sol 63 are not considered reliable for science use: relative humidity is therefore NOT published for sols 36-39.",
+    "Wind sensor data before sol 36 are not reliable; sols 36 and later are used.",
+    "Derived-level products are recommended where they exist; calibrated level is used for air temperature (no derived product).",
+    "Pressure derived data are based on barocap 3; the readme advises checking calibrated data/barocap 2 if discontinuities are suspected.",
+    "Files are versioned and only the highest version should be used. The versions in meda_products.json were those listed in the archive on 2026-11-14."
+  ],
+  "known_label_issues": [
+    "The PDS label gives the unit of PRESSURE UNCERTAINTY as kelvin (inconsistent). The uncertainty unit is reported as unverified and the uncertainty value is not converted.",
+    "The PDS readme names 9999999999 as the invalid-value fill; the products use 999999999. Any value >= 999999999 is excluded as a fill value.",
+    "Wind uncertainty and wind direction reference frame are not described in the labels.",
+    "The label start/stop times and SCLK imply a clock drift of about 7.9 ppm; UTC is therefore derived by a two-point mapping (about +/-1 s), not by SPICE."
+  ],
+  "normalization_policy": {
+    "preserve_source_time": true,
+    "mars_local_time": "LMST and LTST are copied from the product, never recomputed.",
+    "utc_time": "derived from PDS label start/stop times (utc_basis = derived_from_pds_label_linear)",
+    "interpolate_missing_values": false,
+    "unit_conversion": "none; units are those of the PDS labels (K, Pa, m/s, degree)",
+    "assign_zone_without_validated_rover_location": false,
+    "label_historical_observations_as_current": false,
+    "quality_mapping": "The products carry no per-sample quality flag. Rows that pass fill-value and physical-range checks are labelled 'unflagged'; rows that fail are excluded and counted, never replaced. Source ancillary flags (transducer, booms, rover still) are kept in quality_flag.",
+    "mapping_file": "data/metadata/meda_import_mapping.json"
+  },
+  "rover_location_policy": "Each observation's location comes from the MEDA ancillary product (M2020_TOPO offsets from the landing site: +X north, +Y west) added to the PLACES landing-site position, and is only attached when the sol's position agrees with the PLACES rover pose within 2 m. The JZ zone that contains the rover is a derived fact about the rover's position; it does not make the measurement valid for the whole zone.",
+  "usage_and_attribution": "Data are publicly distributed by the NASA Planetary Data System Atmospheres Node. No licence restriction was found on the PDS pages consulted, but an explicit licence text was not located; cite the DOI above and the PDS Atmospheres Node when redistributing.",
+  "history": [
+    {"date": "2026-11-14", "event": "An earlier attempt could not resolve pds-atmospheres.nmsu.edu from its sandbox and left an empty placeholder. Retrieval from the user's machine succeeded; products were verified and imported."}
+  ]
+}

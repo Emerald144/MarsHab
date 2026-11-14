@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "reviewed_against": "PDS4 product labels stored in data/raw/meda/labels/ and the bundle readme at https://atmos.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/readme.txt (reviewed 2026-11-14)",
+  "decimation_seconds": 300,
+  "decimation_rule": "Observation rows keep the first valid native sample in each absolute 300 s SCLK bin per metric. No averaging or interpolation. Per-Sol statistics use ALL valid samples, not the decimated rows.",
+  "sentinel_min_value": 999999999,
+  "sentinel_note": "Derived products flag uncomputable values with 999999999 (observed in the wind product); the PDS readme names 9999999999. Any numeric value >= 999999999 is treated as the invalid-value fill and excluded.",
+  "time": {
+    "columns": {"sclk": "SCLK", "lmst": "LMST", "ltst": "LTST"},
+    "sol_from": "LMST prefix (e.g. 00036M09:30:00.000 -> sol 36). LMST and LTST are preserved exactly as published; Mars local time is never recomputed.",
+    "utc_method": "derived: linear mapping between each product's PDS label start_date_time / stop_date_time and its first / last SCLK. The label times imply an SCLK drift of about 7.9 ppm (0.7 s per sol); the two-point mapping absorbs it. Not a SPICE conversion; estimated accuracy about +/-1 s."
+  },
+  "instruments": {
+    "ATS": {
+      "label": "Air Temperature Sensor",
+      "metrics": [
+        {"metric": "air_temperature.ats1", "column": "ATS_LOCAL_TEMP1", "unit": "K", "label_unit": "kelvin", "valid_range": [100, 350], "description": "Local air temperature near the sensor unit on the RSM (50 deg position)."},
+        {"metric": "air_temperature.ats2", "column": "ATS_LOCAL_TEMP2", "unit": "K", "label_unit": "kelvin", "valid_range": [100, 350], "description": "Local air temperature near the sensor unit on the RSM (155 deg position)."},
+        {"metric": "air_temperature.ats3", "column": "ATS_LOCAL_TEMP3", "unit": "K", "label_unit": "kelvin", "valid_range": [100, 350], "description": "Local air temperature near the sensor unit on the RSM (290 deg position)."},
+        {"metric": "air_temperature.ats4", "column": "ATS_LOCAL_TEMP4", "unit": "K", "label_unit": "kelvin", "valid_range": [100, 350], "description": "Local air temperature near the sensor unit on the RFB, port side / pilot."},
+        {"metric": "air_temperature.ats5", "column": "ATS_LOCAL_TEMP5", "unit": "K", "label_unit": "kelvin", "valid_range": [100, 350], "description": "Local air temperature near the sensor unit on the RFB, starboard side / co-pilot."}
+      ]
+    },
+    "PS": {
+      "label": "Pressure Sensor",
+      "metrics": [
+        {"metric": "pressure", "column": "PRESSURE", "unit": "Pa", "label_unit": "pascal", "valid_range": [100, 1500], "uncertainty_column": "PRESSURE_UNCERTAINTY", "uncertainty_unit": null, "uncertainty_unit_note": "The PDS label lists the pressure-uncertainty unit as kelvin, which is inconsistent with a pressure; the unit is therefore reported as unverified.", "quality_flag_template": "transducer={TRANSDUCER}", "description": "Derived atmospheric pressure (based on barocap 3 per the PDS readme; the readme advises checking calibrated data if discontinuities are suspected)."}
+      ]
+    },
+    "WS": {
+      "label": "Wind Sensor",
+      "metrics": [
+        {"metric": "wind_speed.horizontal", "column": "HORIZONTAL_WIND_SPEED", "unit": "m/s", "label_unit": "meter/second", "valid_range": [0, 100], "uncertainty_column": "HORIZONTAL_WIND_SPEED_UNCERTAINTY", "uncertainty_unit": null, "uncertainty_unit_note": "No unit in the PDS label for the uncertainty column.", "quality_flag_template": "both_booms={BOTH_BOOMS_USED_FOR_RETRIEVAL};rover_still={ROVER_STILL}", "description": "Derived horizontal wind speed."},
+        {"metric": "wind_direction", "column": "WIND_DIRECTION", "unit": "deg", "label_unit": "degree", "valid_range": [0, 360], "uncertainty_column": "WIND_DIRECTION_UNCERTAINTY", "uncertainty_unit": null, "uncertainty_unit_note": "No unit in the PDS label for the uncertainty column. The label does not state the angle reference frame.", "quality_flag_template": "both_booms={BOTH_BOOMS_USED_FOR_RETRIEVAL};rover_still={ROVER_STILL}", "description": "Derived wind direction; reference frame not stated in the PDS label."}
+      ]
+    }
+  },
+  "excluded_metrics": [
+    {
+      "metric": "relative_humidity",
+      "instrument": "RHS",
+      "column": "LOCAL_RELATIVE_HUMIDITY",
+      "reason": "The PDS readme states humidity sensor data before sol 63 are not considered reliable for scientific analysis, and the label gives no unit for this column. All imported sols (36-39) precede sol 63, so no humidity observations are published."
+    }
+  ],
+  "ancillary": {
+    "instrument": "ANCILLARY",
+    "columns": {"x": "ROVER_POSITION_X", "y": "ROVER_POSITION_Y", "z": "ROVER_POSITION_Z"},
+    "frame": "M2020_TOPO per PDS label: origin at the landing site, +X local north, +Z outward normal, +Y completes the right-handed frame (therefore +Y is west).",
+    "projected_conversion": "northing = landing_northing + X ; easting = landing_easting - Y ; landing site = PLACES SITE 1 origin. Valid for offsets of a few kilometres (equidistant cylindrical CRS, standard parallel at the study latitude).",
+    "validation": "Per sol, the median MEDA-derived position must lie within 2.0 m of the latest PLACES rover pose at or before the sol, and the count of PLACES poses within the sol is reported. Otherwise the sol's location is withheld.",
+    "max_sclk_gap_seconds": 1.0,
+    "validation_tolerance_m": 2.0
+  }
+}

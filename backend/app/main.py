@@ -5,6 +5,7 @@ import logging
 
 from . import data, missions, zones
 from .config import DATA_ROOT, missing_data_paths
+from .environment_api import router as environment_router
 from .models import EmergencyReturnRequest, MissionPlanRequest, RouteRequest
 from .routing import route
 
@@ -28,6 +29,9 @@ app.add_middleware(
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
+
+# Historical NASA MEDA environment data (read-only), /api/v1/environment/*
+app.include_router(environment_router)
 
 @app.get("/api/v1/health")
 def health(): return {"status": "ok", "service": "jezero-terrain-planning"}

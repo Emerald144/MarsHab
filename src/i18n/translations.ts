@@ -458,6 +458,67 @@ export const myanmar = {
     "အဓိကမြေပုံ — မစ်ရှင်ပြင်ဆင်မှု၊ လမ်းကြောင်းများ၊ ဖြစ်နိုင်ခြေနှင့် အစီရင်ခံစာကို ပေးဆောင်သည်",
   "Legacy demo area — illustrative only. Switch to Real Jezero Terrain to select an actual mission destination.":
     "ရှေးဟောင်း သရုပ်ပြဒေသ — သရုပ်ပြသက်သက်သာဖြစ်သည်။ အမှန်တကယ် မစ်ရှင်ဦးတည်ရာကို ရွေးချယ်ရန် Real Jezero Terrain သို့ ပြောင်းပါ။",
+
+  // Historical NASA MEDA observation panel and report value categories.
+  "Historical Rover Observation": "ယခင်ကာလ ရိုဗာလေ့လာတွေ့ရှိချက်",
+  OBSERVED: "တိုင်းတာတွေ့ရှိ",
+  DERIVED: "တွက်ထုတ်ထား",
+  ESTIMATED: "ခန့်မှန်း",
+  UNAVAILABLE: "မရရှိနိုင်",
+  "Measured by a NASA instrument; source, date and location shown":
+    "NASA ကိရိယာဖြင့် တိုင်းတာထားသည်၊ ရင်းမြစ်၊ ရက်စွဲနှင့် တည်နေရာကို ပြထားသည်",
+  "Computed from measured GIS or environment data":
+    "တိုင်းတာထားသော GIS သို့မဟုတ် ပတ်ဝန်းကျင်ဒေတာမှ တွက်ချက်ထားသည်",
+  "Model result using documented assumptions": "မှတ်တမ်းတင်ထားသော ယူဆချက်များဖြင့် မော်ဒယ်ရလဒ်",
+  "User-created mission scenario or event":
+    "အသုံးပြုသူ ဖန်တီးထားသော မစ်ရှင်အခြေအနေ သို့မဟုတ် ဖြစ်ရပ်",
+  "Missing or unverified": "မရှိ သို့မဟုတ် အတည်မပြုရသေးပါ",
+  "Value categories": "တန်ဖိုးအမျိုးအစားများ",
+  "Measured at the Perseverance rover's location in the past. Not live weather, not a forecast, and not valid for every Jezero zone.":
+    "ယခင်က Perseverance ရိုဗာရှိရာနေရာတွင် တိုင်းတာထားသော တန်ဖိုးများဖြစ်သည်။ လက်ရှိရာသီဥတု သို့မဟုတ် ခန့်မှန်းချက် မဟုတ်ပါ၊ Jezero ဇုန်အားလုံးအတွက်လည်း မမှန်ကန်နိုင်ပါ။",
+  "NASA PDS · Mars 2020 MEDA · Sols {first}–{last}": "NASA PDS · Mars 2020 MEDA · Sol {first}–{last}",
+  "Loading historical MEDA observations…": "ယခင် MEDA လေ့လာတွေ့ရှိချက်များကို ဖွင့်နေသည်…",
+  "Historical MEDA observations could not be loaded.": "ယခင် MEDA လေ့လာတွေ့ရှိချက်များကို ဖွင့်၍ မရပါ။",
+  "The mission planner and simulation still work without them.":
+    "ဤအချက်အလက်များမပါလည်း မစ်ရှင်စီစဉ်ခြင်းနှင့် သရုပ်ပြခြင်းကို ဆက်လက်အသုံးပြုနိုင်ပါသည်။",
+  Retry: "ပြန်ကြိုးစားရန်",
+  "No historical MEDA observations are available.": "ယခင် MEDA လေ့လာတွေ့ရှိချက် မရရှိနိုင်ပါ။",
+  "Select sol": "Sol ကို ရွေးပါ",
+  Sol: "Sol",
+  Pressure: "လေဖိအား",
+  "Air temperature (RSM sensor 1)": "လေအပူချိန် (RSM အာရုံခံ ၁)",
+  "Horizontal wind speed": "အလျားလိုက် လေတိုက်နှုန်း",
+  Metric: "တိုင်းတာမှု",
+  Min: "အနည်းဆုံး",
+  Samples: "နမူနာ",
+  Coverage: "ကာမိမှု",
+  "Local mean solar time {start} to {end}": "ဒေသစံနေ့အချိန် {start} မှ {end}",
+  "UTC (derived, about ±1 s): {start} to {end}": "UTC (တွက်ထုတ်ထား၊ ±၁ စက္ကန့်ခန့်): {start} မှ {end}",
+  "Rover was inside {zone} during these sols (position checked against NASA PLACES, {distance} m difference).":
+    "ဤ Sol များအတွင်း ရိုဗာသည် {zone} အတွင်း ရှိခဲ့သည် (NASA PLACES နှင့် တိုက်စစ်ထားသည်၊ ကွာခြားမှု {distance} မီတာ)။",
+  "Rover position could not be validated, so no location is shown.":
+    "ရိုဗာတည်နေရာကို အတည်မပြုနိုင်သဖြင့် တည်နေရာကို မပြထားပါ။",
+  "Temperature through the sol (rover sensor, K); gaps are missing data, not interpolated":
+    "Sol တစ်ခုအတွင်း အပူချိန်ပြောင်းလဲမှု (ရိုဗာအာရုံခံ၊ K); ကွက်လပ်များသည် မရှိသောဒေတာဖြစ်ပြီး ဖြည့်စွက်ထားခြင်း မဟုတ်ပါ",
+  "Data notes": "ဒေတာမှတ်ချက်များ",
+  "Relative humidity is not shown: NASA considers humidity data before sol 63 unreliable.":
+    "စိုထိုင်းဆကို မပြထားပါ — NASA သည် Sol ၆၃ မတိုင်မီ စိုထိုင်းဆဒေတာကို မယုံကြည်ရဟု သတ်မှတ်ထားသည်။",
+  "Only a few sols are loaded; this is a snapshot, not a climate record.":
+    "Sol အနည်းငယ်ကိုသာ ထည့်သွင်းထားသည်၊ ဤသည်မှာ ရာသီဥတုမှတ်တမ်း မဟုတ်ဘဲ လက်ရိုက်ပုံတစ်ပုံသာဖြစ်သည်။",
+  "Invalid fill values are excluded, never filled in or interpolated.":
+    "မမှန်ကန်သော အစားထိုးတန်ဖိုးများကို ဖယ်ထုတ်ထားပြီး ဖြည့်စွက်ခြင်း သို့မဟုတ် ကြားဖြတ်တွက်ချက်ခြင်း မပြုပါ။",
+  "UTC is derived from PDS label times; local solar times are as published.":
+    "UTC ကို PDS တံဆိပ်အချိန်များမှ တွက်ထုတ်ထားပြီး ဒေသစံနေ့အချိန်များမှာ ထုတ်ပြန်ထားသည့်အတိုင်း ဖြစ်သည်။",
+  "MEDA measures about 12 hours per sol, so coverage below 100% is normal.":
+    "MEDA သည် Sol တစ်ခုလျှင် ၁၂ နာရီခန့်သာ တိုင်းတာသဖြင့် ကာမိမှု ၁၀၀% အောက်ဖြစ်ခြင်းမှာ ပုံမှန်ဖြစ်သည်။",
+  "This closure is a user-configured scenario. It is not detected from, or driven by, MEDA observations.":
+    "ဤပိတ်ဆို့မှုသည် အသုံးပြုသူ သတ်မှတ်ထားသော အခြေအနေတစ်ခုဖြစ်သည်။ MEDA လေ့လာတွေ့ရှိချက်များမှ ရှာဖွေတွေ့ရှိထားခြင်း သို့မဟုတ် ၎င်းတို့ကြောင့် ဖြစ်ပေါ်ခြင်း မဟုတ်ပါ။",
+  "Terrain costs and routes are not changed by historical weather.":
+    "ယခင်ရာသီဥတုကြောင့် မြေမျက်နှာသွင်ပြင်ကုန်ကျစရိတ်နှင့် လမ်းကြောင်းများ မပြောင်းလဲပါ။",
+  "Science targets": "သိပ္ပံပစ်မှတ်များ",
+  "Environmental context (historical, rover-local)": "ပတ်ဝန်းကျင်ဆိုင်ရာ အကြောင်းအရာ (ယခင်ကာလ၊ ရိုဗာရှိရာနေရာ)",
+  "Science targets and Route C (Science Priority) are unavailable until verified science-target data is delivered.":
+    "အတည်ပြုထားသော သိပ္ပံပစ်မှတ်ဒေတာ မရရှိမချင်း သိပ္ပံပစ်မှတ်များနှင့် လမ်းကြောင်း C (သိပ္ပံဦးစားပေး) မရရှိနိုင်ပါ။",
 } as const;
 
 export type TranslationKey = keyof typeof myanmar;
