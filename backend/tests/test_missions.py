@@ -55,6 +55,9 @@ def test_plan_mission_builds_real_two_leg_science_route_for_verified_waypoint():
     leg1_coords = props["legs"]["base_to_waypoint"]["geometry"]["coordinates"]
     leg2_coords = props["legs"]["waypoint_to_destination"]["geometry"]["coordinates"]
     joined_coords = route_c["route"]["geometry"]["coordinates"]
+    # The common A* grid makes the two leg endpoints one exact cell centre.
+    assert leg1_coords[-1] == leg2_coords[0]
+    assert joined_coords[len(leg1_coords) - 1] == leg1_coords[-1]
     # No duplicate seam point at the waypoint.
     assert len(joined_coords) == len(leg1_coords) + len(leg2_coords) - 1
     assert joined_coords[len(leg1_coords) - 1] == leg1_coords[-1]

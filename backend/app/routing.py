@@ -39,15 +39,29 @@ def _assert_compatible_rasters(cost_ds, slope_ds, dem_ds) -> None:
     if not np.allclose(tuple(cost_ds.transform), tuple(slope_ds.transform)) or not np.allclose(tuple(cost_ds.transform), tuple(dem_ds.transform)):
         raise ValueError("terrain rasters do not share a compatible geotransform")
 
-def _load_grid(request: RouteRequest) -> Grid:
+def route_search_bounds(points: list, closures: list) -> tuple[float, float, float, float]:
+    """Return the deterministic raster search envelope for one or more points.
+
+    Route C supplies all three points so both A* legs use identical resampling
+    and cell centres at the science-waypoint seam. Existing Route A/B calls pass
+    their two request endpoints and therefore retain their prior envelope.
+    """
+    margin = max(5_000, max((closure.radius_m for closure in closures), default=0) + 400)
+    return (
+        min(point.easting for point in points) - margin,
+        max(point.easting for point in points) + margin,
+        min(point.northing for point in points) - margin,
+        max(point.northing for point in points) + margin,
+    )
+
+
+def _load_grid(request: RouteRequest, grid_bounds: tuple[float, float, float, float] | None = None) -> Grid:
     # The direct corridor can be cut by a scarp or an impassable (>15°) DEM
     # cell. Keep a meaningful detour envelope instead of declaring no route
     # merely because a valid path leaves a narrow 1 km box.
-    margin = max(5_000, max((c.radius_m for c in request.closures), default=0) + 400)
-    west = min(request.start.easting, request.destination.easting) - margin
-    east = max(request.start.easting, request.destination.easting) + margin
-    south = min(request.start.northing, request.destination.northing) - margin
-    north = max(request.start.northing, request.destination.northing) + margin
+    west, east, south, north = grid_bounds or route_search_bounds(
+        [request.start, request.destination], request.closures
+    )
     with rasterio.open(COST_PATH) as cost_ds, rasterio.open(SLOPE_PATH) as slope_ds, rasterio.open(DEM_PATH) as dem_ds:
         _assert_compatible_rasters(cost_ds, slope_ds, dem_ds)
         bounds = cost_ds.bounds
@@ -126,8 +140,8 @@ def _nearest_traversable(grid: Grid, cell: tuple[int, int], max_radius_cells: in
                 return candidate
     raise ValueError("start or destination is not traversable within the route search area")
 
-def route(request: RouteRequest) -> dict:
-    grid = _load_grid(request)
+def route(request: RouteRequest, *, grid_bounds: tuple[float, float, float, float] | None = None) -> dict:
+    grid = _load_grid(request, grid_bounds=grid_bounds)
     for closure in request.closures:
         yy, xx = np.indices(grid.costs.shape)
         x = grid.west + (xx + .5) * grid.cell_x

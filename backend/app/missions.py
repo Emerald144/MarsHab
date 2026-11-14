@@ -14,7 +14,7 @@ from typing import Any
 from . import science_data
 from .models import EmergencyReturnRequest, MissionPlanRequest, Point, RouteRequest
 from .resources import assess_resource, unavailable_resource_assessment
-from .routing import route
+from .routing import route, route_search_bounds
 from .zones import base_location, zone_centroid_projected
 
 SCIENCE_PRIORITY_UNAVAILABLE_REASON = (
@@ -23,9 +23,13 @@ SCIENCE_PRIORITY_UNAVAILABLE_REASON = (
 )
 
 
-def _route_or_failure(request: RouteRequest) -> dict[str, Any]:
+def _route_or_failure(
+    request: RouteRequest,
+    *,
+    grid_bounds: tuple[float, float, float, float] | None = None,
+) -> dict[str, Any]:
     try:
-        return {"available": True, "route": route(request)}
+        return {"available": True, "route": route(request, grid_bounds=grid_bounds)}
     except ValueError as error:
         return {"available": False, "reason": str(error)}
 
@@ -67,10 +71,20 @@ def _science_priority_route(
         walking_speed_m_per_hour=walking_speed_m_per_hour,
         eva_limit_hours=None,
     )
-    leg1 = _route_or_failure(RouteRequest(start=start, destination=waypoint_point, activity_hours=0, contingency_hours=0, **common))
+    # Both legs must share the same raster envelope. Otherwise each independent
+    # resample can place the same waypoint in different cell centres, producing
+    # a visible seam and a geometry length inconsistent with the two A* legs.
+    common_grid_bounds = route_search_bounds([start, waypoint_point, destination], closures)
+    leg1 = _route_or_failure(
+        RouteRequest(start=start, destination=waypoint_point, activity_hours=0, contingency_hours=0, **common),
+        grid_bounds=common_grid_bounds,
+    )
     if not leg1["available"]:
         return {"available": False, "reason": f"No traversable route from the mission base to the science waypoint: {leg1['reason']}"}
-    leg2 = _route_or_failure(RouteRequest(start=waypoint_point, destination=destination, activity_hours=0, contingency_hours=0, **common))
+    leg2 = _route_or_failure(
+        RouteRequest(start=waypoint_point, destination=destination, activity_hours=0, contingency_hours=0, **common),
+        grid_bounds=common_grid_bounds,
+    )
     if not leg2["available"]:
         return {"available": False, "reason": f"No traversable route from the science waypoint to the destination: {leg2['reason']}"}
 
