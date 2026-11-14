@@ -331,6 +331,41 @@ export const myanmar = {
     "ဂြိုဟ်များအကြား ရှင်သန်ရေးလမ်းညွှန်: အင်္ဂါဂြိုဟ်မြေပုံ",
   "Prototype Mars mission planner: survival suitability map of Jezero Crater, feasibility checks, route comparison and dynamic rerouting.":
     "အင်္ဂါဂြိုဟ် မစ်ရှင်စီမံရေး ရှေ့ပြေးစနစ်: Jezero ဥက္ကာခဲကျင်း ရှင်သန်ရေးသင့်လျော်မှုမြေပုံ၊ ဖြစ်နိုင်ခြေစစ်ဆေးမှု၊ လမ်းကြောင်းနှိုင်းယှဉ်မှုနှင့် အခြေအနေအလိုက် လမ်းကြောင်းပြောင်းလဲမှု။",
+
+  // Real Jezero terrain (Phase 1 data) — kept separate from the illustrative demo strings above.
+  "Demo Mission Map": "သရုပ်ပြ မစ်ရှင်မြေပုံ",
+  "Real Jezero Terrain": "Jezero အမှန်တကယ် မြေမျက်နှာသွင်ပြင်",
+  "Illustrative demo — not georeferenced": "သရုပ်ဖော်ပုံဖြစ်သည် — မြေပြင်ကိုက်ညီမှု မရှိပါ",
+  "Not available": "မရရှိနိုင်ပါ",
+  "Centroid (lon, lat)": "ဗဟိုအမှတ် (လောင်ဂျီတွဒ်၊ လတ်တွဒ်)",
+  Elevation: "မြင့်မှုအဆင့်",
+  Mean: "ပျမ်းမျှ",
+  "Min / Max": "အနည်းဆုံး / အများဆုံး",
+  Range: "အကွာအဝေး",
+  "Valid coverage": "မှန်ကန်သောဒေတာလွှမ်းခြုံမှု",
+  Slope: "စောင်းအနန်း",
+  "Mean / Median": "ပျမ်းမျှ / အလယ်တန်းတန်ဖိုး",
+  "p90 / p99": "p90 / p99",
+  Max: "အများဆုံး",
+  "Max slope values of roughly 75-88° are likely 20 m DEM artifacts (e.g. single noisy pixels), not measured cliffs. p90/p99 are more representative of the zone.":
+    "၇၅-၈၈ ဒီဂရီခန့်ရှိ အများဆုံးစောင်းအနန်းတန်ဖိုးများသည် 20m DEM ဒေတာအမှားများ (ဥပမာ တစ်ခုတည်းသော ဆူညံသံပစ်ဆယ်) ဖြစ်နိုင်ဆဲဖြစ်ပြီး တိုင်းတာထားသော ကမ်းပါးများ မဟုတ်ပါ။ p90/p99 တန်ဖိုးများသည် ဒေသကို ပိုမိုကိုယ်စားပြုသည်။",
+  "Gentle / Moderate / Steep": "ညင်သာ / အလတ်စား / စောင်းနေသော",
+  "Terrain-only assessment": "မြေမျက်နှာသွင်ပြင်သက်သက် အကဲဖြတ်ချက်",
+  "Terrain-only / Partial — NOT a validated safety classification. Computed only from the available real factor(s) below; missing factors are not treated as zero.":
+    "မြေမျက်နှာသွင်ပြင်သက်သက် / တစ်စိတ်တစ်ပိုင်း — အတည်ပြုထားသော ဘေးကင်းမှုအဆင့်သတ်မှတ်ချက် မဟုတ်ပါ။ အောက်ပါ ရရှိနိုင်သော အချက်များမှသာ တွက်ချက်ထားပြီး ပျောက်ဆုံးနေသော အချက်များကို သုညအဖြစ် မသတ်မှတ်ပါ။",
+  "Data quality flags:": "ဒေတာအရည်အသွေး အမှတ်သားချက်များ:",
+  Source: "ရင်းမြစ်",
+  "CTX DEM, 20 m resolution. See Data Inventory for full provenance.":
+    "CTX DEM, 20 မီတာ ကျယ်ပြန့်မှု။ အပြည့်အစုံ ရင်းမြစ်အချက်အလက်ကို Data Inventory တွင် ကြည့်ပါ။",
+  "Real-zone selection does not feed the demo travel-time, route, or mission-simulation calculations, which use illustrative A-zone data only.":
+    "အမှန်တကယ်ဒေသ ရွေးချယ်မှုသည် သရုပ်ပြ ခရီးချိန်၊ လမ်းကြောင်း သို့မဟုတ် မစ်ရှင်အတုပြုမှု တွက်ချက်မှုများတွင် ပါဝင်မည်မဟုတ်ပါ။ ထိုတွက်ချက်မှုများသည် သရုပ်ဖော် A-ဒေသ အချက်အလက်များကိုသာ အသုံးပြုသည်။",
+  "Loading real terrain data…": "အမှန်တကယ် မြေမျက်နှာသွင်ပြင်ဒေတာကို ဖွင့်နေသည်…",
+  "Could not load real terrain data.": "အမှန်တကယ် မြေမျက်နှာသွင်ပြင်ဒေတာကို ဖွင့်၍မရပါ။",
+  "This layer is not available.": "ဤအလွှာကို မရရှိနိုင်ပါ။",
+  "Real Jezero Crater terrain map": "Jezero ဥက္ကာခဲကျင်း အမှန်တကယ် မြေမျက်နှာသွင်ပြင်မြေပုံ",
+  "JEZERO CRATER · REAL TERRAIN · 1114×1267": "JEZERO ဥက္ကာခဲကျင်း · အမှန်တကယ်မြေပြင် · 1114×1267",
+  "Unit:": "ယူနစ်:",
+  "Click a zone to inspect real terrain data": "အမှန်တကယ် မြေမျက်နှာသွင်ပြင်ဒေတာကို ကြည့်ရန် ဒေသတစ်ခုကို နှိပ်ပါ",
 } as const;
 
 export type TranslationKey = keyof typeof myanmar;
