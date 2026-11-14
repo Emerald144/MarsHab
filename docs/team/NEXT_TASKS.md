@@ -1,21 +1,21 @@
 # Next tasks
 
-Phase 1 integration only. Phase 2 (terrain-aware route optimization, oxygen models, live monitoring) is **out of scope** until Phase 1 is done. Suggested roles are not permanent. Work on separate feature branches; do not edit the shared files listed in PROJECT_STATUS.md without telling the other developer.
+Phase 1 integration (Stage 2) is done — see `PROJECT_STATUS.md`. Phase 2 (terrain-aware route optimization for JZ zones, oxygen/life-support models, live monitoring, digital-twin modeling) remains **out of scope**.
 
-## Developer A: frontend and integration
+## 1. Real browser verification
 
-1. **Data module** (`feature/terrain-map`). Create `src/lib/jezero-real-data.ts` that loads `data/web/statistics/zone_terrain_statistics.json`, `data/web/zones/jezero_zones_preview_pixels.json` and `data/web/layers/layer_manifest.json`, with types and "unavailable" handling for nulls. Decide JSON import vs generated `.ts` (see INTEGRATION_GUIDE #4). Add unit tests that the 8 zones load and values equal the JSON.
-2. **Real zone map**. Add a real-terrain view using the 1114×1267 space with JZ-01…JZ-08 polygons, selection/highlight, and layer switches for Terrain, Elevation, Slope, Hillshade (from the manifest, with legends). Keep demo overlays on the demo basemap, labelled "Demo". Preserve pan/zoom, click, themes, responsive layout.
-3. **Zone data and scoring**. Replace `ZONES`/`destination` default and every dropdown with JZ zones; remove A-12…A-19 from calculations; update the tests that reference A-zone IDs. Terrain factor = heuristic index; other factors `null` → "Not available"; partial mode scores as in INTEGRATION_GUIDE #3. Add the zone statistics panel and Real/Derived/Heuristic/Demo badges; add Myanmar strings.
+No headless browser was available while building Stage 2; verification so far is `tsc --noEmit`, `npm run test` (39/39), `npm run build`, and inspecting `.output/public/jezero/` for the static assets. Before shipping, open the app and check: Real Terrain ↔ Demo Mission switch keeps state isolated (no stale JZ selection bleeding into demo, and vice versa); all four real layers render and their legends match `layer_manifest.json`; zone polygons stay aligned to the PNG at different viewport widths (resize/mobile); dark/light themes; English/Myanmar switch on every new string; reduced-motion; the rest of the existing demo flow (modes, feasibility, routes, simulation, emergency return, report) is unaffected.
 
-## Developer B: backend and GIS
+## 2. Optional CTX 5 m orthomosaic
 
-1. **Decide the sidecar policy.** GDAL tools with PAM enabled (QGIS, `gdalinfo -stats`) rewrite the `*.aux.xml` files next to the rasters; two are tracked in git. Decide whether to keep them tracked or add them to `.gitignore`.
-2. **Optional orthomosaic.** Download the USGS CTX 5 m orthomosaic (`M20_JezeroCrater_CTXortho_mosaic_5m.tif`, verify terms), generate a lightweight web layer on the same bounds, and re-run `scripts/gis/run_all.bat` QA. Check large-file storage policy before committing any raster.
-3. **Backend tests and hygiene.** Add `pytest` to a dev requirements file; untrack the committed `__pycache__/*.pyc` files (needs a commit; coordinate); consider an endpoint serving `data/web/statistics`.
+Download `M20_JezeroCrater_CTXortho_mosaic_5m.tif` from USGS Astrogeology after confirming license/terms and a large-file storage policy (it's a big raster — don't commit it directly without a plan). Generate a lightweight preview PNG on the same bounds as the existing four layers and add it to `layer_manifest.json` + `RealTerrainMap.tsx`'s layer list; re-run `scripts/gis/validate_outputs.py` (12 checks) afterward. Until then, the hillshade/terrain preview remains the real-mode basemap, correctly labelled as display-only, not 5 m satellite imagery.
 
-## Shared / housekeeping
+## 3. GDAL/pytest tooling in this environment
 
-- Fix the CRLF/prettier lint noise (≈10.9k errors are line endings from Windows checkouts): add `.gitattributes` (`* text=auto eol=lf`) and re-normalise in one coordinated commit.
-- Decide who commits the Stage 1 restructure (it is currently **uncommitted**), and on which branch.
-- Review: hash-verified data are in `data/`; re-run `python scripts/gis/validate_outputs.py` (via QGIS Python) after any data change.
+`backend/requirements-dev.txt` adds `pytest`, but `pip install` timed out here (no PyPI access) and `osgeo`/GDAL isn't importable in `.venv`, so `scripts/gis/validate_outputs.py` could not be re-run this pass. Whoever has network/GDAL access should: install `backend/requirements-dev.txt` and confirm `pytest` collects/runs `backend/tests/test_api.py` normally (it passed when the 4 functions were called directly); re-run the GIS QA script to get a fresh 12/12.
+
+## Housekeeping (unchanged from Stage 1, still open)
+
+- CRLF/prettier lint noise (≈10.9k errors, line-ending only): add `.gitattributes` (`* text=auto eol=lf`) and re-normalise in one coordinated commit — don't fold this into an unrelated feature commit.
+- Decide whether/when to merge `feature/jezero-terrain-integration` into `main` (still unpushed either way).
+- If a non-web consumer ever needs the Phase 1 statistics over HTTP, add a read-only endpoint to the backend reading `data/web/statistics/` — skipped for now since the frontend reads the static files directly and a second API surface wasn't needed.
