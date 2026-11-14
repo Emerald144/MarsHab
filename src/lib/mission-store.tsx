@@ -5,7 +5,16 @@ import type { MissionPlan, RouteOutcome } from "./mission-api";
 
 export type View = "overview" | "map" | "planner" | "routes" | "execution" | "report";
 
-type Setup = { name: string; eva: number; science: number; buffer: number; resource: number; walkingSpeedMPerHour: number };
+type Setup = {
+  name: string;
+  eva: number;
+  science: number;
+  buffer: number;
+  resource: number;
+  resourceReservePercent: number;
+  resourceConsumptionPercentPerHour: number;
+  walkingSpeedMPerHour: number;
+};
 
 /** `destination` is always a real JZ-xx zone id in the primary workflow; the legacy
  * A-xx demo module (mission-data.ts) is no longer reachable from it. */
@@ -52,6 +61,8 @@ export function MissionProvider({ children }: { children: ReactNode }) {
     science: 1.2,
     buffer: 0.5,
     resource: 80,
+    resourceReservePercent: 20,
+    resourceConsumptionPercentPerHour: 2,
     walkingSpeedMPerHour: 1000,
   });
   const [feasibilityChecked, setFeasibilityChecked] = useState(false);

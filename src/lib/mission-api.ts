@@ -56,7 +56,26 @@ export type Feasibility = {
   estimated_total_hours: number;
   eva_limit_hours: number | null;
   remaining_eva_hours: number | null;
+  time_feasible: boolean | null;
+  resource_feasible: boolean | null;
+  warnings: string[];
   feasible: boolean | null;
+};
+
+export type ResourceAssessment = {
+  available: boolean;
+  model: string;
+  budget_percent: number | null;
+  reserve_percent: number | null;
+  reserved_percent: number | null;
+  estimated_use_percent: number | null;
+  remaining_after_reserve_percent: number | null;
+  consumption_rate_percent_per_hour: number | null;
+  modeled_hours: number | null;
+  feasible: boolean | null;
+  warning_level: "ok" | "low" | "insufficient" | "unavailable";
+  warnings: string[];
+  assumptions: string[];
 };
 
 export type MissionPlan = {
@@ -69,6 +88,7 @@ export type MissionPlan = {
     C: { name: "Science Priority"; available: false; reason: string };
   };
   feasibility: Feasibility | null;
+  resource_assessment: ResourceAssessment;
 };
 
 export type SimulatedClosure = { center: MarsPoint; radius_m: number };
@@ -79,6 +99,9 @@ export type MissionPlanInput = {
   scienceHours?: number;
   bufferHours?: number;
   walkingSpeedMPerHour?: number;
+  resourceBudgetPercent?: number;
+  resourceReservePercent?: number;
+  resourceConsumptionPercentPerHour?: number;
   closures?: SimulatedClosure[];
 };
 
@@ -108,14 +131,26 @@ export function planMission(input: MissionPlanInput): Promise<MissionPlan> {
     science_hours: input.scienceHours ?? 0,
     buffer_hours: input.bufferHours ?? 0.5,
     walking_speed_m_per_hour: input.walkingSpeedMPerHour ?? 1000,
+    resource_budget_percent: input.resourceBudgetPercent ?? 80,
+    resource_reserve_percent: input.resourceReservePercent ?? 20,
+    resource_consumption_percent_per_hour: input.resourceConsumptionPercentPerHour ?? 2,
     closures: (input.closures ?? []).map((c) => ({ center: c.center, radius_m: c.radius_m })),
   });
 }
 
-export function emergencyReturn(current: MarsPoint, evaHours?: number): Promise<{ base: MissionBase; current: MarsPoint } & RouteOutcome> {
+export function emergencyReturn(input: {
+  current: MarsPoint;
+  evaHours?: number;
+  resourceRemainingPercent?: number;
+  resourceReservePercent?: number;
+  resourceConsumptionPercentPerHour?: number;
+}): Promise<{ base: MissionBase; current: MarsPoint; resource_assessment: ResourceAssessment } & RouteOutcome> {
   return postJson("/api/v1/missions/emergency-return", {
-    current,
-    eva_hours: evaHours ?? null,
+    current: input.current,
+    eva_hours: input.evaHours ?? null,
+    resource_remaining_percent: input.resourceRemainingPercent ?? null,
+    resource_reserve_percent: input.resourceReservePercent ?? 20,
+    resource_consumption_percent_per_hour: input.resourceConsumptionPercentPerHour ?? 2,
   });
 }
 
@@ -136,6 +171,9 @@ export function useMissionPlanQuery(input: MissionPlanInput, enabled = true) {
       input.scienceHours,
       input.bufferHours,
       input.walkingSpeedMPerHour,
+      input.resourceBudgetPercent,
+      input.resourceReservePercent,
+      input.resourceConsumptionPercentPerHour,
       input.closures,
     ],
     queryFn: () => planMission(input),
@@ -144,7 +182,7 @@ export function useMissionPlanQuery(input: MissionPlanInput, enabled = true) {
 }
 
 export function useEmergencyReturnMutation() {
-  return useMutation({ mutationFn: ({ current, evaHours }: { current: MarsPoint; evaHours?: number }) => emergencyReturn(current, evaHours) });
+  return useMutation({ mutationFn: emergencyReturn });
 }
 
 /** Linear Mars-projected-metres -> preview-pixel transform, per docs/team/INTEGRATION_GUIDE.md #Map-space transform. */

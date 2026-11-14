@@ -37,6 +37,9 @@ function useRealMissionPlan(enabled = true) {
       scienceHours: setup.science,
       bufferHours: setup.buffer,
       walkingSpeedMPerHour: setup.walkingSpeedMPerHour,
+      resourceBudgetPercent: setup.resource,
+      resourceReservePercent: setup.resourceReservePercent,
+      resourceConsumptionPercentPerHour: setup.resourceConsumptionPercentPerHour,
     },
     enabled,
   );
@@ -92,7 +95,12 @@ export function Planner() {
   const [generating, setGenerating] = useState(false);
   const field =
     "w-full rounded-md border border-input bg-background/60 px-3 py-2 text-sm outline-none focus:border-data focus:shadow-[var(--glow-data)]";
-  const num = (k: "eva" | "science" | "buffer" | "resource" | "walkingSpeedMPerHour", label: string, step = 0.1, unit = "h") => (
+  const num = (
+    k: "eva" | "science" | "buffer" | "resource" | "resourceReservePercent" | "resourceConsumptionPercentPerHour" | "walkingSpeedMPerHour",
+    label: string,
+    step = 0.1,
+    unit = "h",
+  ) => (
     <label className="block">
       <span className="label-caps">{display(label)}</span>
       <div className="relative mt-1">
@@ -180,12 +188,18 @@ export function Planner() {
             {num("eva", "Available EVA Time", 0.5)}
             {num("science", "Science Activity")}
             {num("buffer", "Safety Buffer")}
+            {num("resource", "Abstract Resource Budget", 5, "%")}
+            {num("resourceReservePercent", "Resource Safety Reserve", 5, "%")}
+            {num("resourceConsumptionPercentPerHour", "Resource Use Rate Assumption", 0.5, "%/h")}
             {num("walkingSpeedMPerHour", "Walking Speed Assumption", 100, "m/h")}
           </div>
           <p className="text-[11px] leading-relaxed text-muted-foreground">
             {t(
               "Walking speed is a configurable planning assumption, not a measured astronaut pace. Jezero zones are large regional analysis areas, hundreds of km from the landing site — a single EVA will often not reach a zone centroid.",
             )}
+          </p>
+          <p className="text-[11px] leading-relaxed text-muted-foreground">
+            Abstract resource model only: percentage points are not oxygen kilograms, battery watt-hours, or NASA-validated life-support limits.
           </p>
           <button
             onClick={() => m.setFeasibilityChecked(true)}
@@ -255,6 +269,19 @@ export function Planner() {
                   {t("Basis route:")} {preferred.id === "B" ? t("Route B · Terrain-Aware") : t("Route A · Shortest Distance")} ·{" "}
                   {preferred.route.properties.distance_km.toFixed(1)} km ·{" "}
                   {t("mean slope")} {preferred.route.properties.mean_slope_degrees.toFixed(1)}°
+                </div>
+                <div className="mt-4 rounded-md border border-border p-3 text-xs">
+                  <div className="label-caps mb-1">Abstract Resource Model</div>
+                  <div className="font-mono">
+                    {plan.data.resource_assessment?.available
+                      ? `${plan.data.resource_assessment.estimated_use_percent?.toFixed(1)}% use / ${plan.data.resource_assessment.budget_percent?.toFixed(1)}% budget`
+                      : "Resource estimate unavailable"}
+                  </div>
+                  <div className={plan.data.resource_assessment?.warning_level === "ok" ? "text-safe" : "text-caution"}>
+                    {plan.data.resource_assessment?.available
+                      ? `${plan.data.resource_assessment.remaining_after_reserve_percent?.toFixed(1)}% remaining after reserve`
+                      : plan.data.resource_assessment?.warnings[0] ?? "Resource estimate unavailable"}
+                  </div>
                 </div>
                 <div className="mt-5">
                   <div className="label-caps mb-2">{t("Timeline")}</div>
@@ -604,6 +631,9 @@ export function Execution() {
         scienceHours: m.setup.science,
         bufferHours: m.setup.buffer,
         walkingSpeedMPerHour: m.setup.walkingSpeedMPerHour,
+        resourceBudgetPercent: m.setup.resource,
+        resourceReservePercent: m.setup.resourceReservePercent,
+        resourceConsumptionPercentPerHour: m.setup.resourceConsumptionPercentPerHour,
         closures: [{ center: { easting: mid[0], northing: mid[1] }, radius_m: 1500 }],
       }).then((revised) => m.setRevisedMissionPlan(revised)),
     );
@@ -622,9 +652,20 @@ export function Execution() {
   };
 
   const triggerEmergency = () => {
+    const outboundHours = activeRouteFeature.properties.estimated_one_way_hours;
+    const remainingResource = Math.max(
+      0,
+      m.setup.resource - p * outboundHours * m.setup.resourceConsumptionPercentPerHour,
+    );
     setReturning(true);
     emergencyMutation.mutate(
-      { current: currentPoint, evaHours: m.setup.eva },
+      {
+        current: currentPoint,
+        evaHours: m.setup.eva,
+        resourceRemainingPercent: remainingResource,
+        resourceReservePercent: m.setup.resourceReservePercent,
+        resourceConsumptionPercentPerHour: m.setup.resourceConsumptionPercentPerHour,
+      },
       { onSuccess: (result) => m.setEmergencyRoute(result) },
     );
   };
@@ -795,6 +836,7 @@ export function Report() {
   const [exported, setExported] = useState(false);
   const preferred = preferredRoute(plan ?? undefined);
   const partial = zone ? partialTerrainScore(zone.factors) : null;
+  const resource = plan?.resource_assessment;
 
   const facts: [string, string][] = [
     ["Mission", m.setup.name],
@@ -811,6 +853,14 @@ export function Report() {
           : "NOT FEASIBLE",
     ],
     ["Total Mission Time", plan?.feasibility ? `${plan.feasibility.estimated_total_hours.toFixed(1)} h` : "Not available"],
+    [
+      "Resource Status",
+      resource?.available
+        ? resource.feasible
+          ? `${resource.remaining_after_reserve_percent?.toFixed(1)}% margin after reserve`
+          : "INSUFFICIENT ABSTRACT RESOURCE BUDGET"
+        : "Not available",
+    ],
   ];
 
   return (
@@ -892,6 +942,26 @@ export function Report() {
                 })
               : t("Not available")}
           </p>
+          {resource && (
+            <div className="mt-4 rounded-md border border-border p-3 text-xs text-muted-foreground">
+              <div className="label-caps mb-1">Abstract Resource Model</div>
+              {resource.available ? (
+                <>
+                  <div>
+                    Estimated use: {resource.estimated_use_percent?.toFixed(1)}% of {resource.budget_percent?.toFixed(1)}% budget; reserve held: {resource.reserved_percent?.toFixed(1)}%.
+                  </div>
+                  <div className={resource.warning_level === "ok" ? "text-safe" : "text-caution"}>
+                    {resource.warnings[0] ?? `${resource.remaining_after_reserve_percent?.toFixed(1)}% margin remains after reserve.`}
+                  </div>
+                  <ul className="mt-2 list-disc space-y-1 pl-4">
+                    {resource.assumptions.map((assumption) => <li key={assumption}>{assumption}</li>)}
+                  </ul>
+                </>
+              ) : (
+                <div>{resource.warnings[0] ?? "Resource estimate unavailable."}</div>
+              )}
+            </div>
+          )}
         </Panel>
         <Panel title={t("Simulated Events")}>
           <p className="text-sm text-muted-foreground">
@@ -917,14 +987,16 @@ export function Report() {
         <Panel title={t("Final Recommendation")} className="glow-border">
           <p className="text-sm">
             {preferred
-              ? t(
-                  "Proceed with Route {route} to {destination} under {mode} mode, subject to the EVA-time feasibility above. Terrain data is real (20 m CTX DEM); non-terrain factors, oxygen, radiation and battery are not modeled.",
-                  {
-                    route: preferred.id,
-                    destination: m.destination,
-                    mode: display(MODE_WEIGHTS[m.mode].label),
-                  },
-                )
+              ? <>
+                  {t(
+                    "Proceed with Route {route} to {destination} under {mode} mode, subject to the EVA-time feasibility above. Terrain data is real (20 m CTX DEM); non-terrain factors, oxygen, radiation and battery are not modeled.",
+                    {
+                      route: preferred.id,
+                      destination: m.destination,
+                      mode: display(MODE_WEIGHTS[m.mode].label),
+                    },
+                  )} Abstract resource budgeting is configurable and assumption-based; it is not oxygen or battery telemetry.
+                </>
               : t("No feasible route is available for this destination with the current assumptions.")}
           </p>
         </Panel>

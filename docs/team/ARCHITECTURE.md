@@ -30,7 +30,7 @@ The frontend stays at the repository root on purpose. Lovable syncs from the roo
 - Alias `@/*` → `src/*` (`tsconfig.json`, `vitest.config.ts`).
 - App state: `src/lib/mission-store.tsx`. Demo data and scoring: `src/lib/mission-data.ts`.
 - Map: `src/components/mars/MarsMap.tsx` (SVG, viewBox 1000×680), layer toggles in `src/features/survival-map/SurvivalMapView.tsx`.
-- **The frontend makes no network calls.** There are no TanStack server functions or API routes. All map zones, scores, routes, hazards and resources are currently local demonstration data.
+- The primary real Jezero workflow calls the FastAPI mission endpoints through `src/lib/mission-api.ts`; the legacy A-xx demo map remains local illustrative data. The resource model is an abstract configurable budget, not oxygen or battery telemetry.
 
 ## Backend
 
@@ -38,7 +38,7 @@ The frontend stays at the repository root on purpose. Lovable syncs from the roo
 - Endpoints (all under `/api/v1`): `health`, `datasets`, `zones`, `terrain/point`, `rover/track`, `weather/summary`, `POST routes`.
 - Reads data from `<repo>/data` (see "Configuration"). Raster access uses rasterio point/windowed reads, so the 86 MB DEM is not loaded whole.
 - Coordinates in the API are Mars projected metres, not Earth lat/lon.
-- The frontend does not call it yet. Phase 1 does not require it (see NEXT_TASKS).
+- The real mission planner calls `/api/v1/jezero/*` and `/api/v1/missions/*`; legacy `/api/v1/zones` remains available for compatibility.
 
 ## Configuration
 

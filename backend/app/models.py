@@ -41,6 +41,9 @@ class MissionPlanRequest(BaseModel):
     science_hours: float = Field(default=0, ge=0, le=24)
     buffer_hours: float = Field(default=0.5, ge=0, le=24)
     walking_speed_m_per_hour: float = Field(default=1_000, gt=0, le=10_000)
+    resource_budget_percent: float = Field(default=80, ge=0, le=100)
+    resource_reserve_percent: float = Field(default=20, ge=0, le=100)
+    resource_consumption_percent_per_hour: float = Field(default=2, gt=0, le=100)
     closures: list[Closure] = Field(default_factory=list, max_length=20)
 
     @field_validator("closures")
@@ -53,6 +56,9 @@ class EmergencyReturnRequest(BaseModel):
     current: Point
     eva_hours: float | None = Field(default=None, gt=0, le=72)
     walking_speed_m_per_hour: float = Field(default=1_000, gt=0, le=10_000)
+    resource_remaining_percent: float | None = Field(default=None, ge=0, le=100)
+    resource_reserve_percent: float = Field(default=20, ge=0, le=100)
+    resource_consumption_percent_per_hour: float = Field(default=2, gt=0, le=100)
     closures: list[Closure] = Field(default_factory=list, max_length=20)
 
     @field_validator("closures")

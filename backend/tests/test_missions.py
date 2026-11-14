@@ -47,6 +47,13 @@ def test_plan_mission_rejects_unknown_zone():
     else:
         raise AssertionError("expected unknown zone id to raise")
 
+def test_destination_change_recomputes_destination_and_route_metrics():
+    first = missions.plan_mission(MissionPlanRequest(destination_zone_id="JZ-06", eva_hours=72))
+    second = missions.plan_mission(MissionPlanRequest(destination_zone_id="JZ-07", eva_hours=72))
+    assert first["destination_zone_id"] != second["destination_zone_id"]
+    assert first["destination_point"] != second["destination_point"]
+    assert first["routes"]["B"]["route"]["properties"]["distance_m"] != second["routes"]["B"]["route"]["properties"]["distance_m"]
+
 def test_emergency_return_reaches_base_from_nearby_point():
     base = zones.base_location()
     result = missions.emergency_return(EmergencyReturnRequest(

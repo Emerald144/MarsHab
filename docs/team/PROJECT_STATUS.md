@@ -20,6 +20,7 @@ Existing completed work was preserved. The current implementation remains in the
 - Backend validates finite coordinates and bounded simulated closures, checks raster CRS/geotransform compatibility, handles NoData/blocked cells, and applies closures to emergency-return planning.
 - Frontend preserves the real JZ destination and mission state across planning, routes, execution, reroute, emergency, and report views. The legacy A-xx demo map remains isolated and labelled illustrative.
 - Overview rounding is fixed locally: the display boundary 30.45 renders as 30.5 h without changing calculations.
+- Resource modeling is integrated as an abstract configurable budget: travel time, activity, buffer, reserve, estimated use, remaining margin, low-resource warnings, and emergency-return budget checks are shown in planning/report outputs. Oxygen and battery are not separately modeled.
 
 ## Verified
 
@@ -28,7 +29,7 @@ Existing completed work was preserved. The current implementation remains in the
 | node node_modules/typescript/bin/tsc --noEmit | 0 errors |
 | npm run test -- --run | 9 files, 40 tests passed; jsdom emits non-fatal Three.js canvas warnings |
 | npm run build | Vite and Nitro production build succeeded |
-| backend/tests | 17 tests passed, including valid/blocked/NoData/CRS/determinism, feasibility, API, and emergency return |
+| backend/tests | 23 tests passed, including valid/blocked/NoData/CRS/determinism, feasibility, resource normal/insufficient, emergency return, unavailable data, and destination recalculation |
 | missing_data_paths() | [] |
 
 ## Not verified in this environment

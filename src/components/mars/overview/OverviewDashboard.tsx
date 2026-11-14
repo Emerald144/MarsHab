@@ -67,6 +67,7 @@ export function OverviewDashboard({ plan, isLoading, isError, dataset }: Props) 
   const zone = dataset?.zones.find((item) => item.id === destination);
   const suitability = zone ? partialTerrainScore(zone.factors) : null;
   const f = plan?.feasibility;
+  const resource = plan?.resource_assessment;
   const preferredAvailable = plan ? plan.routes.B.available || plan.routes.A.available : false;
   const availableRouteCount = plan ? Number(plan.routes.A.available) + Number(plan.routes.B.available) : 0;
   const missionStatus = routesGenerated
@@ -89,6 +90,16 @@ export function OverviewDashboard({ plan, isLoading, isError, dataset }: Props) 
       status: isLoading ? "CALCULATING…" : isError ? "BACKEND UNREACHABLE" : preferredAvailable ? "REAL ROUTE" : "NO ROUTE",
       color: f?.feasible ? "var(--safe)" : f?.feasible === false ? "var(--danger)" : "var(--muted-foreground)",
       note: "Computed from the real DEM/slope terrain-cost A* route",
+      gauge: null,
+    },
+    {
+      label: "Resource Margin",
+      value: resource?.available
+        ? `${resource.remaining_after_reserve_percent?.toFixed(1)}%`
+        : t("Not available"),
+      status: resource?.warning_level === "ok" ? "ABSTRACT MODEL OK" : resource?.warning_level === "low" ? "LOW MARGIN" : resource?.warning_level === "insufficient" ? "INSUFFICIENT" : "NOT AVAILABLE",
+      color: resource?.warning_level === "ok" ? "var(--safe)" : resource?.warning_level === "unavailable" ? "var(--muted-foreground)" : "var(--caution)",
+      note: "Configurable abstract resource budget; not oxygen or battery telemetry",
       gauge: null,
     },
     {
@@ -267,7 +278,7 @@ export function OverviewDashboard({ plan, isLoading, isError, dataset }: Props) 
           scale={0.98}
           blur={2}
           stagger={0.09}
-          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5"
         >
           {telemetry.map((item, index) => (
             <div key={item.label} className="min-w-0">

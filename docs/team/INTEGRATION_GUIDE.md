@@ -13,7 +13,7 @@ The primary workflow is wired to the Phase 1 Jezero data and the FastAPI terrain
 | Mission API client | src/lib/mission-api.ts |
 | Legacy demo | MarsMap.tsx and mission-data.ts remain isolated behind the Demo Mission Map selector |
 
-Real terrain factors are intentionally limited to measured elevation/slope-derived values and a clearly labelled terrain-only heuristic. Resource, access, environment, and science factors render Not available because no verified data exists for them. No A-xx identifier enters the real mission workflow.
+Real terrain factors are intentionally limited to measured elevation/slope-derived values and a clearly labelled terrain-only heuristic. Resource, access, environment, and science factors render Not available because no verified terrain datasets exist for them. Mission resource budgeting is a separate abstract, configurable planning model; it is not oxygen, battery, or NASA-validated life-support telemetry. No A-xx identifier enters the real mission workflow.
 
 ## Backend workflow
 
@@ -28,6 +28,8 @@ The real workflow uses:
 - POST /api/v1/missions/plan for Route A, Route B, Route C availability, and feasibility.
 - POST /api/v1/missions/emergency-return for the same-grid return route.
 
+Mission-plan requests also carry an abstract resource budget, reserve percentage, and configurable consumption-rate assumption. Emergency-return requests can carry the current remaining abstract resource budget; if it is omitted, route availability is still returned but resource feasibility is marked unavailable.
+
 Route A and Route B use the validated terrain cost and slope rasters with an 8-connected A* grid. Returned GeoJSON is in the Mars projected CRS and includes distance, elevation gain/loss, slope exposure, terrain cost, time, assumptions, grid resolution, and closure/snap metadata. Route C is unavailable until a verified science-target waypoint dataset exists.
 
 The legacy /api/v1/zones endpoint remains backed by zones_v0 for compatibility.
@@ -39,6 +41,6 @@ The completed implementation was verified with:
 - node node_modules/typescript/bin/tsc --noEmit
 - npm run test -- --run: 40 frontend tests passed
 - npm run build: Vite and Nitro succeeded
-- backend/tests: 17 tests passed
+- backend/tests: 23 tests passed, including normal/insufficient resource, emergency resource budget, unavailable-data, and destination-recalculation cases
 
 Manual browser verification and GDAL-based scripts/gis/validate_outputs.py remain follow-up checks because those tools were not available in the implementation environment.
