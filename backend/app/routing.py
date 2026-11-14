@@ -7,7 +7,7 @@ import rasterio
 from rasterio.enums import Resampling
 from rasterio.windows import Window, from_bounds
 
-from .data import COST_PATH, SLOPE_PATH
+from .data import COST_PATH, DEM_PATH, SLOPE_PATH
 from .models import RouteRequest
 
 MAX_GRID_DIMENSION = 300
@@ -128,6 +128,20 @@ def route(request: RouteRequest) -> dict:
     coordinates = [grid.cell_to_coordinate(r, c) for r, c in path]
     distance = sum(math.dist(a, b) for a, b in zip(coordinates, coordinates[1:]))
     path_slopes = [float(grid.slopes[r, c]) for r, c in path]
+    with rasterio.open(DEM_PATH) as dem_ds:
+        elevations = [float(v[0]) for v in dem_ds.sample(coordinates)]
+    diffs = [b - a for a, b in zip(elevations, elevations[1:])]
+    elevation_gain = sum(d for d in diffs if d > 0)
+    elevation_loss = -sum(d for d in diffs if d < 0)
+    slope_above_10_fraction = sum(1 for s in path_slopes if s > 10) / len(path_slopes)
     one_way_hours = distance / request.walking_speed_m_per_hour
     total_hours = one_way_hours * 2 + request.activity_hours + request.contingency_hours
-    return {"type": "Feature", "geometry": {"type": "LineString", "coordinates": coordinates}, "properties": {"mode": request.mode, "distance_m": round(distance, 1), "cumulative_terrain_cost": round(cumulative_cost, 1), "mean_slope_degrees": round(float(np.mean(path_slopes)), 2), "max_slope_degrees": round(float(np.max(path_slopes)), 2), "estimated_one_way_hours": round(one_way_hours, 2), "estimated_total_eva_hours": round(total_hours, 2), "eva_limit_hours": request.eva_limit_hours, "passes_demo_time_assumptions": None if request.eva_limit_hours is None else total_hours <= request.eva_limit_hours, "grid_resolution_m": [round(abs(grid.cell_x), 1), round(abs(grid.cell_y), 1)], "simulated_closure_count": len(request.closures), "endpoint_snapped_to_traversable_cell": start != requested_start or destination != requested_destination, "disclaimer": "Prototype terrain route using a resampled 20 m DEM. It is not a certified astronaut-safe route."}}
+    algorithm_name = "A* (8-connected grid, resampled 20 m DEM-derived cost raster)"
+    assumptions = [
+        f"Walking speed: {request.walking_speed_m_per_hour:.0f} m/h (configurable; this run used the request value, not a fixed constant).",
+        "Terrain-aware mode penalizes a cell by (terrain_cost - 1) / 10 on top of geometric distance; shortest mode ignores terrain cost.",
+        "Cells with terrain_cost outside [1, 100) or slope outside [0, 15] degrees are treated as impassable.",
+        "Elevation gain/loss is summed from DEM samples along the path centerline, not a full-resolution profile.",
+        "Not a certified astronaut-safe route: the 20 m DEM cannot resolve individual rocks or sub-pixel hazards.",
+    ]
+    return {"type": "Feature", "geometry": {"type": "LineString", "coordinates": coordinates}, "properties": {"mode": request.mode, "algorithm": algorithm_name, "assumptions": assumptions, "distance_m": round(distance, 1), "distance_km": round(distance / 1000, 3), "elevation_gain_m": round(elevation_gain, 1), "elevation_loss_m": round(elevation_loss, 1), "cumulative_terrain_cost": round(cumulative_cost, 1), "mean_slope_degrees": round(float(np.mean(path_slopes)), 2), "max_slope_degrees": round(float(np.max(path_slopes)), 2), "slope_exposure_fraction_above_10deg": round(slope_above_10_fraction, 3), "estimated_one_way_hours": round(one_way_hours, 2), "estimated_total_eva_hours": round(total_hours, 2), "eva_limit_hours": request.eva_limit_hours, "passes_demo_time_assumptions": None if request.eva_limit_hours is None else total_hours <= request.eva_limit_hours, "grid_resolution_m": [round(abs(grid.cell_x), 1), round(abs(grid.cell_y), 1)], "simulated_closure_count": len(request.closures), "endpoint_snapped_to_traversable_cell": start != requested_start or destination != requested_destination, "disclaimer": "Prototype terrain route using a resampled 20 m DEM. It is not a certified astronaut-safe route."}}

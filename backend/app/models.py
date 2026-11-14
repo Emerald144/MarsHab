@@ -27,3 +27,19 @@ class RouteRequest(BaseModel):
         if sum(c.radius_m for c in closures) > 100_000:
             raise ValueError("combined closure size is too large")
         return closures
+
+class MissionPlanRequest(BaseModel):
+    """Plan a mission from the verified base to a real JZ zone."""
+    destination_zone_id: str
+    eva_hours: float | None = Field(default=None, gt=0, le=72)
+    science_hours: float = Field(default=0, ge=0, le=24)
+    buffer_hours: float = Field(default=0.5, ge=0, le=24)
+    walking_speed_m_per_hour: float = Field(default=1_000, gt=0, le=10_000)
+    closures: list[Closure] = Field(default_factory=list, max_length=20)
+
+class EmergencyReturnRequest(BaseModel):
+    """Return route from a simulated current position back to the mission base."""
+    current: Point
+    eva_hours: float | None = Field(default=None, gt=0, le=72)
+    walking_speed_m_per_hour: float = Field(default=1_000, gt=0, le=10_000)
+    closures: list[Closure] = Field(default_factory=list, max_length=20)

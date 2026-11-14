@@ -3,9 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import logging
 
-from . import data
+from . import data, missions, zones
 from .config import DATA_ROOT, missing_data_paths
-from .models import RouteRequest
+from .models import EmergencyReturnRequest, MissionPlanRequest, RouteRequest
 from .routing import route
 
 _missing = missing_data_paths()
@@ -54,3 +54,18 @@ def get_weather_summary(): return data.weather_summary()
 def create_route(request: RouteRequest):
     try: return route(request)
     except ValueError as error: raise HTTPException(422, str(error)) from error
+
+@app.get("/api/v1/jezero/zones")
+def get_jezero_zones(): return zones.jezero_zone_stats()
+
+@app.get("/api/v1/jezero/base")
+def get_jezero_base(): return zones.base_location()
+
+@app.post("/api/v1/missions/plan")
+def plan_mission(request: MissionPlanRequest):
+    try: return missions.plan_mission(request)
+    except ValueError as error: raise HTTPException(422, str(error)) from error
+
+@app.post("/api/v1/missions/emergency-return")
+def mission_emergency_return(request: EmergencyReturnRequest):
+    return missions.emergency_return(request)
