@@ -79,13 +79,15 @@ route eligible when `location_verified` is true.
 
 ## Integration
 
-The router is deliberately not mounted in `backend/app/main.py`, which belongs
-to the integration owner. To enable it, that owner should add:
+The router is mounted by the integration branch in `backend/app/main.py`:
 
 ```python
 from .science_api import router as science_router
 app.include_router(science_router)
 ```
+
+The catalog is available under `/api/science`. Mounting the read-only catalog
+does not make any target route-eligible; the current target list remains empty.
 
 Read-only endpoints:
 

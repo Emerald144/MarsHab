@@ -6,6 +6,7 @@ import logging
 from . import data, missions, zones
 from .config import DATA_ROOT, missing_data_paths
 from .environment_api import router as environment_router
+from .science_api import router as science_router
 from .models import EmergencyReturnRequest, MissionPlanRequest, RouteRequest
 from .routing import route
 
@@ -32,6 +33,9 @@ app.add_middleware(
 
 # Historical NASA MEDA environment data (read-only), /api/v1/environment/*
 app.include_router(environment_router)
+# Provenance-aware science catalog; route-eligible targets remain empty until
+# a Mars-only coordinate transformation and DEM coverage check are verified.
+app.include_router(science_router)
 
 @app.get("/api/v1/health")
 def health(): return {"status": "ok", "service": "jezero-terrain-planning"}
