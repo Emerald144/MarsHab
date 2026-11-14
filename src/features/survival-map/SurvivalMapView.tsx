@@ -1,6 +1,6 @@
 import { useLanguage } from "@/i18n/useLanguage";
 import { useState, type CSSProperties } from "react";
-import { Check, ArrowRight, X, Shield, FlaskConical, Siren } from "lucide-react";
+import { Check, X, Shield, FlaskConical, Siren } from "lucide-react";
 
 import {
   FACTOR_LABELS,
@@ -13,9 +13,38 @@ import {
   type Mode,
 } from "@/lib/mission-data";
 
-import { useMission } from "@/lib/mission-store";
+import { isRealZoneId, useMission } from "@/lib/mission-store";
 import { MarsMap, type Layers } from "@/components/mars/MarsMap";
+import { RealTerrainMap } from "@/components/mars/RealTerrainMap";
 import { Bar, Legend, Panel, Ring } from "@/components/mars/ui";
+
+type MapKind = "demo" | "real";
+
+function MapKindSelector({ value, onChange }: { value: MapKind; onChange: (v: MapKind) => void }) {
+  const { t } = useLanguage();
+  return (
+    <div className="glass glass-overlay inline-flex gap-1 p-1 text-xs">
+      <button
+        onClick={() => onChange("demo")}
+        aria-pressed={value === "demo"}
+        className={`rounded-sm px-3 py-1.5 font-display uppercase tracking-wider ${
+          value === "demo" ? "glass-selected text-mars" : "text-muted-foreground"
+        }`}
+      >
+        {t("Demo Mission Map")}
+      </button>
+      <button
+        onClick={() => onChange("real")}
+        aria-pressed={value === "real"}
+        className={`rounded-sm px-3 py-1.5 font-display uppercase tracking-wider ${
+          value === "real" ? "glass-selected text-data" : "text-muted-foreground"
+        }`}
+      >
+        {t("Real Jezero Terrain")}
+      </button>
+    </div>
+  );
+}
 
 // Mission mode selector
 export function ModeSelector() {
@@ -94,7 +123,7 @@ function Weights() {
 // Survival Map page
 export function SurvivalMapView() {
   const { t, display } = useLanguage();
-  const { mode, setDestination, setView, setFeasibilityChecked, setRoutesGenerated } = useMission();
+  const { mode, setDestination, setView } = useMission();
 
   const [layers, setLayers] = useState<Layers>({
     suitability: true,
@@ -107,6 +136,7 @@ export function SurvivalMapView() {
 
   const [sel, setSel] = useState<string | null>(null);
   const zone = ZONES.find((z) => z.id === sel);
+  const [mapKind, setMapKind] = useState<MapKind>("real");
 
   const layerOptions: [keyof Layers, string][] = [
     ["suitability", "Survival Suitability"],
@@ -118,52 +148,77 @@ export function SurvivalMapView() {
   ];
 
   return (
-    <div className="grid gap-4 xl:grid-cols-[240px_1fr]">
-      <div className="space-y-4">
-        <Panel title={t("Map Layers")}>
-          <div className="space-y-2">
-            {layerOptions.map(([key, label]) => (
-              <label key={key} className="flex cursor-pointer items-center gap-2.5 text-sm">
-                <input
-                  type="checkbox"
-                  checked={layers[key]}
-                  onChange={() =>
-                    setLayers((previous) => ({
-                      ...previous,
-                      [key]: !previous[key],
-                    }))
-                  }
-                  className="accent-[var(--data)]"
-                />
-                {display(label)}
-              </label>
-            ))}
-          </div>
-        </Panel>
-
-        <Panel title={t("Mission Mode")}>
-          <ModeSelector />
-          <Weights />
-        </Panel>
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <MapKindSelector value={mapKind} onChange={setMapKind} />
+        {mapKind === "demo" ? (
+          <span className="rounded-sm border border-dashed border-muted-foreground px-2 py-1 text-[11px] text-muted-foreground">
+            {t("Legacy illustrative demo — not georeferenced, not used for mission results")}
+          </span>
+        ) : (
+          <span className="rounded-sm border border-dashed border-data px-2 py-1 text-[11px] text-data">
+            {t("Primary map — drives Mission Setup, routes, feasibility and report")}
+          </span>
+        )}
       </div>
 
-      <div className="relative" data-theme="dark">
-        <MarsMap
-          layers={layers}
-          selectedZone={sel}
-          onZoneClick={setSel}
+      {mapKind === "real" ? (
+        <RealTerrainMap
           className="h-[72vh] min-h-[480px]"
+          onSelectAsDestination={(id) => {
+            if (isRealZoneId(id)) {
+              setDestination(id);
+              setView("planner");
+            }
+          }}
         />
+      ) : (
+        <div className="grid gap-4 xl:grid-cols-[240px_1fr]">
+          <div className="space-y-4">
+            <Panel title={t("Map Layers")}>
+              <div className="space-y-2">
+                {layerOptions.map(([key, label]) => (
+                  <label key={key} className="flex cursor-pointer items-center gap-2.5 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={layers[key]}
+                      onChange={() =>
+                        setLayers((previous) => ({
+                          ...previous,
+                          [key]: !previous[key],
+                        }))
+                      }
+                      className="accent-[var(--data)]"
+                    />
+                    {display(label)}
+                  </label>
+                ))}
+              </div>
+            </Panel>
 
-        <div className="absolute bottom-4 left-4">
-          <Legend />
-        </div>
-
-        {!zone && (
-          <div className="glass glass-overlay absolute right-4 top-4 px-4 py-2 text-xs text-muted-foreground">
-            {t("Click a zone to inspect its suitability")}
+            <Panel title={t("Mission Mode")}>
+              <ModeSelector />
+              <Weights />
+            </Panel>
           </div>
-        )}
+
+          <div className="relative" data-theme="dark">
+            <MarsMap
+              layers={layers}
+              selectedZone={sel}
+              onZoneClick={setSel}
+              className="h-[72vh] min-h-[480px]"
+            />
+
+            <div className="absolute bottom-4 left-4">
+              <Legend />
+            </div>
+
+            {!zone && (
+              <div className="glass glass-overlay absolute right-4 top-4 px-4 py-2 text-xs text-muted-foreground">
+                {t("Click a zone to inspect its suitability")}
+              </div>
+            )}
 
         {zone &&
           (() => {
@@ -217,22 +272,17 @@ export function SurvivalMapView() {
                   ))}
                 </ul>
 
-                <button
-                  onClick={() => {
-                    setDestination(zone.id);
-                    setFeasibilityChecked(false);
-                    setRoutesGenerated(false);
-                    setView("planner");
-                  }}
-                  className="btn-mars mt-6 flex w-full items-center justify-center gap-2 py-3 text-xs"
-                >
-                  {t("Select as Destination")}
-                  <ArrowRight className="h-4 w-4" />
-                </button>
+                <div className="mt-6 rounded-sm border border-dashed border-muted-foreground p-3 text-[11px] text-muted-foreground">
+                  {t(
+                    "Legacy demo area — illustrative only. Switch to Real Jezero Terrain to select an actual mission destination."
+                  )}
+                </div>
               </div>
             );
           })()}
-      </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

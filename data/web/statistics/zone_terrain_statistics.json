@@ -1,0 +1,526 @@
+{
+  "generated": "2026-11-14T02:49:34+00:00",
+  "crs_projected": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+  "crs_proj4": "+proj=eqc +lat_ts=18.4663 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs +type=crs",
+  "slope_classes_degrees": [
+    {
+      "name": "gentle",
+      "min_exclusive": null,
+      "max_inclusive": 5.0
+    },
+    {
+      "name": "moderate",
+      "min_exclusive": 5.0,
+      "max_inclusive": 15.0
+    },
+    {
+      "name": "steep",
+      "min_exclusive": 15.0,
+      "max_inclusive": null
+    }
+  ],
+  "extra_thresholds_degrees": [
+    10.0,
+    20.0,
+    30.0
+  ],
+  "units": {
+    "elevation": "metre (relative to Mars 2000 sphere datum, MOLA-tied per USGS)",
+    "slope": "degree",
+    "area": "km2",
+    "centroid_projected": "metre (Jezero_Crater_Projection)",
+    "centroid_lon_lat": "degree, planetocentric latitude, east-positive longitude, Mars 2000 sphere R=3396190 m"
+  },
+  "zonal_method": "Polygon rasterised to the 20 m DEM grid using the pixel-centre rule (ALL_TOUCHED=FALSE); NoData pixels excluded; coverage = valid pixels / pixels inside polygon.",
+  "disclaimer": "Slope classes are analysis categories, not validated astronaut safety thresholds. Slope at 20 m does not measure boulders, loose regolith, sand or surface stability.",
+  "zones": [
+    {
+      "zone_id": "JZ-01",
+      "geometry_source": "Jezero_HiRISE_DEM/jezero_final_zones.geojson",
+      "area_km2_planar_projected": 846.609,
+      "area_km2_spherical": 844.141,
+      "centroid_projected_m": [
+        4371973.6,
+        1124733.9
+      ],
+      "centroid_lon_lat_deg": [
+        77.761783,
+        18.974941
+      ],
+      "pixels_in_zone": 2116768,
+      "elevation_m": {
+        "valid_pixels": 2116768,
+        "coverage_percent": 100.0,
+        "min": -2760.992,
+        "max": -1527.745,
+        "mean": -2130.966,
+        "median": -2122.28,
+        "std": 236.673,
+        "range": 1233.248
+      },
+      "slope_deg": {
+        "valid_pixels": 2116768,
+        "coverage_percent": 100.0,
+        "mean": 5.676,
+        "median": 4.229,
+        "std": 5.021,
+        "min": 0.001,
+        "max": 75.725,
+        "p90": 11.544,
+        "p99": 25.742
+      },
+      "slope_class_percent": {
+        "gentle": 58.617,
+        "moderate": 35.852,
+        "steep": 5.53
+      },
+      "percent_above_threshold": {
+        "gt_10_deg": 13.411,
+        "gt_20_deg": 2.453,
+        "gt_30_deg": 0.468
+      },
+      "terrain_screening": {
+        "gentle_coverage_percent": 58.617,
+        "steep_coverage_percent": 5.53,
+        "elevation_range_m": 1233.248,
+        "data_completeness_percent": 100.0,
+        "dominant_slope_class": "gentle",
+        "heuristic_terrain_index": 76.5,
+        "heuristic_terrain_index_note": "HEURISTIC, not validated: 100*(f_gentle + 0.5*f_moderate); null if coverage < 90.0%"
+      },
+      "data_quality_flags": [],
+      "sources": {
+        "elevation": "Jezero_CTX_DEM/M20_JezeroCrater_CTXDEM_20m.tif",
+        "slope": "Jezero_CTX_DEM/Jezero_Slope.tif",
+        "zones": "Jezero_HiRISE_DEM/jezero_final_zones.geojson"
+      }
+    },
+    {
+      "zone_id": "JZ-02",
+      "geometry_source": "Jezero_HiRISE_DEM/jezero_final_zones.geojson",
+      "area_km2_planar_projected": 832.753,
+      "area_km2_spherical": 834.964,
+      "centroid_projected_m": [
+        4393032.0,
+        1073631.4
+      ],
+      "centroid_lon_lat_deg": [
+        78.136337,
+        18.112812
+      ],
+      "pixels_in_zone": 2081898,
+      "elevation_m": {
+        "valid_pixels": 2081898,
+        "coverage_percent": 100.0,
+        "min": -3134.801,
+        "max": -475.841,
+        "mean": -2050.848,
+        "median": -2212.216,
+        "std": 616.197,
+        "range": 2658.96
+      },
+      "slope_deg": {
+        "valid_pixels": 2081898,
+        "coverage_percent": 100.0,
+        "mean": 11.045,
+        "median": 7.389,
+        "std": 12.365,
+        "min": 0.0,
+        "max": 87.547,
+        "p90": 23.41,
+        "p99": 63.893
+      },
+      "slope_class_percent": {
+        "gentle": 35.423,
+        "moderate": 43.919,
+        "steep": 20.658
+      },
+      "percent_above_threshold": {
+        "gt_10_deg": 36.855,
+        "gt_20_deg": 12.775,
+        "gt_30_deg": 7.121
+      },
+      "terrain_screening": {
+        "gentle_coverage_percent": 35.423,
+        "steep_coverage_percent": 20.658,
+        "elevation_range_m": 2658.96,
+        "data_completeness_percent": 100.0,
+        "dominant_slope_class": "moderate",
+        "heuristic_terrain_index": 57.4,
+        "heuristic_terrain_index_note": "HEURISTIC, not validated: 100*(f_gentle + 0.5*f_moderate); null if coverage < 90.0%"
+      },
+      "data_quality_flags": [],
+      "sources": {
+        "elevation": "Jezero_CTX_DEM/M20_JezeroCrater_CTXDEM_20m.tif",
+        "slope": "Jezero_CTX_DEM/Jezero_Slope.tif",
+        "zones": "Jezero_HiRISE_DEM/jezero_final_zones.geojson"
+      }
+    },
+    {
+      "zone_id": "JZ-03",
+      "geometry_source": "Jezero_HiRISE_DEM/jezero_final_zones.geojson",
+      "area_km2_planar_projected": 808.43,
+      "area_km2_spherical": 807.584,
+      "centroid_projected_m": [
+        4392313.3,
+        1099060.9
+      ],
+      "centroid_lon_lat_deg": [
+        78.123554,
+        18.541823
+      ],
+      "pixels_in_zone": 2021063,
+      "elevation_m": {
+        "valid_pixels": 2021063,
+        "coverage_percent": 100.0,
+        "min": -2924.619,
+        "max": -1556.514,
+        "mean": -2457.08,
+        "median": -2476.443,
+        "std": 187.513,
+        "range": 1368.105
+      },
+      "slope_deg": {
+        "valid_pixels": 2021063,
+        "coverage_percent": 100.0,
+        "mean": 5.921,
+        "median": 3.911,
+        "std": 6.914,
+        "min": 0.0,
+        "max": 86.721,
+        "p90": 12.481,
+        "p99": 35.836
+      },
+      "slope_class_percent": {
+        "gentle": 60.168,
+        "moderate": 33.058,
+        "steep": 6.775
+      },
+      "percent_above_threshold": {
+        "gt_10_deg": 15.161,
+        "gt_20_deg": 3.457,
+        "gt_30_deg": 1.383
+      },
+      "terrain_screening": {
+        "gentle_coverage_percent": 60.168,
+        "steep_coverage_percent": 6.775,
+        "elevation_range_m": 1368.105,
+        "data_completeness_percent": 100.0,
+        "dominant_slope_class": "gentle",
+        "heuristic_terrain_index": 76.7,
+        "heuristic_terrain_index_note": "HEURISTIC, not validated: 100*(f_gentle + 0.5*f_moderate); null if coverage < 90.0%"
+      },
+      "data_quality_flags": [],
+      "sources": {
+        "elevation": "Jezero_CTX_DEM/M20_JezeroCrater_CTXDEM_20m.tif",
+        "slope": "Jezero_CTX_DEM/Jezero_Slope.tif",
+        "zones": "Jezero_HiRISE_DEM/jezero_final_zones.geojson"
+      }
+    },
+    {
+      "zone_id": "JZ-04",
+      "geometry_source": "Jezero_HiRISE_DEM/jezero_final_zones.geojson",
+      "area_km2_planar_projected": 844.748,
+      "area_km2_spherical": 845.567,
+      "centroid_projected_m": [
+        4369622.1,
+        1055629.5
+      ],
+      "centroid_lon_lat_deg": [
+        77.71996,
+        17.809107
+      ],
+      "pixels_in_zone": 2112784,
+      "elevation_m": {
+        "valid_pixels": 2112784,
+        "coverage_percent": 100.0,
+        "min": -3122.384,
+        "max": -1871.187,
+        "mean": -2502.255,
+        "median": -2512.461,
+        "std": 242.869,
+        "range": 1251.197
+      },
+      "slope_deg": {
+        "valid_pixels": 2112784,
+        "coverage_percent": 100.0,
+        "mean": 6.997,
+        "median": 4.863,
+        "std": 6.818,
+        "min": 0.0,
+        "max": 79.962,
+        "p90": 15.259,
+        "p99": 32.613
+      },
+      "slope_class_percent": {
+        "gentle": 51.395,
+        "moderate": 38.302,
+        "steep": 10.302
+      },
+      "percent_above_threshold": {
+        "gt_10_deg": 19.626,
+        "gt_20_deg": 5.884,
+        "gt_30_deg": 1.512
+      },
+      "terrain_screening": {
+        "gentle_coverage_percent": 51.395,
+        "steep_coverage_percent": 10.302,
+        "elevation_range_m": 1251.197,
+        "data_completeness_percent": 100.0,
+        "dominant_slope_class": "gentle",
+        "heuristic_terrain_index": 70.5,
+        "heuristic_terrain_index_note": "HEURISTIC, not validated: 100*(f_gentle + 0.5*f_moderate); null if coverage < 90.0%"
+      },
+      "data_quality_flags": [],
+      "sources": {
+        "elevation": "Jezero_CTX_DEM/M20_JezeroCrater_CTXDEM_20m.tif",
+        "slope": "Jezero_CTX_DEM/Jezero_Slope.tif",
+        "zones": "Jezero_HiRISE_DEM/jezero_final_zones.geojson"
+      }
+    },
+    {
+      "zone_id": "JZ-05",
+      "geometry_source": "Jezero_HiRISE_DEM/jezero_final_zones.geojson",
+      "area_km2_planar_projected": 755.038,
+      "area_km2_spherical": 755.376,
+      "centroid_projected_m": [
+        4349770.6,
+        1076458.9
+      ],
+      "centroid_lon_lat_deg": [
+        77.366872,
+        18.160512
+      ],
+      "pixels_in_zone": 1887592,
+      "elevation_m": {
+        "valid_pixels": 1887592,
+        "coverage_percent": 100.0,
+        "min": -2706.502,
+        "max": -1515.539,
+        "mean": -2247.314,
+        "median": -2109.846,
+        "std": 299.013,
+        "range": 1190.963
+      },
+      "slope_deg": {
+        "valid_pixels": 1887592,
+        "coverage_percent": 100.0,
+        "mean": 5.0,
+        "median": 3.458,
+        "std": 4.623,
+        "min": 0.001,
+        "max": 46.447,
+        "p90": 11.409,
+        "p99": 21.252
+      },
+      "slope_class_percent": {
+        "gentle": 65.276,
+        "moderate": 29.477,
+        "steep": 5.247
+      },
+      "percent_above_threshold": {
+        "gt_10_deg": 12.85,
+        "gt_20_deg": 1.515,
+        "gt_30_deg": 0.025
+      },
+      "terrain_screening": {
+        "gentle_coverage_percent": 65.276,
+        "steep_coverage_percent": 5.247,
+        "elevation_range_m": 1190.963,
+        "data_completeness_percent": 100.0,
+        "dominant_slope_class": "gentle",
+        "heuristic_terrain_index": 80.0,
+        "heuristic_terrain_index_note": "HEURISTIC, not validated: 100*(f_gentle + 0.5*f_moderate); null if coverage < 90.0%"
+      },
+      "data_quality_flags": [],
+      "sources": {
+        "elevation": "Jezero_CTX_DEM/M20_JezeroCrater_CTXDEM_20m.tif",
+        "slope": "Jezero_CTX_DEM/Jezero_Slope.tif",
+        "zones": "Jezero_HiRISE_DEM/jezero_final_zones.geojson"
+      }
+    },
+    {
+      "zone_id": "JZ-06",
+      "geometry_source": "Jezero_HiRISE_DEM/jezero_final_zones.geojson",
+      "area_km2_planar_projected": 1009.861,
+      "area_km2_spherical": 1009.831,
+      "centroid_projected_m": [
+        4350362.5,
+        1105796.2
+      ],
+      "centroid_lon_lat_deg": [
+        77.3774,
+        18.655451
+      ],
+      "pixels_in_zone": 2524663,
+      "elevation_m": {
+        "valid_pixels": 2524663,
+        "coverage_percent": 100.0,
+        "min": -2651.101,
+        "max": -1595.389,
+        "mean": -2212.042,
+        "median": -2117.823,
+        "std": 260.651,
+        "range": 1055.711
+      },
+      "slope_deg": {
+        "valid_pixels": 2524663,
+        "coverage_percent": 100.0,
+        "mean": 5.042,
+        "median": 3.753,
+        "std": 4.358,
+        "min": 0.002,
+        "max": 59.341,
+        "p90": 10.727,
+        "p99": 20.97
+      },
+      "slope_class_percent": {
+        "gentle": 62.719,
+        "moderate": 33.261,
+        "steep": 4.02
+      },
+      "percent_above_threshold": {
+        "gt_10_deg": 11.701,
+        "gt_20_deg": 1.275,
+        "gt_30_deg": 0.046
+      },
+      "terrain_screening": {
+        "gentle_coverage_percent": 62.719,
+        "steep_coverage_percent": 4.02,
+        "elevation_range_m": 1055.711,
+        "data_completeness_percent": 100.0,
+        "dominant_slope_class": "gentle",
+        "heuristic_terrain_index": 79.3,
+        "heuristic_terrain_index_note": "HEURISTIC, not validated: 100*(f_gentle + 0.5*f_moderate); null if coverage < 90.0%"
+      },
+      "data_quality_flags": [],
+      "sources": {
+        "elevation": "Jezero_CTX_DEM/M20_JezeroCrater_CTXDEM_20m.tif",
+        "slope": "Jezero_CTX_DEM/Jezero_Slope.tif",
+        "zones": "Jezero_HiRISE_DEM/jezero_final_zones.geojson"
+      }
+    },
+    {
+      "zone_id": "JZ-07",
+      "geometry_source": "Jezero_HiRISE_DEM/jezero_final_zones.geojson",
+      "area_km2_planar_projected": 402.07,
+      "area_km2_spherical": 401.776,
+      "centroid_projected_m": [
+        4376553.9,
+        1108704.9
+      ],
+      "centroid_lon_lat_deg": [
+        77.843251,
+        18.704522
+      ],
+      "pixels_in_zone": 1004922,
+      "elevation_m": {
+        "valid_pixels": 1004922,
+        "coverage_percent": 100.0,
+        "min": -2624.997,
+        "max": -1898.057,
+        "mean": -2303.274,
+        "median": -2286.727,
+        "std": 147.91,
+        "range": 726.939
+      },
+      "slope_deg": {
+        "valid_pixels": 1004922,
+        "coverage_percent": 100.0,
+        "mean": 4.28,
+        "median": 3.208,
+        "std": 3.987,
+        "min": 0.003,
+        "max": 81.538,
+        "p90": 8.366,
+        "p99": 20.39
+      },
+      "slope_class_percent": {
+        "gentle": 73.29,
+        "moderate": 23.861,
+        "steep": 2.848
+      },
+      "percent_above_threshold": {
+        "gt_10_deg": 7.064,
+        "gt_20_deg": 1.078,
+        "gt_30_deg": 0.168
+      },
+      "terrain_screening": {
+        "gentle_coverage_percent": 73.29,
+        "steep_coverage_percent": 2.848,
+        "elevation_range_m": 726.939,
+        "data_completeness_percent": 100.0,
+        "dominant_slope_class": "gentle",
+        "heuristic_terrain_index": 85.2,
+        "heuristic_terrain_index_note": "HEURISTIC, not validated: 100*(f_gentle + 0.5*f_moderate); null if coverage < 90.0%"
+      },
+      "data_quality_flags": [],
+      "sources": {
+        "elevation": "Jezero_CTX_DEM/M20_JezeroCrater_CTXDEM_20m.tif",
+        "slope": "Jezero_CTX_DEM/Jezero_Slope.tif",
+        "zones": "Jezero_HiRISE_DEM/jezero_final_zones.geojson"
+      }
+    },
+    {
+      "zone_id": "JZ-08",
+      "geometry_source": "Jezero_HiRISE_DEM/jezero_final_zones.geojson",
+      "area_km2_planar_projected": 328.16,
+      "area_km2_spherical": 328.724,
+      "centroid_projected_m": [
+        4367471.4,
+        1069366.3
+      ],
+      "centroid_lon_lat_deg": [
+        77.681705,
+        18.040856
+      ],
+      "pixels_in_zone": 819480,
+      "elevation_m": {
+        "valid_pixels": 819480,
+        "coverage_percent": 100.0,
+        "min": -2695.714,
+        "max": -1378.257,
+        "mean": -2310.71,
+        "median": -2345.628,
+        "std": 285.585,
+        "range": 1317.457
+      },
+      "slope_deg": {
+        "valid_pixels": 819480,
+        "coverage_percent": 100.0,
+        "mean": 8.057,
+        "median": 5.877,
+        "std": 7.345,
+        "min": 0.0,
+        "max": 83.872,
+        "p90": 17.663,
+        "p99": 30.838
+      },
+      "slope_class_percent": {
+        "gentle": 42.969,
+        "moderate": 42.55,
+        "steep": 14.481
+      },
+      "percent_above_threshold": {
+        "gt_10_deg": 27.751,
+        "gt_20_deg": 7.001,
+        "gt_30_deg": 1.075
+      },
+      "terrain_screening": {
+        "gentle_coverage_percent": 42.969,
+        "steep_coverage_percent": 14.481,
+        "elevation_range_m": 1317.457,
+        "data_completeness_percent": 100.0,
+        "dominant_slope_class": "gentle",
+        "heuristic_terrain_index": 64.2,
+        "heuristic_terrain_index_note": "HEURISTIC, not validated: 100*(f_gentle + 0.5*f_moderate); null if coverage < 90.0%"
+      },
+      "data_quality_flags": [],
+      "sources": {
+        "elevation": "Jezero_CTX_DEM/M20_JezeroCrater_CTXDEM_20m.tif",
+        "slope": "Jezero_CTX_DEM/Jezero_Slope.tif",
+        "zones": "Jezero_HiRISE_DEM/jezero_final_zones.geojson"
+      }
+    }
+  ]
+}

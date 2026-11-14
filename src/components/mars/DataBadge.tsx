@@ -1,7 +1,7 @@
 import { useLanguage } from "@/i18n/useLanguage";
 import { FlaskConical, Image as ImageIcon, Satellite } from "lucide-react";
 
-export type DataKind = "real" | "simulated" | "illustrative";
+export type DataKind = "real" | "heuristic" | "simulated" | "illustrative";
 
 const KINDS: Record<
   DataKind,
@@ -12,6 +12,12 @@ const KINDS: Record<
     hint: "Derived from NASA datasets",
     icon: Satellite,
     cls: "border-data text-data bg-data/10",
+  },
+  heuristic: {
+    label: "HEURISTIC",
+    hint: "Computed from real terrain data using an unvalidated heuristic formula",
+    icon: FlaskConical,
+    cls: "border-caution text-caution bg-caution/10",
   },
   simulated: {
     label: "SIMULATED",

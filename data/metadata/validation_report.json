@@ -1,0 +1,79 @@
+{
+  "generated": "2026-11-14T02:50:13+00:00",
+  "passed": 12,
+  "failed": 0,
+  "checks": [
+    {
+      "id": 1,
+      "check": "All vector geometries are valid",
+      "status": "PASS",
+      "detail": "8 valid"
+    },
+    {
+      "id": 2,
+      "check": "Zone IDs are unique",
+      "status": "PASS",
+      "detail": "JZ-01, JZ-02, JZ-03, JZ-04, JZ-05, JZ-06, JZ-07, JZ-08"
+    },
+    {
+      "id": 3,
+      "check": "Zone geometries intersect raster coverage",
+      "status": "PASS",
+      "detail": "all intersect; fully inside DEM extent: 8/8"
+    },
+    {
+      "id": 4,
+      "check": "Raster and zone CRS align",
+      "status": "PASS",
+      "detail": "DEM==stats CRS: True; DEM==zone metadata CRS: True; slope grid identical: True"
+    },
+    {
+      "id": 5,
+      "check": "NoData excluded from statistics",
+      "status": "PASS",
+      "detail": "no elevation minimum near float32 NoData (-3.4e38) or -9999; mask built from band NoData"
+    },
+    {
+      "id": 6,
+      "check": "Elevation values numeric and finite",
+      "status": "PASS",
+      "detail": "within Mars physical range -9 km..+22 km"
+    },
+    {
+      "id": 7,
+      "check": "Slope values within 0-90 degrees",
+      "status": "PASS",
+      "detail": "existing slope vs recomputation: mean |diff| 0.0 deg"
+    },
+    {
+      "id": 8,
+      "check": "Zone area computed in suitable units",
+      "status": "PASS",
+      "detail": "km2 from projected metres and from sphere geodesic; agree within 2%; pixel count x 400 m2 within 1%"
+    },
+    {
+      "id": 9,
+      "check": "JSON and CSV statistics match",
+      "status": "PASS",
+      "detail": "mismatches: []"
+    },
+    {
+      "id": 10,
+      "check": "Every derived file has documented provenance",
+      "status": "PASS",
+      "detail": "derived rasters in data_sources.json; every web layer lists its source"
+    },
+    {
+      "id": 11,
+      "check": "Web layer bounds align with vector layers",
+      "status": "PASS",
+      "detail": "zone bbox (4335668, 1047224, 4408152, 1136696) inside layer bounds; PNG sizes match manifest and pixel vectors"
+    },
+    {
+      "id": 12,
+      "check": "No zone contains fabricated measurements",
+      "status": "PASS",
+      "detail": "every value computed from raster pixels; slope means reproduce the earlier independent QGIS zonal stats (differences > 0.01 deg: [])"
+    }
+  ]
+}

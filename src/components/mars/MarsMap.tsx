@@ -48,7 +48,10 @@ export function MarsMap({
 }: Props) {
   const { t, display } = useLanguage();
   const { mode, destination } = useMission();
-  const dest = ZONES.find((z) => z.id === destination)!;
+  // This demo map is a self-contained legacy view: `destination` in mission-store is
+  // now always a real JZ-xx id, which never matches the illustrative A-xx zones here.
+  // Fall back to a fixed demo zone so the legacy view keeps rendering on its own.
+  const dest = ZONES.find((z) => z.id === destination) ?? ZONES[0]!;
   const pathRefs = useRef<Record<string, SVGPathElement | null>>({});
   const [marker, setMarker] = useState<[number, number] | null>(null);
 

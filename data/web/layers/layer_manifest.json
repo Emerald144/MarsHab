@@ -1,0 +1,212 @@
+{
+  "generated": "2026-11-14T02:50:11+00:00",
+  "raster_layers": [
+    {
+      "id": "terrain",
+      "name": "Terrain (hillshade + elevation tint)",
+      "path": "data/web/layers/terrain_preview.png",
+      "source": [
+        "Jezero_CTX_DEM/M20_JezeroCrater_CTXDEM_20m.tif",
+        "terranexis-phase1-data/rasters/hillshade.tif"
+      ],
+      "legend": {
+        "type": "continuous",
+        "colormap": "terrain",
+        "unit": "m",
+        "min": -3243.6,
+        "max": -1147.4,
+        "note": "1st-99th percentile stretch"
+      },
+      "bounds": {
+        "projected_m": {
+          "xmin": 4328999.999999998,
+          "ymin": 1042080.0000000028,
+          "xmax": 4418119.999999998,
+          "ymax": 1143420.0000000028
+        },
+        "mars_lon_lat_deg": {
+          "west": 76.997437,
+          "south": 17.58052,
+          "east": 78.582563,
+          "north": 19.290187
+        }
+      },
+      "crs": "Jezero_Crater_Projection",
+      "width_px": 1114,
+      "height_px": 1267,
+      "display_pixel_size_m": 80.0,
+      "source_pixel_size_m": 20.0,
+      "note": "Display-only RGBA PNG; transparent = NoData. Equidistant cylindrical, so the image is also a plain equirectangular image in Mars lon/lat between the given bounds."
+    },
+    {
+      "id": "elevation",
+      "name": "Elevation (CTX DEM)",
+      "path": "data/web/layers/elevation_preview.png",
+      "source": [
+        "Jezero_CTX_DEM/M20_JezeroCrater_CTXDEM_20m.tif"
+      ],
+      "legend": {
+        "type": "continuous",
+        "colormap": "terrain",
+        "unit": "m",
+        "min": -3243.6,
+        "max": -1147.4,
+        "stops": [
+          {
+            "value": -3243.6,
+            "color": "#333399"
+          },
+          {
+            "value": -2719.6,
+            "color": "#01cc66"
+          },
+          {
+            "value": -2195.5,
+            "color": "#fefd98"
+          },
+          {
+            "value": -1671.5,
+            "color": "#815d56"
+          },
+          {
+            "value": -1147.4,
+            "color": "#31359b"
+          }
+        ]
+      },
+      "resampling": "average of 4x4 source pixels",
+      "bounds": {
+        "projected_m": {
+          "xmin": 4328999.999999998,
+          "ymin": 1042080.0000000028,
+          "xmax": 4418119.999999998,
+          "ymax": 1143420.0000000028
+        },
+        "mars_lon_lat_deg": {
+          "west": 76.997437,
+          "south": 17.58052,
+          "east": 78.582563,
+          "north": 19.290187
+        }
+      },
+      "crs": "Jezero_Crater_Projection",
+      "width_px": 1114,
+      "height_px": 1267,
+      "display_pixel_size_m": 80.0,
+      "source_pixel_size_m": 20.0,
+      "note": "Display-only RGBA PNG; transparent = NoData. Equidistant cylindrical, so the image is also a plain equirectangular image in Mars lon/lat between the given bounds."
+    },
+    {
+      "id": "slope",
+      "name": "Slope classes",
+      "path": "data/web/layers/slope_preview.png",
+      "source": [
+        "Jezero_CTX_DEM/Jezero_Slope.tif"
+      ],
+      "legend": {
+        "type": "categorical",
+        "unit": "degree",
+        "classes": [
+          {
+            "name": "gentle",
+            "min_exclusive": null,
+            "max_inclusive": 5.0,
+            "color": "#2ea043"
+          },
+          {
+            "name": "moderate",
+            "min_exclusive": 5.0,
+            "max_inclusive": 15.0,
+            "color": "#f0b428"
+          },
+          {
+            "name": "steep",
+            "min_exclusive": 15.0,
+            "max_inclusive": null,
+            "color": "#d23232"
+          }
+        ],
+        "note": "Analysis categories, not validated safety thresholds"
+      },
+      "resampling": "classified at 20 m, then majority (mode) of 4x4 pixels",
+      "bounds": {
+        "projected_m": {
+          "xmin": 4328999.999999998,
+          "ymin": 1042080.0000000028,
+          "xmax": 4418119.999999998,
+          "ymax": 1143420.0000000028
+        },
+        "mars_lon_lat_deg": {
+          "west": 76.997437,
+          "south": 17.58052,
+          "east": 78.582563,
+          "north": 19.290187
+        }
+      },
+      "crs": "Jezero_Crater_Projection",
+      "width_px": 1114,
+      "height_px": 1267,
+      "display_pixel_size_m": 80.0,
+      "source_pixel_size_m": 20.0,
+      "note": "Display-only RGBA PNG; transparent = NoData. Equidistant cylindrical, so the image is also a plain equirectangular image in Mars lon/lat between the given bounds."
+    },
+    {
+      "id": "hillshade",
+      "name": "Hillshade",
+      "path": "data/web/layers/hillshade_preview.png",
+      "source": [
+        "terranexis-phase1-data/rasters/hillshade.tif"
+      ],
+      "legend": {
+        "type": "continuous",
+        "colormap": "gray",
+        "unit": "relative illumination 0-255",
+        "note": "Azimuth 315, altitude 45"
+      },
+      "bounds": {
+        "projected_m": {
+          "xmin": 4328999.999999998,
+          "ymin": 1042080.0000000028,
+          "xmax": 4418119.999999998,
+          "ymax": 1143420.0000000028
+        },
+        "mars_lon_lat_deg": {
+          "west": 76.997437,
+          "south": 17.58052,
+          "east": 78.582563,
+          "north": 19.290187
+        }
+      },
+      "crs": "Jezero_Crater_Projection",
+      "width_px": 1114,
+      "height_px": 1267,
+      "display_pixel_size_m": 80.0,
+      "source_pixel_size_m": 20.0,
+      "note": "Display-only RGBA PNG; transparent = NoData. Equidistant cylindrical, so the image is also a plain equirectangular image in Mars lon/lat between the given bounds."
+    }
+  ],
+  "vector_layers": [
+    {
+      "id": "zones_projected",
+      "path": "data/web/zones/jezero_zones.geojson",
+      "crs": "Jezero_Crater_Projection",
+      "units": "m"
+    },
+    {
+      "id": "zones_mars_lonlat",
+      "path": "data/web/zones/jezero_zones_mars_lonlat.geojson",
+      "crs": "Mars 2000 sphere geographic",
+      "units": "degree"
+    },
+    {
+      "id": "zones_preview_pixels",
+      "path": "data/web/zones/jezero_zones_preview_pixels.json",
+      "crs": "preview image pixels",
+      "units": "px"
+    }
+  ],
+  "statistics": [
+    "data/web/statistics/zone_terrain_statistics.json",
+    "data/web/statistics/zone_terrain_statistics.csv"
+  ]
+}

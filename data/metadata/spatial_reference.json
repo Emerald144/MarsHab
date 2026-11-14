@@ -1,0 +1,38 @@
+{
+  "body": "Mars",
+  "reference_surface": "Mars 2000 sphere (IAU 2000), radius 3396190 m (ESRI 106971 / IAU_2015:49900)",
+  "projection": "Equidistant Cylindrical (Plate Carree), standard parallel 18.4663 N, central meridian 0",
+  "name": "Jezero_Crater_Projection",
+  "wkt": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+  "proj4": "+proj=eqc +lat_ts=18.4663 +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs",
+  "longitude_convention": "East-positive, -180..180 (study area ~77.0E-78.6E)",
+  "latitude_type": "Planetocentric (identical to planetographic on a sphere)",
+  "horizontal_units": "metre",
+  "vertical_units": "metre",
+  "vertical_reference": "DEM heights relative to the Mars 2000 sphere / areoid convention used by the USGS product (USGS states the CTX DEMs were vertically tied to MOLA). Not independently re-verified here.",
+  "scale_note": "In eqc, east-west scale is exact only at 18.4663 N; within this DEM (17.58-19.29 N) the E-W scale factor is within about +/-1%. Slope uses the nominal 20 m spacing (error < ~1% in gradient). Areas are given both planar-projected and on the sphere (geodesic).",
+  "dem_extent": {
+    "projected_m": {
+      "xmin": 4328999.999999998,
+      "ymin": 1042080.0000000028,
+      "xmax": 4418119.999999998,
+      "ymax": 1143420.0000000028
+    },
+    "mars_lon_lat_deg": {
+      "west": 76.997437,
+      "south": 17.58052,
+      "east": 78.582563,
+      "north": 19.290187
+    }
+  },
+  "dem_size_px": [
+    4456,
+    5067
+  ],
+  "dem_pixel_size_m": [
+    20.0,
+    -20.0
+  ],
+  "zones_crs": "Same as DEM (verified: identical WKT in jezero_dataset_metadata.json; coordinates fall within DEM extent)",
+  "earth_crs_used": false
+}

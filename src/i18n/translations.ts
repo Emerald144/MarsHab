@@ -331,6 +331,133 @@ export const myanmar = {
     "ဂြိုဟ်များအကြား ရှင်သန်ရေးလမ်းညွှန်: အင်္ဂါဂြိုဟ်မြေပုံ",
   "Prototype Mars mission planner: survival suitability map of Jezero Crater, feasibility checks, route comparison and dynamic rerouting.":
     "အင်္ဂါဂြိုဟ် မစ်ရှင်စီမံရေး ရှေ့ပြေးစနစ်: Jezero ဥက္ကာခဲကျင်း ရှင်သန်ရေးသင့်လျော်မှုမြေပုံ၊ ဖြစ်နိုင်ခြေစစ်ဆေးမှု၊ လမ်းကြောင်းနှိုင်းယှဉ်မှုနှင့် အခြေအနေအလိုက် လမ်းကြောင်းပြောင်းလဲမှု။",
+
+  // Real Jezero terrain (Phase 1 data) — kept separate from the illustrative demo strings above.
+  "Demo Mission Map": "သရုပ်ပြ မစ်ရှင်မြေပုံ",
+  "Real Jezero Terrain": "Jezero အမှန်တကယ် မြေမျက်နှာသွင်ပြင်",
+  "Illustrative demo — not georeferenced": "သရုပ်ဖော်ပုံဖြစ်သည် — မြေပြင်ကိုက်ညီမှု မရှိပါ",
+  "Not available": "မရရှိနိုင်ပါ",
+  "Centroid (lon, lat)": "ဗဟိုအမှတ် (လောင်ဂျီတွဒ်၊ လတ်တွဒ်)",
+  Elevation: "မြင့်မှုအဆင့်",
+  Mean: "ပျမ်းမျှ",
+  "Min / Max": "အနည်းဆုံး / အများဆုံး",
+  Range: "အကွာအဝေး",
+  "Valid coverage": "မှန်ကန်သောဒေတာလွှမ်းခြုံမှု",
+  Slope: "စောင်းအနန်း",
+  "Mean / Median": "ပျမ်းမျှ / အလယ်တန်းတန်ဖိုး",
+  "p90 / p99": "p90 / p99",
+  Max: "အများဆုံး",
+  "Max slope values of roughly 75-88° are likely 20 m DEM artifacts (e.g. single noisy pixels), not measured cliffs. p90/p99 are more representative of the zone.":
+    "၇၅-၈၈ ဒီဂရီခန့်ရှိ အများဆုံးစောင်းအနန်းတန်ဖိုးများသည် 20m DEM ဒေတာအမှားများ (ဥပမာ တစ်ခုတည်းသော ဆူညံသံပစ်ဆယ်) ဖြစ်နိုင်ဆဲဖြစ်ပြီး တိုင်းတာထားသော ကမ်းပါးများ မဟုတ်ပါ။ p90/p99 တန်ဖိုးများသည် ဒေသကို ပိုမိုကိုယ်စားပြုသည်။",
+  "Gentle / Moderate / Steep": "ညင်သာ / အလတ်စား / စောင်းနေသော",
+  "Terrain-only assessment": "မြေမျက်နှာသွင်ပြင်သက်သက် အကဲဖြတ်ချက်",
+  "Terrain-only / Partial — NOT a validated safety classification. Computed only from the available real factor(s) below; missing factors are not treated as zero.":
+    "မြေမျက်နှာသွင်ပြင်သက်သက် / တစ်စိတ်တစ်ပိုင်း — အတည်ပြုထားသော ဘေးကင်းမှုအဆင့်သတ်မှတ်ချက် မဟုတ်ပါ။ အောက်ပါ ရရှိနိုင်သော အချက်များမှသာ တွက်ချက်ထားပြီး ပျောက်ဆုံးနေသော အချက်များကို သုညအဖြစ် မသတ်မှတ်ပါ။",
+  "Data quality flags:": "ဒေတာအရည်အသွေး အမှတ်သားချက်များ:",
+  Source: "ရင်းမြစ်",
+  "CTX DEM, 20 m resolution. See Data Inventory for full provenance.":
+    "CTX DEM, 20 မီတာ ကျယ်ပြန့်မှု။ အပြည့်အစုံ ရင်းမြစ်အချက်အလက်ကို Data Inventory တွင် ကြည့်ပါ။",
+  "Real-zone selection does not feed the demo travel-time, route, or mission-simulation calculations, which use illustrative A-zone data only.":
+    "အမှန်တကယ်ဒေသ ရွေးချယ်မှုသည် သရုပ်ပြ ခရီးချိန်၊ လမ်းကြောင်း သို့မဟုတ် မစ်ရှင်အတုပြုမှု တွက်ချက်မှုများတွင် ပါဝင်မည်မဟုတ်ပါ။ ထိုတွက်ချက်မှုများသည် သရုပ်ဖော် A-ဒေသ အချက်အလက်များကိုသာ အသုံးပြုသည်။",
+  "Loading real terrain data…": "အမှန်တကယ် မြေမျက်နှာသွင်ပြင်ဒေတာကို ဖွင့်နေသည်…",
+  "Could not load real terrain data.": "အမှန်တကယ် မြေမျက်နှာသွင်ပြင်ဒေတာကို ဖွင့်၍မရပါ။",
+  "This layer is not available.": "ဤအလွှာကို မရရှိနိုင်ပါ။",
+  "Real Jezero Crater terrain map": "Jezero ဥက္ကာခဲကျင်း အမှန်တကယ် မြေမျက်နှာသွင်ပြင်မြေပုံ",
+  "JEZERO CRATER · REAL TERRAIN · 1114×1267": "JEZERO ဥက္ကာခဲကျင်း · အမှန်တကယ်မြေပြင် · 1114×1267",
+  "Unit:": "ယူနစ်:",
+  "Click a zone to inspect real terrain data": "အမှန်တကယ် မြေမျက်နှာသွင်ပြင်ဒေတာကို ကြည့်ရန် ဒေသတစ်ခုကို နှိပ်ပါ",
+
+  "Select as Mission Destination": "မစ်ရှင်ဦးတည်ရာအဖြစ် ရွေးချယ်ရန်",
+  "Selecting this zone drives the real Mission Setup, route planning, feasibility, simulation and report — all computed from the real DEM/slope data, not illustrative values.":
+    "ဤဒေသကို ရွေးချယ်ခြင်းသည် မစ်ရှင်ပြင်ဆင်မှု၊ လမ်းကြောင်းစီစဉ်ခြင်း၊ ဖြစ်နိုင်ခြေ၊ အတုပြုခြင်းနှင့် အစီရင်ခံစာကို ပေးဆောင်မည်ဖြစ်ပြီး အားလုံးကို အမှန်တကယ် DEM/dip ဒေတာများမှ တွက်ချက်ထားသည်။",
+  BASE: "ဌာနချုပ်",
+
+  "Terrain is the only measured factor for JZ zones (heuristic from real slope data). Resource, Accessibility, Environmental Risk and Science Value have no verified data and are not estimated.":
+    "JZ ဒေသများအတွက် မြေမျက်နှာသွင်ပြင်သည် တိုင်းတာထားသော တစ်ခုတည်းသော အချက်ဖြစ်သည် (အမှန်တကယ် dip ဒေတာမှ heuristic)။ အရင်းအမြစ်၊ ဝင်ရောက်နိုင်မှု၊ ပတ်ဝန်းကျင်အန္တရာယ်နှင့် သိပ္ပံတန်ဖိုးအတွက် အတည်ပြုဒေတာ မရှိသောကြောင့် ခန့်မှန်း၍ မဖော်ပြပါ။",
+  "Elevation range": "အမြင့်အကွာအဝေး",
+  mean: "ပျမ်းမျှ",
+  "Dominant slope class:": "အများဆုံး dip အတန်းအစား:",
+
+  "Perseverance landing site (verified, Sol 0)": "Perseverance ဆင်းသက်ရာနေရာ (အတည်ပြုထား, Sol 0)",
+  "terrain index": "မြေမျက်နှာသွင်ပြင်ညွှန်းကိန်း",
+  "n/a": "မရရှိနိုင်",
+  "Walking speed is a configurable planning assumption, not a measured astronaut pace. Jezero zones are large regional analysis areas, hundreds of km from the landing site — a single EVA will often not reach a zone centroid.":
+    "လျှောက်လမ်းမြန်နှုန်းသည် ချိန်ညှိနိုင်သော စီစဉ်မှုယူဆချက်ဖြစ်ပြီး တိုင်းတာထားသော အာကာသယာဉ်မှူးအရှိန် မဟုတ်ပါ။ Jezero ဒေသများသည် ဆင်းသက်ရာနေရာမှ ကီလိုမီတာရာနှင့်ချီ ကွာဝေးသော ကျယ်ပြန့်သည့်ဒေသများဖြစ်သောကြောင့် တစ်ကြိမ် EVA ဖြင့် ဒေသအလယ်ချက်သို့ မရောက်နိုင်လေ့ရှိသည်။",
+  "Destination:": "ဦးတည်ရာ:",
+  "Computing terrain-aware route from the real DEM/slope rasters…":
+    "အမှန်တကယ် DEM/dip raster များမှ မြေမျက်နှာသွင်ပြင်ကို ထည့်သွင်းတွက်ချက်သော လမ်းကြောင်းကို တွက်ချက်နေသည်…",
+  "Could not reach the terrain routing backend.": "မြေမျက်နှာသွင်ပြင် လမ်းကြောင်းတွက်ချက်ရေးစနစ်သို့ ဆက်သွယ်၍မရပါ။",
+  "NO ROUTE AVAILABLE": "လမ်းကြောင်း မရရှိနိုင်ပါ",
+  "Basis route:": "အခြေခံလမ်းကြောင်း:",
+  "Route B · Terrain-Aware": "လမ်းကြောင်း B · မြေမျက်နှာသွင်ပြင်ထည့်သွင်းစဉ်းစားသော",
+  "Route A · Shortest Distance": "လမ်းကြောင်း A · အတိုဆုံးအကွာအဝေး",
+  "mean slope": "ပျမ်းမျှ dip",
+  "Over budget by {hours} h at the current walking-speed assumption.":
+    "လက်ရှိ လျှောက်လမ်းမြန်နှုန်းယူဆချက်ဖြင့် {hours} နာရီ ကျော်လွန်နေသည်။",
+  "Preparing route comparison…": "လမ်းကြောင်းနှိုင်းယှဉ်မှုကို ပြင်ဆင်နေသည်…",
+  "Compare Routes": "လမ်းကြောင်းများကို နှိုင်းယှဉ်ရန်",
+  "No EVA limit set": "EVA အကန့်အသတ် မသတ်မှတ်ရသေးပါ",
+  "No route": "လမ်းကြောင်း မရှိပါ",
+  "Terrain-Aware": "မြေမျက်နှာသွင်ပြင်ထည့်သွင်းစဉ်းစားသော",
+  "Shortest Distance": "အတိုဆုံးအကွာအဝေး",
+  "Terrain-cost-based comfort (heuristic from mean slope)":
+    "မြေမျက်နှာသွင်ပြင်ကုန်ကျစရိတ်အခြေခံ သက်တောင့်သက်သာမှု (ပျမ်းမျှ dip မှ heuristic)",
+  "Elevation gain": "အမြင့်တက်မှု",
+  "total estimated time": "စုစုပေါင်း ခန့်မှန်းချိန်",
+  "No traversable route to this zone at the current DEM scale.":
+    "လက်ရှိ DEM အတိုင်းအတာဖြင့် ဤဒေသသို့ သွားနိုင်သော လမ်းကြောင်း မရှိပါ။",
+  Unavailable: "မရရှိနိုင်ပါ",
+  "Route C (Science Priority):": "လမ်းကြောင်း C (သိပ္ပံဦးစားပေး):",
+  "A* OVER TERRAIN-COST GRID": "A* — မြေမျက်နှာသွင်ပြင်ကုန်ကျစရိတ် ဂရစ်ပေါ်",
+  "REAL DEM/SLOPE RASTERS": "အမှန်တကယ် DEM/dip raster များ",
+  "ASSUMPTIONS SHOWN": "ယူဆချက်များ ပြသထားသည်",
+  "No route to explain — none could be computed.": "ရှင်းပြရန် လမ်းကြောင်း မရှိပါ — မည်သည့်လမ်းကြောင်းကိုမျှ တွက်ချက်၍မရပါ။",
+  "SIMULATED CLOSURE NEAR ROUTE MIDPOINT": "လမ်းကြောင်းအလယ်ပိုင်းအနီး အတုပြု ပိတ်ဆို့မှု",
+  "A simulated 1.5 km closure was placed on the route and the terrain cost grid was recalculated.":
+    "လမ်းကြောင်းပေါ်တွင် 1.5 ကီလိုမီတာ အတုပြု ပိတ်ဆို့မှုကို ထားရှိခဲ့ပြီး မြေမျက်နှာသွင်ပြင်ကုန်ကျစရိတ် ဂရစ်ကို ပြန်လည်တွက်ချက်ခဲ့သည်။",
+  Original: "မူလ",
+  Revised: "ပြင်ဆင်ပြီး",
+  unavailable: "မရရှိနိုင်ပါ",
+  "Recalculating route…": "လမ်းကြောင်းကို ပြန်လည်တွက်ချက်နေသည်…",
+  "Accept Revised Route": "ပြင်ဆင်ထားသော လမ်းကြောင်းကို လက်ခံရန်",
+  "Calculates a real terrain-aware route from the current simulated position back to the verified base.":
+    "လက်ရှိ အတုပြုတည်နေရာမှ အတည်ပြုထားသော ဌာနချုပ်သို့ အမှန်တကယ် မြေမျက်နှာသွင်ပြင်ထည့်သွင်းစဉ်းစားသော လမ်းကြောင်းကို တွက်ချက်သည်။",
+  "Return route found": "ပြန်လမ်းကြောင်း တွေ့ရှိပြီ",
+  "No return route could be calculated:": "ပြန်လမ်းကြောင်း တွက်ချက်၍မရပါ:",
+  "Calculating return route…": "ပြန်လမ်းကြောင်းကို တွက်ချက်နေသည်…",
+  "Perseverance landing site": "Perseverance ဆင်းသက်ရာနေရာ",
+  "Active Route": "လက်ရှိအသုံးပြုနေသော လမ်းကြောင်း",
+  "Simulate Environmental Closure": "ပတ်ဝန်းကျင် ပိတ်ဆို့မှုကို အတုပြုရန်",
+  "Rerouted around the simulated closure.": "အတုပြု ပိတ်ဆို့မှုကို ရှောင်ရှားပြီး လမ်းကြောင်းပြောင်းလဲခဲ့သည်။",
+  "MARS-026 · Simulated planning prototype": "MARS-026 · အတုပြု စီစဉ်မှု အစမ်းပုံစံ",
+  "Report Prepared (demo export)": "အစီရင်ခံစာ ပြင်ဆင်ပြီး (သရုပ်ပြထုတ်ယူမှု)",
+  "Real Terrain Assessment": "အမှန်တကယ် မြေမျက်နှာသွင်ပြင် အကဲဖြတ်ချက်",
+  "Terrain-only / Partial — not a validated safety classification":
+    "မြေမျက်နှာသွင်ပြင်သက်သက် / တစ်စိတ်တစ်ပိုင်း — အတည်ပြုထားသော ဘေးကင်းမှုအဆင့်သတ်မှတ်ချက် မဟုတ်ပါ",
+  "Elevation mean:": "ပျမ်းမျှအမြင့်:",
+  "Slope mean / p90:": "ပျမ်းမျှ dip / p90:",
+  "Resource / Access / Environmental Risk / Science:": "အရင်းအမြစ် / ဝင်ရောက်နိုင်မှု / ပတ်ဝန်းကျင်အန္တရာယ် / သိပ္ပံ:",
+  "Route {id} selected: {distance} km, {slope}° mean slope, {time} h total estimate. Route C (Science Priority) unavailable — {reason}":
+    "လမ်းကြောင်း {id} ကို ရွေးချယ်ထားသည်: {distance} ကီလိုမီတာ, ပျမ်းမျှ dip {slope}°, စုစုပေါင်းခန့်မှန်းချိန် {time} နာရီ။ လမ်းကြောင်း C (သိပ္ပံဦးစားပေး) မရရှိနိုင်ပါ — {reason}",
+  "No traversable route was found to this destination.": "ဤဦးတည်ရာသို့ သွားနိုင်သော လမ်းကြောင်း မတွေ့ရှိပါ။",
+  "exceeds available time by {hours} h.": "ရရှိနိုင်သောအချိန်ထက် {hours} နာရီ ကျော်လွန်နေသည်။",
+  "A simulated closure was placed near the route midpoint and the terrain cost grid was recalculated. {result}":
+    "လမ်းကြောင်းအလယ်ပိုင်းအနီး အတုပြု ပိတ်ဆို့မှုကို ထားရှိခဲ့ပြီး မြေမျက်နှာသွင်ပြင်ကုန်ကျစရိတ် ဂရစ်ကို ပြန်လည်တွက်ချက်ခဲ့သည်။ {result}",
+  "Crew accepted the revised route.": "အဖွဲ့သားများသည် ပြင်ဆင်ထားသော လမ်းကြောင်းကို လက်ခံခဲ့သည်။",
+  "Revised route pending acceptance.": "ပြင်ဆင်ထားသော လမ်းကြောင်းကို လက်ခံရန် စောင့်ဆိုင်းနေသည်။",
+  "Emergency return route: {distance} km, {time} h.": "အရေးပေါ်ပြန်လမ်းကြောင်း: {distance} ကီလိုမီတာ, {time} နာရီ။",
+  "Emergency return could not be calculated: {reason}": "အရေးပေါ်ပြန်လမ်းကြောင်း တွက်ချက်၍မရပါ: {reason}",
+  "Proceed with Route {route} to {destination} under {mode} mode, subject to the EVA-time feasibility above. Terrain data is real (20 m CTX DEM); non-terrain factors, oxygen, radiation and battery are not modeled.":
+    "{mode} မုဒ်အောက်တွင် {destination} သို့ လမ်းကြောင်း {route} ဖြင့် ဆက်လက်လုပ်ဆောင်ပါ၊ အထက်ပါ EVA-အချိန် ဖြစ်နိုင်ခြေပေါ် မူတည်သည်။ မြေမျက်နှာသွင်ပြင်ဒေတာသည် အမှန်တကယ်ဖြစ်သည် (20မီ CTX DEM); မြေမျက်နှာသွင်ပြင်မဟုတ်သော အချက်များ၊ အောက်စီဂျင်၊ ရေဒီယိုသတ္တိကြွနှင့် ဘက်ထရီကို မော်ဒယ်မပြုလုပ်ပါ။",
+  "No feasible route is available for this destination with the current assumptions.":
+    "လက်ရှိ ယူဆချက်များဖြင့် ဤဦးတည်ရာအတွက် ဖြစ်နိုင်သော လမ်းကြောင်း မရှိပါ။",
+
+  "Legacy illustrative demo — not georeferenced, not used for mission results":
+    "ရှေးဟောင်း သရုပ်ပြပုံစံ — မြေပုံညွှန်းကိန်းမပါ၊ မစ်ရှင်ရလဒ်များအတွက် အသုံးမပြုပါ",
+  "Primary map — drives Mission Setup, routes, feasibility and report":
+    "အဓိကမြေပုံ — မစ်ရှင်ပြင်ဆင်မှု၊ လမ်းကြောင်းများ၊ ဖြစ်နိုင်ခြေနှင့် အစီရင်ခံစာကို ပေးဆောင်သည်",
+  "Legacy demo area — illustrative only. Switch to Real Jezero Terrain to select an actual mission destination.":
+    "ရှေးဟောင်း သရုပ်ပြဒေသ — သရုပ်ပြသက်သက်သာဖြစ်သည်။ အမှန်တကယ် မစ်ရှင်ဦးတည်ရာကို ရွေးချယ်ရန် Real Jezero Terrain သို့ ပြောင်းပါ။",
 } as const;
 
 export type TranslationKey = keyof typeof myanmar;
