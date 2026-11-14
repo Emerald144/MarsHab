@@ -1,6 +1,6 @@
 import { useLanguage } from "@/i18n/useLanguage";
 import { useState, type CSSProperties } from "react";
-import { Check, ArrowRight, X, Shield, FlaskConical, Siren } from "lucide-react";
+import { Check, X, Shield, FlaskConical, Siren } from "lucide-react";
 
 import {
   FACTOR_LABELS,
@@ -13,7 +13,7 @@ import {
   type Mode,
 } from "@/lib/mission-data";
 
-import { useMission } from "@/lib/mission-store";
+import { isRealZoneId, useMission } from "@/lib/mission-store";
 import { MarsMap, type Layers } from "@/components/mars/MarsMap";
 import { RealTerrainMap } from "@/components/mars/RealTerrainMap";
 import { Bar, Legend, Panel, Ring } from "@/components/mars/ui";
@@ -123,7 +123,7 @@ function Weights() {
 // Survival Map page
 export function SurvivalMapView() {
   const { t, display } = useLanguage();
-  const { mode, setDestination, setView, setFeasibilityChecked, setRoutesGenerated } = useMission();
+  const { mode, setDestination, setView } = useMission();
 
   const [layers, setLayers] = useState<Layers>({
     suitability: true,
@@ -136,7 +136,7 @@ export function SurvivalMapView() {
 
   const [sel, setSel] = useState<string | null>(null);
   const zone = ZONES.find((z) => z.id === sel);
-  const [mapKind, setMapKind] = useState<MapKind>("demo");
+  const [mapKind, setMapKind] = useState<MapKind>("real");
 
   const layerOptions: [keyof Layers, string][] = [
     ["suitability", "Survival Suitability"],
@@ -151,15 +151,27 @@ export function SurvivalMapView() {
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <MapKindSelector value={mapKind} onChange={setMapKind} />
-        {mapKind === "demo" && (
+        {mapKind === "demo" ? (
           <span className="rounded-sm border border-dashed border-muted-foreground px-2 py-1 text-[11px] text-muted-foreground">
-            {t("Illustrative demo — not georeferenced")}
+            {t("Legacy illustrative demo — not georeferenced, not used for mission results")}
+          </span>
+        ) : (
+          <span className="rounded-sm border border-dashed border-data px-2 py-1 text-[11px] text-data">
+            {t("Primary map — drives Mission Setup, routes, feasibility and report")}
           </span>
         )}
       </div>
 
       {mapKind === "real" ? (
-        <RealTerrainMap className="h-[72vh] min-h-[480px]" />
+        <RealTerrainMap
+          className="h-[72vh] min-h-[480px]"
+          onSelectAsDestination={(id) => {
+            if (isRealZoneId(id)) {
+              setDestination(id);
+              setView("planner");
+            }
+          }}
+        />
       ) : (
         <div className="grid gap-4 xl:grid-cols-[240px_1fr]">
           <div className="space-y-4">
@@ -260,18 +272,11 @@ export function SurvivalMapView() {
                   ))}
                 </ul>
 
-                <button
-                  onClick={() => {
-                    setDestination(zone.id);
-                    setFeasibilityChecked(false);
-                    setRoutesGenerated(false);
-                    setView("planner");
-                  }}
-                  className="btn-mars mt-6 flex w-full items-center justify-center gap-2 py-3 text-xs"
-                >
-                  {t("Select as Destination")}
-                  <ArrowRight className="h-4 w-4" />
-                </button>
+                <div className="mt-6 rounded-sm border border-dashed border-muted-foreground p-3 text-[11px] text-muted-foreground">
+                  {t(
+                    "Legacy demo area — illustrative only. Switch to Real Jezero Terrain to select an actual mission destination."
+                  )}
+                </div>
               </div>
             );
           })()}

@@ -5,10 +5,38 @@ import AnimatedContent from "@/components/animations/AnimatedContent";
 import { useOverviewMotion } from "@/hooks/use-overview-motion";
 import { OverviewMarsGlobe } from "./OverviewMarsGlobe";
 import jezeroMap from "@/assets/jezero-map.jpg";
-import { FACTOR_LABELS, ZONES, score, tier, tierColor, type Factors } from "@/lib/mission-data";
 import { useMission } from "@/lib/mission-store";
+import {
+  REAL_FACTOR_LABELS,
+  partialTerrainScore,
+  type RealTerrainDataset,
+  type RealZoneFactors,
+} from "@/lib/jezero-real-data";
+import type { MissionPlan } from "@/lib/mission-api";
 
-type Feasibility = { out: number; ret: number; total: number; remaining: number; ok: boolean };
+type Props = {
+  plan: MissionPlan | undefined;
+  isLoading: boolean;
+  isError: boolean;
+  dataset: RealTerrainDataset | undefined;
+};
+
+function tierLabel(value: number | null) {
+  if (value === null) return "N/A";
+  return value >= 80 ? "HIGH" : value >= 60 ? "MODERATE" : "LOW";
+}
+function tierColorFor(value: number | null) {
+  if (value === null) return "var(--muted-foreground)";
+  return value >= 80 ? "var(--safe)" : value >= 60 ? "var(--caution)" : "var(--danger)";
+}
+
+/** Display-only rounding for the overview's decimal-hour labels. */
+export function formatMissionHours(value: number) {
+  // JS `toFixed` can render a decimal boundary such as 30.45 as 30.4
+  // because the underlying binary value is slightly below the boundary.
+  const rounded = Math.sign(value) * Math.round((Math.abs(value) + Number.EPSILON) * 10) / 10;
+  return rounded.toFixed(1);
+}
 
 function Gauge({ value, color }: { value: number; color: string }) {
   const radius = 23;
@@ -31,13 +59,16 @@ function Gauge({ value, color }: { value: number; color: string }) {
   );
 }
 
-export function OverviewDashboard({ feasibility: f }: { feasibility: Feasibility }) {
+export function OverviewDashboard({ plan, isLoading, isError, dataset }: Props) {
   const { t, display } = useLanguage();
   const [motionPaused, setMotionPaused] = useState(false);
   const motionRef = useOverviewMotion(motionPaused);
-  const { setView, destination, mode, setup, feasibilityChecked, routesGenerated } = useMission();
-  const zone = ZONES.find((item) => item.id === destination)!;
-  const suitability = score(zone.factors, mode);
+  const { setView, destination, setup, feasibilityChecked, routesGenerated } = useMission();
+  const zone = dataset?.zones.find((item) => item.id === destination);
+  const suitability = zone ? partialTerrainScore(zone.factors) : null;
+  const f = plan?.feasibility;
+  const preferredAvailable = plan ? plan.routes.B.available || plan.routes.A.available : false;
+  const availableRouteCount = plan ? Number(plan.routes.A.available) + Number(plan.routes.B.available) : 0;
   const missionStatus = routesGenerated
     ? "ROUTES GENERATED"
     : feasibilityChecked
@@ -45,38 +76,40 @@ export function OverviewDashboard({ feasibility: f }: { feasibility: Feasibility
       : "AWAITING MISSION SETUP";
   const telemetry = [
     {
-      label: "Survival Suitability",
-      value: `${suitability}%`,
-      status: tier(suitability),
-      color: tierColor(suitability),
-      note: "Mode-weighted zone score",
+      label: "Terrain-Only Suitability",
+      value: suitability === null ? t("Not available") : `${suitability}%`,
+      status: tierLabel(suitability),
+      color: tierColorFor(suitability),
+      note: "Partial — real heuristic terrain index only",
       gauge: suitability,
     },
     {
       label: "Mission Feasibility",
-      value: "92%",
-      status: f.ok ? "FEASIBLE" : "AT RISK",
-      color: f.ok ? "var(--safe)" : "var(--danger)",
-      note: "Illustrative indicator · not calculated",
+      value: f ? (f.feasible === null ? t("Not available") : f.feasible ? t("FEASIBLE") : t("NOT FEASIBLE")) : t("Not available"),
+      status: isLoading ? "CALCULATING…" : isError ? "BACKEND UNREACHABLE" : preferredAvailable ? "REAL ROUTE" : "NO ROUTE",
+      color: f?.feasible ? "var(--safe)" : f?.feasible === false ? "var(--danger)" : "var(--muted-foreground)",
+      note: "Computed from the real DEM/slope terrain-cost A* route",
       gauge: null,
     },
     {
       label: "Routes Analyzed",
-      value: "3",
+      value: `${availableRouteCount} / 3`,
       status: "A · B · C",
       color: "var(--data)",
-      note: "Prototype comparison set",
+      note: "Route C always unavailable: no verified science-target data for JZ zones",
       gauge: null,
     },
     {
       label: "Mission Time",
-      value: `${f.total.toFixed(1)} h`,
+      value: f ? `${formatMissionHours(f.estimated_total_hours)} h` : t("Not available"),
       status: t("OF {hours} h EVA", { hours: setup.eva }),
-      color: f.ok ? "var(--data)" : "var(--danger)",
-      note: t(f.remaining < 0 ? "{hours} h over budget" : "{hours} h remaining", {
-        hours: Math.abs(f.remaining).toFixed(1),
-      }),
-      gauge: setup.eva > 0 ? (f.total / setup.eva) * 100 : 100,
+      color: f?.feasible ? "var(--data)" : "var(--danger)",
+      note: f
+        ? t((f.remaining_eva_hours ?? 0) < 0 ? "{hours} h over budget" : "{hours} h remaining", {
+            hours: formatMissionHours(Math.abs(f.remaining_eva_hours ?? 0)),
+          })
+        : "",
+      gauge: f && setup.eva > 0 ? (f.estimated_total_hours / setup.eva) * 100 : null,
     },
   ];
 
@@ -301,36 +334,60 @@ export function OverviewDashboard({ feasibility: f }: { feasibility: Feasibility
               {t("MODELED FACTORS · 0–100")}
             </span>
           </div>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-5">
-            {(Object.keys(FACTOR_LABELS) as (keyof Factors)[]).map((key) => (
-              <div key={key} className="min-w-0">
-                <h3 className="text-xs text-text-secondary">{display(FACTOR_LABELS[key])}</h3>
-                <p className="mt-3 font-mono text-2xl text-data">
-                  {zone.factors[key]}
-                  <span className="ml-1 text-xs text-muted-foreground">/100</span>
-                </p>
-                <div aria-hidden="true" className="mt-3 h-1 rounded-full bg-data/10">
-                  <div
-                    className="h-full rounded-full bg-data/70"
-                    style={{ width: `${zone.factors[key]}%` }}
-                  />
-                </div>
+          {zone ? (
+            <>
+              <div className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-5">
+                {(Object.keys(REAL_FACTOR_LABELS) as (keyof RealZoneFactors)[]).map((key) => (
+                  <div key={key} className="min-w-0">
+                    <h3 className="text-xs text-text-secondary">{display(REAL_FACTOR_LABELS[key])}</h3>
+                    <p className="mt-3 font-mono text-2xl text-data">
+                      {zone.factors[key] === null ? (
+                        <span className="text-base text-muted-foreground">{t("Not available")}</span>
+                      ) : (
+                        <>
+                          {zone.factors[key]}
+                          <span className="ml-1 text-xs text-muted-foreground">/100</span>
+                        </>
+                      )}
+                    </p>
+                    <div aria-hidden="true" className="mt-3 h-1 rounded-full bg-data/10">
+                      <div
+                        className="h-full rounded-full bg-data/70"
+                        style={{ width: `${zone.factors[key] ?? 0}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
-            {t(
-              "Prototype factor ratings, not measured conditions or NASA safety classifications. Environmental Risk is the existing model factor, not a hazard probability.",
-            )}
-          </p>
-          <ul className="mt-5 grid gap-x-6 gap-y-2 border-t border-border pt-5 text-xs leading-relaxed text-text-secondary sm:grid-cols-2">
-            {zone.reasons.map((reason) => (
-              <li key={reason} className="flex items-start gap-2">
-                <Check aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-data" />
-                {display(reason)}
-              </li>
-            ))}
-          </ul>
+              <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
+                {t(
+                  "Terrain is the only measured factor for JZ zones (heuristic from real slope data). Resource, Accessibility, Environmental Risk and Science Value have no verified data and are not estimated.",
+                )}
+              </p>
+              <ul className="mt-5 grid gap-x-6 gap-y-2 border-t border-border pt-5 text-xs leading-relaxed text-text-secondary sm:grid-cols-2">
+                <li className="flex items-start gap-2">
+                  <Check aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-data" />
+                  {t("Elevation range")} {zone.elevation.range.toFixed(0)} m ({t("mean")} {zone.elevation.mean.toFixed(0)} m)
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-data" />
+                  {t("Dominant slope class:")} {display(zone.terrainScreening.dominant_slope_class)}
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-data" />
+                  {t("Area")} {zone.areaKm2.toFixed(1)} km²
+                </li>
+                {zone.dataQualityFlags.length > 0 && (
+                  <li className="flex items-start gap-2 text-caution">
+                    <Check aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-caution" />
+                    {t("Data quality flags:")} {zone.dataQualityFlags.join(", ")}
+                  </li>
+                )}
+              </ul>
+            </>
+          ) : (
+            <p className="mt-6 text-sm text-muted-foreground">{t("Loading real terrain data…")}</p>
+          )}
         </section>
       </AnimatedContent>
 

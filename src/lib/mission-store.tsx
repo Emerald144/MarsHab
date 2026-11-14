@@ -1,16 +1,23 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import type { Mode, RouteId } from "./mission-data";
+import type { JezeroZoneId } from "./jezero-real-data";
+import type { MissionPlan, RouteOutcome } from "./mission-api";
 
 export type View = "overview" | "map" | "planner" | "routes" | "execution" | "report";
 
-type Setup = { name: string; eva: number; science: number; buffer: number; resource: number };
+type Setup = { name: string; eva: number; science: number; buffer: number; resource: number; walkingSpeedMPerHour: number };
+
+/** `destination` is always a real JZ-xx zone id in the primary workflow; the legacy
+ * A-xx demo module (mission-data.ts) is no longer reachable from it. */
+export const isRealZoneId = (id: string): id is JezeroZoneId => /^JZ-0[1-8]$/.test(id);
+
 type State = {
   view: View;
   setView: (v: View) => void;
   mode: Mode;
   setMode: (m: Mode) => void;
-  destination: string;
-  setDestination: (d: string) => void;
+  destination: JezeroZoneId;
+  setDestination: (d: JezeroZoneId) => void;
   setup: Setup;
   setSetup: (s: Setup) => void;
   feasibilityChecked: boolean;
@@ -23,6 +30,14 @@ type State = {
   setEnvChanged: (b: boolean) => void;
   rerouted: boolean;
   setRerouted: (b: boolean) => void;
+  /** Real mission plan from POST /api/v1/missions/plan (routes A/B/C + feasibility). */
+  missionPlan: MissionPlan | null;
+  setMissionPlan: (p: MissionPlan | null) => void;
+  /** Recomputed plan after a simulated environmental closure, for comparison. */
+  revisedMissionPlan: MissionPlan | null;
+  setRevisedMissionPlan: (p: MissionPlan | null) => void;
+  emergencyRoute: RouteOutcome | null;
+  setEmergencyRoute: (r: RouteOutcome | null) => void;
 };
 
 const Ctx = createContext<State | null>(null);
@@ -30,19 +45,35 @@ const Ctx = createContext<State | null>(null);
 export function MissionProvider({ children }: { children: ReactNode }) {
   const [view, setView] = useState<View>("overview");
   const [mode, setMode] = useState<Mode>("survival");
-  const [destination, setDestination] = useState("A-17");
+  const [destination, setDestination] = useState<JezeroZoneId>("JZ-06");
   const [setup, setSetup] = useState<Setup>({
     name: "Jezero Geological Survey",
-    eva: 6,
+    eva: 8,
     science: 1.2,
     buffer: 0.5,
     resource: 80,
+    walkingSpeedMPerHour: 1000,
   });
   const [feasibilityChecked, setFeasibilityChecked] = useState(false);
   const [routesGenerated, setRoutesGenerated] = useState(false);
   const [activeRoute, setActiveRoute] = useState<RouteId>("B");
   const [envChanged, setEnvChanged] = useState(false);
   const [rerouted, setRerouted] = useState(false);
+  const [missionPlan, setMissionPlan] = useState<MissionPlan | null>(null);
+  const [revisedMissionPlan, setRevisedMissionPlan] = useState<MissionPlan | null>(null);
+  const [emergencyRoute, setEmergencyRoute] = useState<RouteOutcome | null>(null);
+
+  const changeDestination = (d: JezeroZoneId) => {
+    setDestination(d);
+    setFeasibilityChecked(false);
+    setRoutesGenerated(false);
+    setMissionPlan(null);
+    setRevisedMissionPlan(null);
+    setEmergencyRoute(null);
+    setEnvChanged(false);
+    setRerouted(false);
+  };
+
   return (
     <Ctx.Provider
       value={{
@@ -54,7 +85,7 @@ export function MissionProvider({ children }: { children: ReactNode }) {
         mode,
         setMode,
         destination,
-        setDestination,
+        setDestination: changeDestination,
         setup,
         setSetup,
         feasibilityChecked,
@@ -67,6 +98,12 @@ export function MissionProvider({ children }: { children: ReactNode }) {
         setEnvChanged,
         rerouted,
         setRerouted,
+        missionPlan,
+        setMissionPlan,
+        revisedMissionPlan,
+        setRevisedMissionPlan,
+        emergencyRoute,
+        setEmergencyRoute,
       }}
     >
       {children}

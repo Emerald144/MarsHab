@@ -5,7 +5,7 @@ from dataclasses import dataclass
 import numpy as np
 import rasterio
 from rasterio.enums import Resampling
-from rasterio.windows import Window, from_bounds
+from rasterio.windows import from_bounds
 
 from .data import COST_PATH, DEM_PATH, SLOPE_PATH
 from .models import RouteRequest
@@ -32,6 +32,13 @@ class Grid:
     def cell_to_coordinate(self, row: int, col: int) -> list[float]:
         return [self.west + (col + .5) * self.cell_x, self.north + (row + .5) * self.cell_y]
 
+
+def _assert_compatible_rasters(cost_ds, slope_ds, dem_ds) -> None:
+    if cost_ds.crs != slope_ds.crs or cost_ds.crs != dem_ds.crs:
+        raise ValueError("terrain rasters do not share a compatible CRS")
+    if not np.allclose(tuple(cost_ds.transform), tuple(slope_ds.transform)) or not np.allclose(tuple(cost_ds.transform), tuple(dem_ds.transform)):
+        raise ValueError("terrain rasters do not share a compatible geotransform")
+
 def _load_grid(request: RouteRequest) -> Grid:
     # The direct corridor can be cut by a scarp or an impassable (>15°) DEM
     # cell. Keep a meaningful detour envelope instead of declaring no route
@@ -41,7 +48,8 @@ def _load_grid(request: RouteRequest) -> Grid:
     east = max(request.start.easting, request.destination.easting) + margin
     south = min(request.start.northing, request.destination.northing) - margin
     north = max(request.start.northing, request.destination.northing) + margin
-    with rasterio.open(COST_PATH) as cost_ds, rasterio.open(SLOPE_PATH) as slope_ds:
+    with rasterio.open(COST_PATH) as cost_ds, rasterio.open(SLOPE_PATH) as slope_ds, rasterio.open(DEM_PATH) as dem_ds:
+        _assert_compatible_rasters(cost_ds, slope_ds, dem_ds)
         bounds = cost_ds.bounds
         if west < bounds.left or east > bounds.right or south < bounds.bottom or north > bounds.top:
             raise ValueError("start or destination is outside the DEM coverage")
@@ -51,7 +59,12 @@ def _load_grid(request: RouteRequest) -> Grid:
         costs = cost_ds.read(1, window=raw, out_shape=(out_h, out_w), resampling=Resampling.average)
         slopes = slope_ds.read(1, window=raw, out_shape=(out_h, out_w), resampling=Resampling.average)
         transform = cost_ds.window_transform(raw)
-        return Grid(costs=costs, slopes=slopes, west=transform.c, north=transform.f, cell_x=abs(transform.a) * scale, cell_y=-abs(transform.e) * scale)
+        # The output dimensions may be smaller than the source window by a
+        # non-integral factor. Use the actual dimensions to keep cell centres
+        # georeferenced at the raster window edges.
+        cell_x = abs(transform.a) * raw.width / out_w
+        cell_y = -abs(transform.e) * raw.height / out_h
+        return Grid(costs=costs, slopes=slopes, west=transform.c, north=transform.f, cell_x=cell_x, cell_y=cell_y)
 
 def _astar(grid: Grid, start: tuple[int, int], goal: tuple[int, int], terrain_aware: bool) -> tuple[list[tuple[int, int]], float]:
     rows, cols = grid.costs.shape

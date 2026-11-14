@@ -9,8 +9,16 @@ import {
   type RealTerrainLayerId,
   type RealZone,
 } from "@/lib/jezero-real-data";
+import { projectedToPixel, type MarsPoint } from "@/lib/mission-api";
 import { DataBadge } from "@/components/mars/DataBadge";
 import { Panel } from "@/components/mars/ui";
+
+export type RealRouteOverlay = {
+  id: string;
+  color: string;
+  coordinates: [number, number][]; // [easting, northing] pairs, Mars projected metres
+  dash?: string | undefined;
+};
 
 const LAYER_ORDER: RealTerrainLayerId[] = ["terrain", "elevation", "slope", "hillshade"];
 
@@ -30,7 +38,15 @@ function fmt(n: number | null | undefined, digits = 1, unit = "") {
 }
 
 /** Real Jezero zone metrics panel. Every value is read from the Phase 1 JSON — nothing hardcoded. */
-function RealZonePanel({ zone, onClose }: { zone: RealZone; onClose: () => void }) {
+function RealZonePanel({
+  zone,
+  onClose,
+  onSelectAsDestination,
+}: {
+  zone: RealZone;
+  onClose: () => void;
+  onSelectAsDestination?: ((id: string) => void) | undefined;
+}) {
   const { t, display } = useLanguage();
   const partial = partialTerrainScore(zone.factors);
 
@@ -153,22 +169,57 @@ function RealZonePanel({ zone, onClose }: { zone: RealZone; onClose: () => void 
         <div className="mt-1">{t("CTX DEM, 20 m resolution. See Data Inventory for full provenance.")}</div>
       </div>
 
+      {onSelectAsDestination && (
+        <button
+          onClick={() => onSelectAsDestination(zone.id)}
+          className="btn-mars mt-5 flex w-full items-center justify-center gap-2 py-3 text-xs"
+        >
+          {t("Select as Mission Destination")}
+        </button>
+      )}
       <div className="mt-5 rounded-sm border border-dashed border-muted-foreground p-3 text-[11px] text-muted-foreground">
         {t(
-          "Real-zone selection does not feed the demo travel-time, route, or mission-simulation calculations, which use illustrative A-zone data only."
+          "Selecting this zone drives the real Mission Setup, route planning, feasibility, simulation and report — all computed from the real DEM/slope data, not illustrative values."
         )}
       </div>
     </div>
   );
 }
 
-type Props = { className?: string };
+type Props = {
+  className?: string;
+  /** Controlled selection, so a parent (e.g. the mission planner) can drive which zone is shown. */
+  selectedZoneId?: string | null;
+  onSelectZone?: (id: string | null) => void;
+  /** Real computed route(s) in Mars projected metres, drawn on top of the terrain layer. */
+  routes?: RealRouteOverlay[];
+  /** Mission base marker, in Mars projected metres. */
+  basePoint?: MarsPoint;
+  /** A moving marker (e.g. simulated current position), in Mars projected metres. */
+  markerPoint?: MarsPoint;
+  hidePanel?: boolean;
+  onSelectAsDestination?: (id: string) => void;
+};
 
-export function RealTerrainMap({ className }: Props) {
+export function RealTerrainMap({
+  className,
+  selectedZoneId,
+  onSelectZone,
+  routes,
+  basePoint,
+  markerPoint,
+  hidePanel,
+  onSelectAsDestination,
+}: Props) {
   const { t, display } = useLanguage();
   const { data, isLoading, isError, error } = useRealTerrainDataset();
   const [activeLayer, setActiveLayer] = useState<RealTerrainLayerId>("terrain");
-  const [selected, setSelected] = useState<string | null>(null);
+  const [internalSelected, setInternalSelected] = useState<string | null>(null);
+  const selected = selectedZoneId !== undefined ? selectedZoneId : internalSelected;
+  const setSelected = (id: string | null) => {
+    setInternalSelected(id);
+    onSelectZone?.(id);
+  };
 
   if (isLoading) {
     return (
@@ -245,6 +296,15 @@ export function RealTerrainMap({ className }: Props) {
                 <g
                   key={z.id}
                   onClick={() => setSelected(z.id)}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`${z.id} terrain zone`}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      setSelected(z.id);
+                    }
+                  }}
                   className="cursor-pointer"
                 >
                   <title>{z.id}</title>
@@ -271,6 +331,49 @@ export function RealTerrainMap({ className }: Props) {
                 </g>
               );
             })}
+            {routes?.map((r) => {
+              const layerForBounds = data.layers.find((item) => item.id === "terrain") ?? data.layers[0];
+              if (!layerForBounds) return null;
+              const bounds = layerForBounds.bounds.projected_m;
+              const points = r.coordinates
+                .map(([easting, northing]) => projectedToPixel({ easting, northing }, bounds, data.width, data.height))
+                .map(([x, y]) => `${x},${y}`)
+                .join(" ");
+              return (
+                <polyline
+                  key={r.id}
+                  points={points}
+                  fill="none"
+                  stroke={r.color}
+                  strokeWidth={3}
+                  strokeDasharray={r.dash}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  opacity={0.9}
+                />
+              );
+            })}
+            {basePoint &&
+              (data.layers.find((item) => item.id === "terrain") ?? data.layers[0]) &&
+              (() => {
+                const layerForBounds = data.layers.find((item) => item.id === "terrain") ?? data.layers[0]!;
+                const [bx, by] = projectedToPixel(basePoint, layerForBounds.bounds.projected_m, data.width, data.height);
+                return (
+                  <g>
+                    <circle cx={bx} cy={by} r={9} fill="var(--mars)" stroke="white" strokeWidth={2} />
+                    <text x={bx} y={by - 14} textAnchor="middle" className="fill-foreground font-mono text-[12px] font-semibold">
+                      {t("BASE")}
+                    </text>
+                  </g>
+                );
+              })()}
+            {markerPoint &&
+              (data.layers.find((item) => item.id === "terrain") ?? data.layers[0]) &&
+              (() => {
+                const layerForBounds = data.layers.find((item) => item.id === "terrain") ?? data.layers[0]!;
+                const [mx, my] = projectedToPixel(markerPoint, layerForBounds.bounds.projected_m, data.width, data.height);
+                return <circle cx={mx} cy={my} r={7} fill="var(--data)" stroke="white" strokeWidth={2} />;
+              })()}
           </svg>
         )}
 
@@ -287,12 +390,14 @@ export function RealTerrainMap({ className }: Props) {
           </div>
         )}
 
-        {!zone && (
+        {!hidePanel && !zone && (
           <div className="glass glass-overlay absolute right-4 top-4 px-4 py-2 text-xs text-muted-foreground">
             {t("Click a zone to inspect real terrain data")}
           </div>
         )}
-        {zone && <RealZonePanel zone={zone} onClose={() => setSelected(null)} />}
+        {!hidePanel && zone && (
+          <RealZonePanel zone={zone} onClose={() => setSelected(null)} onSelectAsDestination={onSelectAsDestination} />
+        )}
       </div>
     </div>
   );

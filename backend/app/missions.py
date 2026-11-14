@@ -78,7 +78,7 @@ def emergency_return(req: EmergencyReturnRequest) -> dict[str, Any]:
         start=req.current,
         destination=Point(easting=base["easting"], northing=base["northing"]),
         mode="terrain_aware",
-        closures=[],
+        closures=req.closures,
         walking_speed_m_per_hour=req.walking_speed_m_per_hour,
         activity_hours=0,
         contingency_hours=0,
