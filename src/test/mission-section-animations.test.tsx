@@ -176,6 +176,58 @@ const reroutedPlan: MissionPlan = {
   },
 };
 
+// A fixture plan where Route C is available, to exercise the real two-leg science-waypoint wiring.
+const scienceRouteCPlan: MissionPlan = {
+  ...planResponse(8, 1, 0.5, 1000),
+  routes: {
+    ...planResponse(8, 1, 0.5, 1000).routes,
+    C: {
+      name: "Science Priority",
+      available: true,
+      route: { ...routeFeature(8, 1, 0.5, 1000), properties: { ...routeFeature(8, 1, 0.5, 1000).properties, mode: "science_priority" as const } },
+      waypoint: {
+        id: "m2020-places-site08-cache-depot",
+        name: "Rover Site 8 (Sols 239-278): sample-depot dwell location",
+        kind: "rover_observation",
+        evidence_level: "verified_observation_site",
+        location: { x_m: 4354051.81, y_m: 1092667.644, crs: "Jezero_Crater_Projection", mars_lon_deg: 77.443, mars_lat_deg: 18.434, location_verified: true },
+        source_id: "nasa-pds-mars2020-rover-places",
+        jz_zone_ids: ["JZ-06"],
+        limitations: ["Rover localization proves where the rover stood, not the exact position of a sample tube."],
+      },
+      feasibility: {
+        basis_route: "science_priority",
+        estimated_outbound_hours: 1,
+        estimated_return_hours: 1,
+        activity_hours: 1,
+        buffer_hours: 0.5,
+        estimated_total_hours: 3.5,
+        eva_limit_hours: 8,
+        remaining_eva_hours: 4.5,
+        time_feasible: true,
+        resource_feasible: true,
+        warnings: [],
+        feasible: true,
+      },
+      resource_assessment: {
+        available: true,
+        model: "abstract percentage budget",
+        budget_percent: 80,
+        reserve_percent: 20,
+        reserved_percent: 16,
+        estimated_use_percent: 7,
+        remaining_after_reserve_percent: 57,
+        consumption_rate_percent_per_hour: 2,
+        modeled_hours: 3.5,
+        feasible: true,
+        warning_level: "ok",
+        warnings: [],
+        assumptions: ["test assumption"],
+      },
+    },
+  },
+};
+
 function MissionControls() {
   const mission = useMission();
   return (
@@ -196,6 +248,14 @@ function MissionControls() {
         }}
       >
         Load rerouted fixture
+      </button>
+      <button
+        onClick={() => {
+          mission.setRoutesGenerated(true);
+          mission.setMissionPlan(scienceRouteCPlan);
+        }}
+      >
+        Load science Route C fixture
       </button>
       <output aria-label="Mission state">
         {mission.view}|{mission.activeRoute}
@@ -267,5 +327,24 @@ describe("selective mission-section entrances", () => {
     fireEvent.click(screen.getByRole("button", { name: "Load rerouted fixture" }));
     expect(screen.getByText("Revised route (post-closure)")).toBeInTheDocument();
     expect(screen.getByText(/Proceed with Route A/)).toBeInTheDocument();
+  });
+
+  it("shows a real, selectable Route C and its waypoint provenance once the science route is available", () => {
+    withMission(<RouteAnalysis />);
+    fireEvent.click(screen.getByRole("button", { name: "Load science Route C fixture" }));
+    const routeCButton = screen.getByRole("button", { name: /ROUTE\s*C/ });
+    expect(routeCButton).toBeInTheDocument();
+    fireEvent.click(routeCButton);
+    expect(screen.getAllByText(/Rover Site 8/).length).toBeGreaterThan(0);
+    fireEvent.click(screen.getByRole("button", { name: "Start Simulated Mission" }));
+    expect(screen.getByLabelText("Mission state")).toHaveTextContent("execution|C");
+  });
+
+  it("reports real Route C metrics and waypoint limitations in the mission report", () => {
+    withMission(<Report />);
+    fireEvent.click(screen.getByRole("button", { name: "Load science Route C fixture" }));
+    expect(screen.getByText(/Route C \(Science Priority\) via Rover Site 8/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Rover Site 8/).length).toBeGreaterThan(0);
+    expect(screen.getByText(/Rover localization proves where the rover stood/)).toBeInTheDocument();
   });
 });

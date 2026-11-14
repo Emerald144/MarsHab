@@ -408,6 +408,26 @@ export const myanmar = {
     "လက်ရှိ DEM အတိုင်းအတာဖြင့် ဤဒေသသို့ သွားနိုင်သော လမ်းကြောင်း မရှိပါ။",
   Unavailable: "မရရှိနိုင်ပါ",
   "Route C (Science Priority):": "လမ်းကြောင်း C (သိပ္ပံဦးစားပေး):",
+  "Science Waypoint (Route C)": "သိပ္ပံရပ်ဝေးကြောင်းမှတ် (လမ်းကြောင်း C)",
+  "None (Route C unavailable)": "မရွေးချယ်ပါ (လမ်းကြောင်း C မရရှိနိုင်ပါ)",
+  "Only verified, route-eligible NASA PLACES locations are selectable. Route C plans base → waypoint → destination through the same real A* engine as Routes A/B.":
+    "အတည်ပြုပြီး၊ လမ်းကြောင်းအတွက် သင့်တော်သော NASA PLACES တည်နေရာများကိုသာ ရွေးချယ်နိုင်သည်။ လမ်းကြောင်း C သည် အခြေစခန်း → ကြောင်းမှတ် → ဦးတည်ရာ အစီအစဉ်ကို Routes A/B အသုံးပြုသည့် A* အင်ဂျင်အတိုင်း တွက်ချက်သည်။",
+  "Route C · Science Priority:": "လမ်းကြောင်း C · သိပ္ပံဦးစားပေး:",
+  "Route C · Science Priority": "လမ်းကြောင်း C · သိပ္ပံဦးစားပေး",
+  "Selected Route": "ရွေးချယ်ထားသောလမ်းကြောင်း",
+  Via: "ဖြတ်သန်း",
+  "Route C (Science Priority) waypoint: {name} — {kind}, {evidence}. {limitations}":
+    "လမ်းကြောင်း C (သိပ္ပံဦးစားပေး) ကြောင်းမှတ်: {name} — {kind}, {evidence}။ {limitations}",
+  SCIENCE: "သိပ္ပံ",
+  "Science Waypoint": "သိပ္ပံရပ်ဝေးကြောင်းမှတ်",
+  "Route {id} selected: {distance} km, {slope}° mean slope, {time} h total estimate.":
+    "လမ်းကြောင်း {id} ကို ရွေးချယ်ထားသည်: {distance} ကီလိုမီတာ၊ ပျမ်းမျှ dip {slope}°၊ စုစုပေါင်း ခန့်မှန်းချိန် {time} နာရီ။",
+  "Route C (Science Priority) via {waypoint}: {distance} km, {time} h total estimate.":
+    "လမ်းကြောင်း C (သိပ္ပံဦးစားပေး) {waypoint} ဖြတ်သန်း: {distance} ကီလိုမီတာ၊ စုစုပေါင်း ခန့်မှန်းချိန် {time} နာရီ။",
+  "Route C (Science Priority) unavailable — {reason}": "လမ်းကြောင်း C (သိပ္ပံဦးစားပေး) မရရှိနိုင်ပါ — {reason}",
+  "Source:": "ရင်းမြစ်:",
+  "No science waypoint was selected, or Route C is unavailable for this plan — {reason}":
+    "သိပ္ပံရပ်ဝေးကြောင်းမှတ် မရွေးချယ်ထားပါ၊ သို့မဟုတ် ဤအစီအစဉ်အတွက် လမ်းကြောင်း C မရရှိနိုင်ပါ — {reason}",
   "A* OVER TERRAIN-COST GRID": "A* — မြေမျက်နှာသွင်ပြင်ကုန်ကျစရိတ် ဂရစ်ပေါ်",
   "REAL DEM/SLOPE RASTERS": "အမှန်တကယ် DEM/dip raster များ",
   "ASSUMPTIONS SHOWN": "ယူဆချက်များ ပြသထားသည်",

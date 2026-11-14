@@ -197,6 +197,8 @@ type Props = {
   basePoint?: MarsPoint;
   /** A moving marker (e.g. simulated current position), in Mars projected metres. */
   markerPoint?: MarsPoint;
+  /** A verified science waypoint (Route C), drawn with a distinct marker from the base/current position. */
+  waypointPoint?: MarsPoint;
   hidePanel?: boolean;
   onSelectAsDestination?: (id: string) => void;
 };
@@ -208,6 +210,7 @@ export function RealTerrainMap({
   routes,
   basePoint,
   markerPoint,
+  waypointPoint,
   hidePanel,
   onSelectAsDestination,
 }: Props) {
@@ -373,6 +376,25 @@ export function RealTerrainMap({
                 const layerForBounds = data.layers.find((item) => item.id === "terrain") ?? data.layers[0]!;
                 const [mx, my] = projectedToPixel(markerPoint, layerForBounds.bounds.projected_m, data.width, data.height);
                 return <circle cx={mx} cy={my} r={7} fill="var(--data)" stroke="white" strokeWidth={2} />;
+              })()}
+            {waypointPoint &&
+              (data.layers.find((item) => item.id === "terrain") ?? data.layers[0]) &&
+              (() => {
+                const layerForBounds = data.layers.find((item) => item.id === "terrain") ?? data.layers[0]!;
+                const [wx, wy] = projectedToPixel(waypointPoint, layerForBounds.bounds.projected_m, data.width, data.height);
+                return (
+                  <g>
+                    <path
+                      d={`M ${wx} ${wy - 10} L ${wx + 9} ${wy + 7} L ${wx - 9} ${wy + 7} Z`}
+                      fill="var(--mars)"
+                      stroke="white"
+                      strokeWidth={2}
+                    />
+                    <text x={wx} y={wy - 15} textAnchor="middle" className="fill-foreground font-mono text-[11px] font-semibold">
+                      {t("SCIENCE")}
+                    </text>
+                  </g>
+                );
               })()}
           </svg>
         )}

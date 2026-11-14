@@ -223,9 +223,7 @@ describe("mission report integration", () => {
     }
     expect(screen.getByRole("heading", { name: /Historical Rover Observation/ })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /Science targets/ })).toBeInTheDocument();
-    expect(
-      screen.getByText("Science targets and Route C (Science Priority) are unavailable until verified science-target data is delivered."),
-    ).toBeInTheDocument();
+    expect(screen.getByText(/No science waypoint was selected, or Route C is unavailable for this plan/)).toBeInTheDocument();
     expect(await screen.findByTestId("historical-observation-panel")).toBeInTheDocument();
     const events = screen.getByRole("heading", { name: /Simulated Events/ }).closest("section") as HTMLElement;
     expect(events.querySelector('[data-value-category="simulated"]')).not.toBeNull();

@@ -13,7 +13,7 @@ export type RouteFeature = {
   type: "Feature";
   geometry: { type: "LineString"; coordinates: [number, number][] };
   properties: {
-    mode: "shortest" | "terrain_aware";
+    mode: "shortest" | "terrain_aware" | "science_priority";
     algorithm: string;
     assumptions: string[];
     distance_m: number;
@@ -23,19 +23,62 @@ export type RouteFeature = {
     cumulative_terrain_cost: number;
     mean_slope_degrees: number;
     max_slope_degrees: number;
-    slope_exposure_fraction_above_10deg: number;
+    slope_exposure_fraction_above_10deg?: number;
     estimated_one_way_hours: number;
     estimated_total_eva_hours: number;
     eva_limit_hours: number | null;
     passes_demo_time_assumptions: boolean | null;
     grid_resolution_m: [number, number];
-    simulated_closure_count: number;
+    simulated_closure_count?: number;
     endpoint_snapped_to_traversable_cell: boolean;
     disclaimer: string;
+    /** Only present on Route C: the two legs (base→waypoint, waypoint→destination) that were joined. */
+    legs?: { base_to_waypoint: RouteFeature; waypoint_to_destination: RouteFeature };
   };
 };
 
 export type RouteOutcome = { available: true; route: RouteFeature } | { available: false; reason: string };
+
+export type ScienceWaypointLocation = {
+  x_m: number | null;
+  y_m: number | null;
+  crs: string | null;
+  mars_lon_deg: number | null;
+  mars_lat_deg: number | null;
+  location_verified: boolean;
+};
+
+/** A verified science catalog waypoint, as attached to an available Route C. */
+export type ScienceRouteWaypoint = {
+  id: string;
+  name: string;
+  kind: string;
+  evidence_level: string;
+  location: ScienceWaypointLocation;
+  source_id: string;
+  jz_zone_ids: string[];
+  limitations: string[];
+};
+
+export type ScienceRouteOutcome =
+  | { available: true; route: RouteFeature; waypoint: ScienceRouteWaypoint; feasibility: Feasibility; resource_assessment: ResourceAssessment }
+  | { available: false; reason: string };
+
+/** Full science catalog record from GET /api/science/targets (not every record is route-eligible). */
+export type ScienceCatalogTarget = {
+  id: string;
+  name: string;
+  kind: string;
+  location: ScienceWaypointLocation;
+  geologic_unit_id: string | null;
+  jz_zone_ids: string[];
+  description: string;
+  source_id: string;
+  evidence_level: string;
+  route_waypoint_eligible: boolean;
+  is_historical: boolean;
+  limitations?: string[];
+};
 
 export type MissionBase = {
   easting: number;
@@ -48,7 +91,7 @@ export type MissionBase = {
 };
 
 export type Feasibility = {
-  basis_route: "shortest" | "terrain_aware";
+  basis_route: "shortest" | "terrain_aware" | "science_priority";
   estimated_outbound_hours: number;
   estimated_return_hours: number;
   activity_hours: number;
@@ -85,7 +128,7 @@ export type MissionPlan = {
   routes: {
     A: { name: "Shortest Distance" } & RouteOutcome;
     B: { name: "Terrain-Aware" } & RouteOutcome;
-    C: { name: "Science Priority"; available: false; reason: string };
+    C: { name: "Science Priority" } & ScienceRouteOutcome;
   };
   feasibility: Feasibility | null;
   resource_assessment: ResourceAssessment;
@@ -95,6 +138,8 @@ export type SimulatedClosure = { center: MarsPoint; radius_m: number };
 
 export type MissionPlanInput = {
   destinationZoneId: JezeroZoneId;
+  /** Optional verified, route-eligible science catalog id (see GET /api/science/targets). Routes A/B are unaffected. */
+  scienceWaypointId?: string | null;
   evaHours?: number;
   scienceHours?: number;
   bufferHours?: number;
@@ -127,6 +172,7 @@ async function getJson<T>(path: string): Promise<T> {
 export function planMission(input: MissionPlanInput): Promise<MissionPlan> {
   return postJson<MissionPlan>("/api/v1/missions/plan", {
     destination_zone_id: input.destinationZoneId,
+    science_waypoint_id: input.scienceWaypointId ?? null,
     eva_hours: input.evaHours ?? null,
     science_hours: input.scienceHours ?? 0,
     buffer_hours: input.bufferHours ?? 0.5,
@@ -167,6 +213,7 @@ export function useMissionPlanQuery(input: MissionPlanInput, enabled = true) {
     queryKey: [
       "mission-plan",
       input.destinationZoneId,
+      input.scienceWaypointId,
       input.evaHours,
       input.scienceHours,
       input.bufferHours,
@@ -183,6 +230,27 @@ export function useMissionPlanQuery(input: MissionPlanInput, enabled = true) {
 
 export function useEmergencyReturnMutation() {
   return useMutation({ mutationFn: emergencyReturn });
+}
+
+/** Route-eligible science waypoints only (GET /api/science/targets?verified_route_eligible=true). */
+export function useScienceWaypoints() {
+  return useQuery({
+    queryKey: ["science-waypoints"],
+    queryFn: () =>
+      getJson<{ items: ScienceCatalogTarget[]; total: number }>(
+        "/api/science/targets?verified_route_eligible=true",
+      ),
+    staleTime: Infinity,
+  });
+}
+
+/** Full science catalog, including non-route-eligible / unlocated records, for the read-only catalog view. */
+export function useScienceCatalog() {
+  return useQuery({
+    queryKey: ["science-catalog"],
+    queryFn: () => getJson<{ items: ScienceCatalogTarget[]; total: number }>("/api/science/targets"),
+    staleTime: Infinity,
+  });
 }
 
 /** Linear Mars-projected-metres -> preview-pixel transform, per docs/team/INTEGRATION_GUIDE.md #Map-space transform. */

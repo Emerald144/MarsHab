@@ -27,6 +27,9 @@ type State = {
   setMode: (m: Mode) => void;
   destination: JezeroZoneId;
   setDestination: (d: JezeroZoneId) => void;
+  /** Optional verified, route-eligible science catalog id selected for Route C. */
+  scienceWaypointId: string | null;
+  setScienceWaypointId: (id: string | null) => void;
   setup: Setup;
   setSetup: (s: Setup) => void;
   feasibilityChecked: boolean;
@@ -55,6 +58,7 @@ export function MissionProvider({ children }: { children: ReactNode }) {
   const [view, setView] = useState<View>("overview");
   const [mode, setMode] = useState<Mode>("survival");
   const [destination, setDestination] = useState<JezeroZoneId>("JZ-06");
+  const [scienceWaypointId, setScienceWaypointIdState] = useState<string | null>(null);
   const [setup, setSetup] = useState<Setup>({
     name: "Jezero Geological Survey",
     eva: 8,
@@ -74,8 +78,7 @@ export function MissionProvider({ children }: { children: ReactNode }) {
   const [revisedMissionPlan, setRevisedMissionPlan] = useState<MissionPlan | null>(null);
   const [emergencyRoute, setEmergencyRoute] = useState<RouteOutcome | null>(null);
 
-  const changeDestination = (d: JezeroZoneId) => {
-    setDestination(d);
+  const clearStaleMissionState = () => {
     setFeasibilityChecked(false);
     setRoutesGenerated(false);
     setMissionPlan(null);
@@ -83,6 +86,16 @@ export function MissionProvider({ children }: { children: ReactNode }) {
     setEmergencyRoute(null);
     setEnvChanged(false);
     setRerouted(false);
+  };
+
+  const changeDestination = (d: JezeroZoneId) => {
+    setDestination(d);
+    clearStaleMissionState();
+  };
+
+  const changeScienceWaypointId = (id: string | null) => {
+    setScienceWaypointIdState(id);
+    clearStaleMissionState();
   };
 
   return (
@@ -97,6 +110,8 @@ export function MissionProvider({ children }: { children: ReactNode }) {
         setMode,
         destination,
         setDestination: changeDestination,
+        scienceWaypointId,
+        setScienceWaypointId: changeScienceWaypointId,
         setup,
         setSetup,
         feasibilityChecked,
