@@ -1,0 +1,44 @@
+[
+  {
+    "id": "usgs-sim-3464",
+    "publisher": "U.S. Geological Survey",
+    "title": "Geologic map of Jezero crater and the Nili Planum region, Mars",
+    "product_identifier": "Scientific Investigations Map 3464 (SIM 3464)",
+    "authors": ["Vivian Z. Sun", "Kathryn M. Stack"],
+    "publication_year": 2020,
+    "original_url": "https://doi.org/10.3133/sim3464",
+    "official_landing_page": "https://pubs.usgs.gov/publication/sim3464",
+    "local_package": "C:\\Users\\htoom\\Downloads\\sim3464_database\\sim3464_JezeroNili_FINAL",
+    "formats_present": ["Esri file geodatabase", "ArcMap MXD", "XML metadata", "GeoTIFF rasters", "ESRI projection files"],
+    "spatial_footprint": {
+      "published_bounds": {"west": 76.8, "east": 77.8, "south": 17.7, "north": 18.7, "units": "degrees"},
+      "longitude_direction": "not declared by the supplied SIM 3464 metadata; do not assume an Earth or WGS84 convention",
+      "latitude_definition": "not declared by the supplied SIM 3464 metadata"
+    },
+    "coordinate_reference_system": {
+      "name": "MTM_clon77.5E",
+      "body": "Mars",
+      "datum": "Mars_2000_(Sphere)",
+      "sphere_radius_m": 3396190.0,
+      "projection": "Transverse Mercator",
+      "central_meridian_deg": 77.5,
+      "latitude_of_origin_deg": 0.0,
+      "scale_factor": 1.0,
+      "linear_unit": "metre",
+      "source_file": "CoordinateSystems/MTM_clon77_5E.prj"
+    },
+    "scale_and_resolution": {
+      "publication_scale": "1:75,000",
+      "reported_coordinate_resolution_m": 0.6096,
+      "primary_ctx_mosaic_resolution_m_per_pixel": 6,
+      "themis_mosaic_resolution_m_per_pixel": 100
+    },
+    "attribution": "Sun, V.Z., and Stack, K.M. (2020), Geologic map of Jezero crater and the Nili Planum region, Mars: U.S. Geological Survey Scientific Investigations Map 3464.",
+    "access_and_use_conditions": "The supplied metadata says use requires GIS software and includes a USGS no-warranty distribution disclaimer. It does not state a separate license; do not infer one from NASA funding or USGS publication.",
+    "verification": {
+      "local_metadata_verified": true,
+      "official_pages_verified_online": false,
+      "online_verification_note": "Official USGS and DOI URLs returned HTTP 403 in this environment on 2026-11-14; values above were read from the supplied official product metadata."
+    }
+  }
+]
