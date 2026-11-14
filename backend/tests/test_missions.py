@@ -22,17 +22,49 @@ def test_zone_centroid_lookup_rejects_unknown_zone():
     else:
         raise AssertionError("expected unknown zone id to raise")
 
-def test_plan_mission_returns_two_real_routes_and_unavailable_science_route():
+def test_plan_mission_returns_two_real_routes_and_unavailable_science_route_by_default():
     plan = missions.plan_mission(MissionPlanRequest(destination_zone_id="JZ-07", eva_hours=8))
     assert plan["routes"]["A"]["available"] is True
     assert plan["routes"]["B"]["available"] is True
     assert plan["routes"]["C"]["available"] is False
+    assert "reason" in plan["routes"]["C"]
     a_props = plan["routes"]["A"]["route"]["properties"]
     b_props = plan["routes"]["B"]["route"]["properties"]
     assert a_props["mode"] == "shortest"
     assert b_props["mode"] == "terrain_aware"
     assert a_props["distance_km"] > 0
     assert "elevation_gain_m" in b_props and "elevation_loss_m" in b_props
+
+
+def test_plan_mission_rejects_unknown_science_waypoint_id():
+    plan = missions.plan_mission(MissionPlanRequest(destination_zone_id="JZ-07", science_waypoint_id="not-a-real-id"))
+    assert plan["routes"]["C"]["available"] is False
+    assert "Unknown science_waypoint_id" in plan["routes"]["C"]["reason"]
+
+
+def test_plan_mission_builds_real_two_leg_science_route_for_verified_waypoint():
+    waypoint_id = "m2020-places-site08-cache-depot"
+    plan = missions.plan_mission(MissionPlanRequest(destination_zone_id="JZ-06", eva_hours=72, science_waypoint_id=waypoint_id))
+    route_c = plan["routes"]["C"]
+    assert route_c["available"] is True
+    assert route_c["waypoint"]["id"] == waypoint_id
+    props = route_c["route"]["properties"]
+    assert props["mode"] == "science_priority"
+    assert props["distance_m"] > 0
+    assert "legs" in props
+    leg1_coords = props["legs"]["base_to_waypoint"]["geometry"]["coordinates"]
+    leg2_coords = props["legs"]["waypoint_to_destination"]["geometry"]["coordinates"]
+    joined_coords = route_c["route"]["geometry"]["coordinates"]
+    # No duplicate seam point at the waypoint.
+    assert len(joined_coords) == len(leg1_coords) + len(leg2_coords) - 1
+    assert joined_coords[len(leg1_coords) - 1] == leg1_coords[-1]
+    assert "feasibility" in route_c and route_c["feasibility"]["basis_route"] == "science_priority"
+    assert "resource_assessment" in route_c
+
+    # Route A/B are unaffected by requesting a science waypoint.
+    plan_without_waypoint = missions.plan_mission(MissionPlanRequest(destination_zone_id="JZ-06", eva_hours=72))
+    assert plan["routes"]["A"]["route"]["properties"]["distance_m"] == plan_without_waypoint["routes"]["A"]["route"]["properties"]["distance_m"]
+    assert plan["routes"]["B"]["route"]["properties"]["distance_m"] == plan_without_waypoint["routes"]["B"]["route"]["properties"]["distance_m"]
 
 def test_plan_mission_feasibility_reflects_eva_limit():
     far_zone_plan = missions.plan_mission(MissionPlanRequest(destination_zone_id="JZ-07", eva_hours=0.1))

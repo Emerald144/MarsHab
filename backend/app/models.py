@@ -37,6 +37,11 @@ class RouteRequest(BaseModel):
 class MissionPlanRequest(BaseModel):
     """Plan a mission from the verified base to a real JZ zone."""
     destination_zone_id: str
+    science_waypoint_id: str | None = Field(
+        default=None,
+        description="Optional verified, route-eligible science catalog id to route Route C (Science Priority) through. "
+        "Routes A and B are unaffected by this field.",
+    )
     eva_hours: float | None = Field(default=None, gt=0, le=72)
     science_hours: float = Field(default=0, ge=0, le=24)
     buffer_hours: float = Field(default=0.5, ge=0, le=24)
