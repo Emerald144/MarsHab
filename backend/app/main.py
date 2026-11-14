@@ -1,9 +1,18 @@
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
+import logging
+
 from . import data
+from .config import DATA_ROOT, missing_data_paths
 from .models import RouteRequest
 from .routing import route
+
+_missing = missing_data_paths()
+if _missing:
+    logging.getLogger("uvicorn.error").warning(
+        "TerraNexis data root %s is missing required datasets: %s", DATA_ROOT, "; ".join(_missing)
+    )
 
 app = FastAPI(title="Jezero Terrain Planning API", version="1.0.0", description="NASA/USGS data-backed educational prototype; not an astronaut safety system.")
 app.add_middleware(
