@@ -16,8 +16,8 @@ export const myanmar = {
   "Something went wrong on our end. You can try refreshing or head back home.":
     "စနစ်တွင် ချို့ယွင်းမှုတစ်ခု ဖြစ်ပွားခဲ့ပါသည်။ ပြန်လည်ဖွင့်ကြည့်ပါ သို့မဟုတ် ပင်မစာမျက်နှာသို့ ပြန်သွားနိုင်ပါသည်။",
   "Try again": "ထပ်မံကြိုးစားရန်",
-  "TerraNexis — Interplanetary Survival Guide": "TerraNexis — ဂြိုဟ်များအကြား ရှင်သန်ရေးလမ်းညွှန်",
-  "TerraNexis — Mission Control": "TerraNexis — မစ်ရှင်ထိန်းချုပ်ရေး",
+  "MarsHab — Interplanetary Survival Guide": "MarsHab — ဂြိုဟ်များအကြား ရှင်သန်ရေးလမ်းညွှန်",
+  "MarsHab — Mission Control": "MarsHab — မစ်ရှင်ထိန်းချုပ်ရေး",
   "SYSTEM ONLINE // MARS ORBIT": "စနစ်အသင့်ဖြစ်နေ // အင်္ဂါဂြိုဟ်ပတ်လမ်း",
   "SKIP TO MISSION →": "မစ်ရှင်သို့ တိုက်ရိုက်ဝင်ရန် →",
   "Interplanetary Survival Guide": "ဂြိုဟ်များအကြား ရှင်သန်ရေးလမ်းညွှန်",
@@ -31,15 +31,13 @@ export const myanmar = {
   "[ SECURE ORBITAL LINK ACTIVE ]": "[ လုံခြုံသော ပတ်လမ်းဆက်သွယ်မှု အသင့်ဖြစ်နေ ]",
   "Mission navigation could not complete.": "မစ်ရှင်စာမျက်နှာသို့ ကူးပြောင်း၍ မရပါ။",
   "Open mission control": "မစ်ရှင်ထိန်းချုပ်ရေးကို ဖွင့်ရန်",
-  "Martian Map, back to landing page": "အင်္ဂါဂြိုဟ်မြေပုံ၊ ပင်မစာမျက်နှာသို့ ပြန်ရန်",
-  "Martian Map": "အင်္ဂါဂြိုဟ်မြေပုံ",
+  "MarsHab, back to landing page": "MarsHab၊ ပင်မစာမျက်နှာသို့ ပြန်ရန်",
+  "MarsHab": "MarsHab",
   "Jezero Crater": "Jezero ဥက္ကာခဲကျင်း",
   "ID:": "အမှတ်:",
   "Mode:": "မုဒ်:",
   Mode: "မုဒ်",
   "DEMO SIM": "သရုပ်ပြ",
-  "Prototype simulation using selected NASA datasets and modeled mission parameters. Suitability scores, route costs and resource estimates are illustrative and not official NASA safety classifications or operational routes.":
-    "ရွေးချယ်ထားသော NASA အချက်အလက်များနှင့် မစ်ရှင်မော်ဒယ်တန်ဖိုးများကို အသုံးပြုထားသည့် ရှေ့ပြေးသရုပ်ပြစနစ်ဖြစ်သည်။ သင့်လျော်မှုရမှတ်၊ လမ်းကြောင်းကုန်ကျစရိတ်နှင့် အရင်းအမြစ်ခန့်မှန်းချက်များသည် နမူနာများသာဖြစ်ပြီး NASA ၏ တရားဝင်လုံခြုံရေးသတ်မှတ်ချက်များ သို့မဟုတ် လက်တွေ့အသုံးပြုရန် လမ်းကြောင်းများ မဟုတ်ပါ။",
   "Mission steps": "မစ်ရှင်အဆင့်များ",
   "Generate routes first": "လမ်းကြောင်းများကို အရင်တွက်ချက်ပါ",
   "{step}: generate routes first": "{step}: လမ်းကြောင်းများကို အရင်တွက်ချက်ပါ",
@@ -56,7 +54,7 @@ export const myanmar = {
   "TARGET: JEZERO CRATER": "ဦးတည်ရာ: Jezero ဥက္ကာခဲကျင်း",
   "INITIALIZING TERRAIN ANALYSIS": "မြေမျက်နှာသွင်ပြင် ဆန်းစစ်မှုကို စတင်နေသည်",
   "LOADING MISSION INTELLIGENCE": "မစ်ရှင်ဆိုင်ရာ အချက်အလက်များကို ရယူနေသည်",
-  "TERRANEXIS // MISSION ENTRY": "TERRANEXIS // မစ်ရှင်ဝင်ပေါက်",
+  "MarsHab // MISSION ENTRY": "MarsHab // မစ်ရှင်ဝင်ပေါက်",
   "ILLUSTRATIVE APPROACH ·": "ချဉ်းကပ်မှုသရုပ်ပြ ·",
   "REGIONAL IMAGE UNAVAILABLE": "ဒေသပုံကို မရရှိနိုင်ပါ",
   "JEZERO REGIONAL MAP": "Jezero ဒေသမြေပုံ",
@@ -234,7 +232,7 @@ export const myanmar = {
   "MODELED FACTORS · 0–100": "မော်ဒယ်အခြေပြု အချက်များ · 0–100",
   "Prototype factor ratings, not measured conditions or NASA safety classifications. Environmental Risk is the existing model factor, not a hazard probability.":
     "ရှေ့ပြေးအကဲဖြတ်ရမှတ်များသာဖြစ်ပြီး တိုင်းတာထားသောအခြေအနေများ သို့မဟုတ် NASA လုံခြုံရေးသတ်မှတ်ချက်များ မဟုတ်ပါ။ ပတ်ဝန်းကျင်အန္တရာယ်သည် မော်ဒယ်အတွင်းရှိ အချက်တစ်ခုသာဖြစ်ပြီး အန္တရာယ်ဖြစ်နိုင်ခြေ ရာခိုင်နှုန်း မဟုတ်ပါ။",
-  "04 / MISSION WORKFLOW": "04 / မစ်ရှင်လုပ်ငန်းစဉ်",
+  "03 / MISSION WORKFLOW": "03 / မစ်ရှင်လုပ်ငန်းစဉ်",
   "CURRENT VIEW: UNDERSTAND": "လက်ရှိအဆင့်: နားလည်လေ့လာရန်",
   Understand: "နားလည်လေ့လာရန်",
   Assess: "အကဲဖြတ်ရန်",
@@ -244,7 +242,7 @@ export const myanmar = {
   "Existing Jezero regional terrain image showing the crater rim and delta":
     "ဥက္ကာခဲကျင်းအနားနှင့် မြစ်ဝကျွန်းပေါ်ကို ပြထားသော Jezero ဒေသ မြေမျက်နှာသွင်ပြင်ပုံ",
   "JEZERO CRATER / REGIONAL TERRAIN PREVIEW": "JEZERO ဥက္ကာခဲကျင်း / ဒေသမြေပြင်အကြိုမြင်ကွင်း",
-  "05 / EXPLORATION PREVIEW": "05 / စူးစမ်းရေးအကြိုမြင်ကွင်း",
+  "04 / EXPLORATION PREVIEW": "04 / စူးစမ်းရေးအကြိုမြင်ကွင်း",
   "Know the terrain.": "မြေမျက်နှာသွင်ပြင်ကို လေ့လာပါ။",
   "Choose your route.": "သင့်လမ်းကြောင်းကို ရွေးချယ်ပါ။",
   "Inspect suitability zones, compare modeled hazards and resources, and explore science opportunities on the Survival Map.":
@@ -327,10 +325,10 @@ export const myanmar = {
     "{mode} မုဒ်တွင် ဧရိယာ {destination} သို့ {route} ဖြင့် ဆက်လက်သွားပါ။ တန်ဖိုးအားလုံးသည် သရုပ်ပြအချက်အလက်များမှ ရရှိသော ရှေ့ပြေးခန့်မှန်းချက်များသာ ဖြစ်သည်။",
   Language: "ဘာသာစကား",
   "Area {id}": "ဧရိယာ {id}",
-  "Interplanetary Survival Guide: Martian Map":
-    "ဂြိုဟ်များအကြား ရှင်သန်ရေးလမ်းညွှန်: အင်္ဂါဂြိုဟ်မြေပုံ",
-  "Prototype Mars mission planner: survival suitability map of Jezero Crater, feasibility checks, route comparison and dynamic rerouting.":
-    "အင်္ဂါဂြိုဟ် မစ်ရှင်စီမံရေး ရှေ့ပြေးစနစ်: Jezero ဥက္ကာခဲကျင်း ရှင်သန်ရေးသင့်လျော်မှုမြေပုံ၊ ဖြစ်နိုင်ခြေစစ်ဆေးမှု၊ လမ်းကြောင်းနှိုင်းယှဉ်မှုနှင့် အခြေအနေအလိုက် လမ်းကြောင်းပြောင်းလဲမှု။",
+  "Interplanetary Survival Guide: MarsHab":
+    "ဂြိုဟ်များအကြား ရှင်သန်ရေးလမ်းညွှန်: MarsHab",
+  "MarsHab prototype Mars mission planner: survival suitability map of Jezero Crater, feasibility checks, route comparison and dynamic rerouting.":
+    "MarsHab: အင်္ဂါဂြိုဟ် မစ်ရှင်စီမံရေး ရှေ့ပြေးစနစ်: Jezero ဥက္ကာခဲကျင်း ရှင်သန်ရေးသင့်လျော်မှုမြေပုံ၊ ဖြစ်နိုင်ခြေစစ်ဆေးမှု၊ လမ်းကြောင်းနှိုင်းယှဉ်မှုနှင့် အခြေအနေအလိုက် လမ်းကြောင်းပြောင်းလဲမှု။",
 
   // Real Jezero terrain (Phase 1 data) — kept separate from the illustrative demo strings above.
   "Demo Mission Map": "သရုပ်ပြ မစ်ရှင်မြေပုံ",

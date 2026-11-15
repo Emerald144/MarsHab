@@ -1,4 +1,5 @@
 import { useLanguage } from "@/i18n/useLanguage";
+import { NavigationText } from "./NavigationText";
 import { Check, Lock } from "lucide-react";
 import { useMission, type View } from "@/lib/mission-store";
 
@@ -68,7 +69,7 @@ export function StepIndicator() {
                       : "text-muted-foreground group-hover:text-foreground"
                   }`}
                 >
-                  {display(step.label)}
+                  <NavigationText text={step.label} />
                 </span>
               </button>
 

@@ -32,10 +32,31 @@ const statsFixture = {
       area_km2_spherical: 123.4,
       centroid_lon_lat_deg: [77.5, 18.4],
       centroid_projected_m: [4348000, 1091000],
-      elevation_m: { coverage_percent: 100, min: -2600, max: -2000, mean: -2300, median: -2290, std: 50, range: 600 },
-      slope_deg: { coverage_percent: 100, mean: 5.1, median: 4.2, std: 3.1, min: 0, max: 60, p90: 10.5, p99: 20.1 },
+      elevation_m: {
+        coverage_percent: 100,
+        min: -2600,
+        max: -2000,
+        mean: -2300,
+        median: -2290,
+        std: 50,
+        range: 600,
+      },
+      slope_deg: {
+        coverage_percent: 100,
+        mean: 5.1,
+        median: 4.2,
+        std: 3.1,
+        min: 0,
+        max: 60,
+        p90: 10.5,
+        p99: 20.1,
+      },
       slope_class_percent: { gentle: 70, moderate: 25, steep: 5 },
-      terrain_screening: { dominant_slope_class: "gentle", heuristic_terrain_index: 82.5, heuristic_terrain_index_note: "test" },
+      terrain_screening: {
+        dominant_slope_class: "gentle",
+        heuristic_terrain_index: 82.5,
+        heuristic_terrain_index_note: "test",
+      },
       data_quality_flags: [],
       sources: { elevation: "test.tif" },
     },
@@ -65,7 +86,13 @@ const manifestFixture = {
 function feasibleRouteFeature(overrides: Partial<Record<string, number>> = {}) {
   return {
     type: "Feature",
-    geometry: { type: "LineString", coordinates: [[4354494, 1093299], [4356494, 1093299]] },
+    geometry: {
+      type: "LineString",
+      coordinates: [
+        [4354494, 1093299],
+        [4356494, 1093299],
+      ],
+    },
     properties: {
       mode: "terrain_aware",
       algorithm: "A* test",
@@ -103,9 +130,17 @@ const feasibleMissionPlanFixture = {
   destination_zone_id: "JZ-06",
   destination_point: { easting: 4348000, northing: 1091000 },
   routes: {
-    A: { name: "Shortest Distance", available: true, route: feasibleRouteFeature({ mode: "shortest" as unknown as number }) },
+    A: {
+      name: "Shortest Distance",
+      available: true,
+      route: feasibleRouteFeature({ mode: "shortest" as unknown as number }),
+    },
     B: { name: "Terrain-Aware", available: true, route: feasibleRouteFeature() },
-    C: { name: "Science Priority", available: false, reason: "No verified science-target location data." },
+    C: {
+      name: "Science Priority",
+      available: false,
+      reason: "No verified science-target location data.",
+    },
   },
   feasibility: {
     basis_route: "terrain_aware",
@@ -261,8 +296,35 @@ describe("bilingual language layer", () => {
     const wrappers = [...container.querySelectorAll("[data-animated-content]")];
     const cards = [...container.querySelectorAll("article")];
     const originalState = screen.getByTestId("mission-state").textContent;
+    const sections = [
+      "01 / MISSION BRIEFING",
+      "02 / MISSION TELEMETRY",
+      "03 / MISSION WORKFLOW",
+      "04 / EXPLORATION PREVIEW",
+    ];
+    const removed = [
+      "Understand Mars. Plan for Survival. Navigate with Confidence.",
+      "NASA Space Apps prototype. Modeled planning data; no live spacecraft telemetry.",
+      "Existing project imagery. Planning overlays and route assessments are illustrative; this preview is not a live orbital feed.",
+      "Selected destination",
+      "Feasibility check",
+      "Route generation",
+      "03 / ENVIRONMENTAL INTELLIGENCE",
+    ];
+    const verifyOverview = (language: "en" | "my") => {
+      expect(
+        [...container.querySelectorAll("section")].map(
+          (section) => section.querySelector(".label-caps")?.textContent,
+        ),
+      ).toEqual(sections.map((label) => translate(language, label)));
+      removed.forEach((label) =>
+        expect(screen.queryByText(translate(language, label))).not.toBeInTheDocument(),
+      );
+    };
+    verifyOverview("en");
     fireEvent.click(screen.getByRole("button", { name: "Pause effects" }));
     switchTo("my");
+    verifyOverview("my");
     expect(
       screen.getByRole("heading", { name: myanmar["Martian Survival Mission"] }),
     ).toBeInTheDocument();
@@ -272,6 +334,7 @@ describe("bilingual language layer", () => {
     expect([...container.querySelectorAll("article")]).toEqual(cards);
     expect(screen.getByTestId("mission-state").textContent).toBe(originalState);
     switchTo("en");
+    verifyOverview("en");
     expect(container.querySelector("[data-mars-renderer]")).toBe(globe);
     expect(screen.getByRole("button", { name: "Resume effects" })).toBeInTheDocument();
   });

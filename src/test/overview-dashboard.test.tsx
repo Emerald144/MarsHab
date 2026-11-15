@@ -199,7 +199,7 @@ describe("Overview mission-control presentation (real Jezero data)", () => {
     vi.unstubAllGlobals();
   });
 
-  it("shows real terrain-derived values and distinguishes them from unmeasured factors", async () => {
+  it("preserves real terrain-derived telemetry and mission status", async () => {
     renderOverview();
     expect(screen.getByRole("heading", { name: /Martian Survival Mission/ })).toBeInTheDocument();
     expect(screen.getByText("Jezero Geological Survey")).toBeInTheDocument();
@@ -208,12 +208,6 @@ describe("Overview mission-control presentation (real Jezero data)", () => {
     expect(await screen.findByText("NOT FEASIBLE")).toBeInTheDocument();
     expect(screen.getByText("30.5 h")).toBeInTheDocument();
     expect(screen.getByText("2 / 3")).toBeInTheDocument();
-    expect(screen.getByText("Not run")).toBeInTheDocument();
-    expect(screen.getByText("Pending")).toBeInTheDocument();
-
-    const intelligence = screen.getByRole("region", { name: "03 / ENVIRONMENTAL INTELLIGENCE" });
-    expect(await within(intelligence).findByText("82.5")).toBeInTheDocument();
-    expect(within(intelligence).getAllByText("Not available").length).toBeGreaterThan(0);
 
     fireEvent.click(screen.getByRole("button", { name: "Update mission" }));
     expect(screen.getByText("Crater Rim Survey")).toBeInTheDocument();
@@ -226,12 +220,14 @@ describe("Overview mission-control presentation (real Jezero data)", () => {
     expect(missionPlanFixture.feasibility.estimated_total_hours).toBe(30.45);
   });
 
-  it("keeps the briefing, planning action and setup metrics in one hero without duplicate badges", () => {
+  it("keeps the briefing and EVA allocation while removing the requested information items", () => {
     renderOverview();
     const hero = screen.getByRole("region", { name: "Martian Survival Mission" });
     expect(within(hero).getByRole("button", { name: "Plan Mission" })).toBeInTheDocument();
-    expect(within(hero).getByText("Feasibility check")).toBeInTheDocument();
-    expect(within(hero).getByText("Route generation")).toBeInTheDocument();
+    expect(within(hero).queryByText("Selected destination")).not.toBeInTheDocument();
+    expect(within(hero).queryByText("Feasibility check")).not.toBeInTheDocument();
+    expect(within(hero).queryByText("Route generation")).not.toBeInTheDocument();
+    expect(within(hero).getByText("EVA allocation")).toBeInTheDocument();
     expect(within(hero).getByText("AWAITING MISSION SETUP")).toBeInTheDocument();
     expect(screen.queryByText("DEMO SIM")).not.toBeInTheDocument();
     expect(screen.queryByText("MARS-026")).not.toBeInTheDocument();

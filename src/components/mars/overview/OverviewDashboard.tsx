@@ -1,17 +1,12 @@
 import { useLanguage } from "@/i18n/useLanguage";
-import { ArrowRight, Check, MapPin, ShieldCheck } from "lucide-react";
+import { ArrowRight, MapPin, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import AnimatedContent from "@/components/animations/AnimatedContent";
 import { useOverviewMotion } from "@/hooks/use-overview-motion";
 import { OverviewMarsGlobe } from "./OverviewMarsGlobe";
 import jezeroMap from "@/assets/jezero-map.jpg";
 import { useMission } from "@/lib/mission-store";
-import {
-  REAL_FACTOR_LABELS,
-  partialTerrainScore,
-  type RealTerrainDataset,
-  type RealZoneFactors,
-} from "@/lib/jezero-real-data";
+import { partialTerrainScore, type RealTerrainDataset } from "@/lib/jezero-real-data";
 import type { MissionPlan } from "@/lib/mission-api";
 
 type Props = {
@@ -227,38 +222,16 @@ export function OverviewDashboard({ plan, isLoading, isError, dataset }: Props) 
                 {t("Jezero Crater · Sector")} {destination}
               </span>
             </div>
-            <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
-              {t("Understand Mars. Plan for Survival. Navigate with Confidence.")}
-            </p>
           </div>
           <dl
             aria-label={t("Mission setup metrics")}
-            className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-data/20 pt-6 sm:grid-cols-4 lg:gap-x-10"
+            className="mt-6 border-t border-data/20 pt-6"
           >
-            <div className="min-w-0">
-              <dt className="label-caps leading-relaxed">{t("Selected destination")}</dt>
-              <dd className="mt-2 font-mono text-lg text-data">{destination}</dd>
-            </div>
-            <div className="min-w-0">
-              <dt className="label-caps leading-relaxed">{t("Feasibility check")}</dt>
-              <dd className="mt-2 text-sm font-medium">
-                {feasibilityChecked ? t("Reviewed") : t("Not run")}
-              </dd>
-            </div>
-            <div className="min-w-0">
-              <dt className="label-caps leading-relaxed">{t("Route generation")}</dt>
-              <dd className="mt-2 text-sm font-medium">
-                {routesGenerated ? t("Generated") : t("Pending")}
-              </dd>
-            </div>
             <div className="min-w-0">
               <dt className="label-caps leading-relaxed">{t("EVA allocation")}</dt>
               <dd className="mt-2 font-mono text-lg text-data">{setup.eva} h</dd>
             </div>
           </dl>
-          <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
-            {t("NASA Space Apps prototype. Modeled planning data; no live spacecraft telemetry.")}
-          </p>
         </section>
       </AnimatedContent>
 
@@ -319,93 +292,10 @@ export function OverviewDashboard({ plan, isLoading, isError, dataset }: Props) 
         </AnimatedContent>
       </section>
 
-      <AnimatedContent
-        paused={motionPaused}
-        distance={35}
-        duration={0.8}
-        scale={0.98}
-        blur={2}
-        className="min-w-0"
-      >
-        <section
-          aria-labelledby="intelligence-title"
-          data-overview-depth="-12"
-          className="glass overview-card-interaction overview-ambient-panel min-w-0 p-6 sm:p-8"
-        >
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <h2 id="intelligence-title" className="label-caps text-data">
-                {t("03 / ENVIRONMENTAL INTELLIGENCE")}
-              </h2>
-              <p className="mt-2 font-display text-xl font-medium">
-                {t("Destination {id} assessment", { id: destination })}
-              </p>
-            </div>
-            <span className="font-mono text-[10px] text-muted-foreground">
-              {t("MODELED FACTORS · 0–100")}
-            </span>
-          </div>
-          {zone ? (
-            <>
-              <div className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-5">
-                {(Object.keys(REAL_FACTOR_LABELS) as (keyof RealZoneFactors)[]).map((key) => (
-                  <div key={key} className="min-w-0">
-                    <h3 className="text-xs text-text-secondary">{display(REAL_FACTOR_LABELS[key])}</h3>
-                    <p className="mt-3 font-mono text-2xl text-data">
-                      {zone.factors[key] === null ? (
-                        <span className="text-base text-muted-foreground">{t("Not available")}</span>
-                      ) : (
-                        <>
-                          {zone.factors[key]}
-                          <span className="ml-1 text-xs text-muted-foreground">/100</span>
-                        </>
-                      )}
-                    </p>
-                    <div aria-hidden="true" className="mt-3 h-1 rounded-full bg-data/10">
-                      <div
-                        className="h-full rounded-full bg-data/70"
-                        style={{ width: `${zone.factors[key] ?? 0}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
-                {t(
-                  "Terrain is the only measured factor for JZ zones (heuristic from real slope data). Resource, Accessibility, Environmental Risk and Science Value have no verified data and are not estimated.",
-                )}
-              </p>
-              <ul className="mt-5 grid gap-x-6 gap-y-2 border-t border-border pt-5 text-xs leading-relaxed text-text-secondary sm:grid-cols-2">
-                <li className="flex items-start gap-2">
-                  <Check aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-data" />
-                  {t("Elevation range")} {zone.elevation.range.toFixed(0)} m ({t("mean")} {zone.elevation.mean.toFixed(0)} m)
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-data" />
-                  {t("Dominant slope class:")} {display(zone.terrainScreening.dominant_slope_class)}
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-data" />
-                  {t("Area")} {zone.areaKm2.toFixed(1)} km²
-                </li>
-                {zone.dataQualityFlags.length > 0 && (
-                  <li className="flex items-start gap-2 text-caution">
-                    <Check aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-caution" />
-                    {t("Data quality flags:")} {zone.dataQualityFlags.join(", ")}
-                  </li>
-                )}
-              </ul>
-            </>
-          ) : (
-            <p className="mt-6 text-sm text-muted-foreground">{t("Loading real terrain data…")}</p>
-          )}
-        </section>
-      </AnimatedContent>
-
       <section aria-labelledby="workflow-title" data-overview-depth="14">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
           <h2 id="workflow-title" className="label-caps text-data">
-            {t("04 / MISSION WORKFLOW")}
+            {t("03 / MISSION WORKFLOW")}
           </h2>
           <span className="font-mono text-[10px] text-muted-foreground">
             {t("CURRENT VIEW: UNDERSTAND")}
@@ -475,7 +365,7 @@ export function OverviewDashboard({ plan, isLoading, isError, dataset }: Props) 
             </figure>
             <div className="flex flex-col justify-center p-6 sm:p-8">
               <h2 id="preview-title" className="label-caps text-data">
-                {t("05 / EXPLORATION PREVIEW")}
+                {t("04 / EXPLORATION PREVIEW")}
               </h2>
               <p className="mt-4 font-display text-2xl font-medium leading-tight">
                 {t("Know the terrain.")}
@@ -495,11 +385,6 @@ export function OverviewDashboard({ plan, isLoading, isError, dataset }: Props) 
                 {t("Open Survival Map")}
                 <ArrowRight aria-hidden="true" className="h-4 w-4" />
               </button>
-              <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
-                {t(
-                  "Existing project imagery. Planning overlays and route assessments are illustrative; this preview is not a live orbital feed.",
-                )}
-              </p>
             </div>
           </div>
         </section>

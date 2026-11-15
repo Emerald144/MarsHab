@@ -1,13 +1,13 @@
-# TerraNexis — Project Overview
+# MarsHab — Project Overview
 
-**Project:** TerraNexis / Martian Map  
+**Project:** MarsHab  
 **Purpose:** An interactive Mars exploration and survival-planning experience.  
 **Current scope:** A web prototype focused on a Jezero Crater mission scenario.  
 **Languages:** English and Unicode Myanmar.
 
 ## 1. Project concept
 
-TerraNexis helps users explore how terrain, resource access, scientific value, and available mission time influence a Mars exploration plan. It combines an immersive 3D Mars experience with a mission-control dashboard, an interactive regional map, feasibility calculations, route comparison, and simulated mission events.
+MarsHab helps users explore how terrain, resource access, scientific value, and available mission time influence a Mars exploration plan. It combines an immersive 3D Mars experience with a mission-control dashboard, an interactive regional map, feasibility calculations, route comparison, and simulated mission events.
 
 The project demonstrates a planning workflow:
 
@@ -44,7 +44,7 @@ It is intended for educational demonstrations, team presentations, and explorati
 
 ### 3.1 Landing page and orbital introduction
 
-The landing page introduces TerraNexis through a textured Three.js Mars globe, atmospheric lighting, a starfield, and surrounding space effects. Users can drag to rotate the globe and scroll to zoom.
+The landing page introduces MarsHab through a textured Three.js Mars globe, atmospheric lighting, a starfield, and surrounding space effects. Users can drag to rotate the globe and scroll to zoom.
 
 Entering mission control starts an illustrative orbital-approach sequence that dissolves into the existing Jezero regional imagery. A skip link provides direct access to the mission page. The sequence communicates a cinematic journey; it does not claim a geographically verified landing trajectory.
 
@@ -237,4 +237,4 @@ These are proposed extensions, not existing features:
 - Make recommendations and report narratives fully consistent with all chosen inputs.
 - Implement downloadable reports and optional saved missions.
 
-**Team description:** TerraNexis is a bilingual, interactive Mars mission-planning prototype that combines 3D visualization, zone suitability scoring, time-feasibility analysis, preset route comparison, and simulated rerouting in a mission-control interface.
+**Team description:** MarsHab is a bilingual, interactive Mars mission-planning prototype that combines 3D visualization, zone suitability scoring, time-feasibility analysis, preset route comparison, and simulated rerouting in a mission-control interface.

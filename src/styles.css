@@ -5,9 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk", "Inter", sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: "Inter", "Noto Sans Myanmar", "Myanmar Text", "Padauk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", "Noto Sans Myanmar", "Myanmar Text", "Padauk", sans-serif;
+  --font-mono: "JetBrains Mono", "Noto Sans Myanmar", "Myanmar Text", "Padauk", ui-monospace, monospace;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -283,19 +283,6 @@
 @utility glass-overlay {
   --glass-fill: var(--glass-overlay-fill);
 }
-/* Myanmar needs script-aware shaping; English keeps its existing typography. */
-html:lang(my) body,
-html:lang(my) :is(.font-display, .font-mono, .font-sans, .label-caps) {
-  font-family: "Noto Sans Myanmar", "Myanmar Text", "Padauk", sans-serif;
-  letter-spacing: normal;
-}
-html:lang(my) :is(.label-caps, button, dt, h1, h2, h3) {
-  line-height: 1.65;
-}
-html:lang(my) :is(p, dd, li) {
-  overflow-wrap: anywhere;
-}
-
 /* Blend only the planet's outer edge; keep its terrain opaque in both themes. */
 .overview-mars-layer {
   -webkit-mask-image: radial-gradient(ellipse at center, #000 57%, transparent 73%);

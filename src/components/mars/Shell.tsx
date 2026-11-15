@@ -8,7 +8,7 @@ import { MODE_WEIGHTS } from "@/lib/mission-data";
 import { useTheme } from "@/lib/theme";
 import { ThemeToggle } from "./ThemeToggle";
 import { StepIndicator } from "./StepIndicator";
-import { DataBadge } from "./DataBadge";
+import { NavigationText } from "./NavigationText";
 
 function Stars() {
   const stars = useMemo(
@@ -42,7 +42,7 @@ function Stars() {
 }
 
 export function Shell({ children }: { children: ReactNode }) {
-  const { t, display } = useLanguage();
+  const { t } = useLanguage();
   const { view, mode } = useMission();
   const { theme, toggle } = useTheme();
 
@@ -55,12 +55,12 @@ export function Shell({ children }: { children: ReactNode }) {
         {/* ဘယ်: Logo */}
         <Link
           to="/"
-          aria-label={t("Martian Map, back to landing page")}
+          aria-label={t("MarsHab, back to landing page")}
           className="focus-ring flex items-center gap-2 rounded-md"
         >
           <Orbit className="h-6 w-6 text-mars" aria-hidden="true" />
           <span className="font-display text-lg font-semibold tracking-tight">
-            {t("Martian Map")}
+            <NavigationText text="MarsHab" />
           </span>
         </Link>
 
@@ -73,19 +73,18 @@ export function Shell({ children }: { children: ReactNode }) {
         <div className="flex items-center gap-3 font-mono text-[11px] text-muted-foreground md:gap-4">
           <span className="hidden items-center gap-1.5 2xl:flex">
             <MapPin className="h-3.5 w-3.5 text-mars" aria-hidden="true" />
-            {t("Jezero Crater")}
+            <NavigationText text="Jezero Crater" />
           </span>
           <span className="hidden 2xl:inline">
-            {t("ID:")}
+            <NavigationText text="ID:" />
             <span className="text-foreground">MARS-026</span>
           </span>
           <span className="hidden sm:inline">
-            {t("Mode:")}{" "}
+            <NavigationText text="Mode:" />{" "}
             <span className={mode === "emergency" ? "text-danger" : "text-data"}>
-              {display(MODE_WEIGHTS[mode].label)}
+              <NavigationText text={MODE_WEIGHTS[mode].label} />
             </span>
           </span>
-          <DataBadge kind="simulated" label={t("DEMO SIM")} />
           <LanguageSwitcher />
           <ThemeToggle theme={theme} onToggle={toggle} />
         </div>
@@ -97,12 +96,6 @@ export function Shell({ children }: { children: ReactNode }) {
       >
         {children}
       </main>
-
-      <footer className="border-t border-border px-6 py-3 text-[11px] text-muted-foreground">
-        {t(
-          "Prototype simulation using selected NASA datasets and modeled mission parameters. Suitability scores, route costs and resource estimates are illustrative and not official NASA safety classifications or operational routes.",
-        )}
-      </footer>
     </div>
   );
 }
