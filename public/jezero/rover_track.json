@@ -1,0 +1,3004 @@
+{
+  "points": [
+    {
+      "sol": 0,
+      "easting": 4354494.086,
+      "northing": 1093299.695,
+      "elevation_m": -2569.91
+    },
+    {
+      "sol": 15,
+      "easting": 4354502.424,
+      "northing": 1093329.801,
+      "elevation_m": -2569.935
+    },
+    {
+      "sol": 23,
+      "easting": 4354544.202,
+      "northing": 1093333.786,
+      "elevation_m": -2568.969
+    },
+    {
+      "sol": 32,
+      "easting": 4354517.108,
+      "northing": 1093312.041,
+      "elevation_m": -2569.805
+    },
+    {
+      "sol": 47,
+      "easting": 4354513.31,
+      "northing": 1093307.404,
+      "elevation_m": -2569.877
+    },
+    {
+      "sol": 52,
+      "easting": 4354561.434,
+      "northing": 1093310.781,
+      "elevation_m": -2568.895
+    },
+    {
+      "sol": 73,
+      "easting": 4354588.573,
+      "northing": 1093272.643,
+      "elevation_m": -2568.907
+    },
+    {
+      "sol": 102,
+      "easting": 4354554.684,
+      "northing": 1093235.316,
+      "elevation_m": -2569.378
+    },
+    {
+      "sol": 108,
+      "easting": 4354478.382,
+      "northing": 1093134.291,
+      "elevation_m": -2568.45
+    },
+    {
+      "sol": 116,
+      "easting": 4354423.254,
+      "northing": 1092996.311,
+      "elevation_m": -2568.901
+    },
+    {
+      "sol": 123,
+      "easting": 4354423.453,
+      "northing": 1092935.018,
+      "elevation_m": -2568.497
+    },
+    {
+      "sol": 129,
+      "easting": 4354466.917,
+      "northing": 1092848.804,
+      "elevation_m": -2569.258
+    },
+    {
+      "sol": 131,
+      "easting": 4354544.204,
+      "northing": 1092765.386,
+      "elevation_m": -2570.655
+    },
+    {
+      "sol": 134,
+      "easting": 4354561.285,
+      "northing": 1092650.308,
+      "elevation_m": -2573.898
+    },
+    {
+      "sol": 135,
+      "easting": 4354597.644,
+      "northing": 1092521.499,
+      "elevation_m": -2577.117
+    },
+    {
+      "sol": 137,
+      "easting": 4354562.244,
+      "northing": 1092449.229,
+      "elevation_m": -2583.019
+    },
+    {
+      "sol": 153,
+      "easting": 4354566.031,
+      "northing": 1092352.177,
+      "elevation_m": -2585.981
+    },
+    {
+      "sol": 168,
+      "easting": 4354534.665,
+      "northing": 1092290.721,
+      "elevation_m": -2584.525
+    },
+    {
+      "sol": 170,
+      "easting": 4354462.2,
+      "northing": 1092303.699,
+      "elevation_m": -2585.846
+    },
+    {
+      "sol": 171,
+      "easting": 4354364.215,
+      "northing": 1092365.693,
+      "elevation_m": -2585.131
+    },
+    {
+      "sol": 173,
+      "easting": 4354287.639,
+      "northing": 1092405.677,
+      "elevation_m": -2581.855
+    },
+    {
+      "sol": 177,
+      "easting": 4354213.193,
+      "northing": 1092447.918,
+      "elevation_m": -2580.645
+    },
+    {
+      "sol": 178,
+      "easting": 4354124.422,
+      "northing": 1092481.61,
+      "elevation_m": -2574.369
+    },
+    {
+      "sol": 200,
+      "easting": 4354030.235,
+      "northing": 1092522.495,
+      "elevation_m": -2573.974
+    },
+    {
+      "sol": 200,
+      "easting": 4353927.938,
+      "northing": 1092577.416,
+      "elevation_m": -2572.05
+    },
+    {
+      "sol": 203,
+      "easting": 4353981.046,
+      "northing": 1092626.678,
+      "elevation_m": -2575.195
+    },
+    {
+      "sol": 237,
+      "easting": 4354001.267,
+      "northing": 1092657.017,
+      "elevation_m": -2573.328
+    },
+    {
+      "sol": 278,
+      "easting": 4354052.799,
+      "northing": 1092665.837,
+      "elevation_m": -2568.909
+    },
+    {
+      "sol": 285,
+      "easting": 4353997.377,
+      "northing": 1092640.128,
+      "elevation_m": -2574.29
+    },
+    {
+      "sol": 333,
+      "easting": 4353960.777,
+      "northing": 1092588.769,
+      "elevation_m": -2574.516
+    },
+    {
+      "sol": 340,
+      "easting": 4353920.806,
+      "northing": 1092562.49,
+      "elevation_m": -2571.92
+    },
+    {
+      "sol": 340,
+      "easting": 4353982.073,
+      "northing": 1092493.123,
+      "elevation_m": -2574.131
+    },
+    {
+      "sol": 341,
+      "easting": 4354081.004,
+      "northing": 1092475.437,
+      "elevation_m": -2574.335
+    },
+    {
+      "sol": 341,
+      "easting": 4354182.341,
+      "northing": 1092462.972,
+      "elevation_m": -2578.676
+    },
+    {
+      "sol": 342,
+      "easting": 4354272.934,
+      "northing": 1092413.536,
+      "elevation_m": -2581.124
+    },
+    {
+      "sol": 350,
+      "easting": 4354329.183,
+      "northing": 1092385.548,
+      "elevation_m": -2582.768
+    },
+    {
+      "sol": 351,
+      "easting": 4354412.264,
+      "northing": 1092331.144,
+      "elevation_m": -2585.718
+    },
+    {
+      "sol": 351,
+      "easting": 4354469.797,
+      "northing": 1092287.673,
+      "elevation_m": -2585.1
+    },
+    {
+      "sol": 351,
+      "easting": 4354545.212,
+      "northing": 1092322.384,
+      "elevation_m": -2585.535
+    },
+    {
+      "sol": 352,
+      "easting": 4354575.179,
+      "northing": 1092399.311,
+      "elevation_m": -2585.012
+    },
+    {
+      "sol": 353,
+      "easting": 4354558.223,
+      "northing": 1092449.228,
+      "elevation_m": -2583.381
+    },
+    {
+      "sol": 353,
+      "easting": 4354587.314,
+      "northing": 1092532.341,
+      "elevation_m": -2576.616
+    },
+    {
+      "sol": 353,
+      "easting": 4354570.447,
+      "northing": 1092583.588,
+      "elevation_m": -2575.093
+    },
+    {
+      "sol": 354,
+      "easting": 4354560.97,
+      "northing": 1092658.693,
+      "elevation_m": -2573.6
+    },
+    {
+      "sol": 354,
+      "easting": 4354554.686,
+      "northing": 1092739.817,
+      "elevation_m": -2571.157
+    },
+    {
+      "sol": 355,
+      "easting": 4354532.134,
+      "northing": 1092821.178,
+      "elevation_m": -2570.346
+    },
+    {
+      "sol": 355,
+      "easting": 4354507.875,
+      "northing": 1092898.235,
+      "elevation_m": -2569.84
+    },
+    {
+      "sol": 355,
+      "easting": 4354498.644,
+      "northing": 1092986.524,
+      "elevation_m": -2570.327
+    },
+    {
+      "sol": 360,
+      "easting": 4354567.298,
+      "northing": 1093086.281,
+      "elevation_m": -2568.962
+    },
+    {
+      "sol": 360,
+      "easting": 4354542.549,
+      "northing": 1093168.719,
+      "elevation_m": -2569.045
+    },
+    {
+      "sol": 360,
+      "easting": 4354559.698,
+      "northing": 1093244.702,
+      "elevation_m": -2569.265
+    },
+    {
+      "sol": 379,
+      "easting": 4354554.543,
+      "northing": 1093259.188,
+      "elevation_m": -2569.057
+    },
+    {
+      "sol": 379,
+      "easting": 4354515.609,
+      "northing": 1093323.965,
+      "elevation_m": -2569.594
+    },
+    {
+      "sol": 380,
+      "easting": 4354535.93,
+      "northing": 1093409.521,
+      "elevation_m": -2568.593
+    },
+    {
+      "sol": 380,
+      "easting": 4354575.988,
+      "northing": 1093482.171,
+      "elevation_m": -2568.917
+    },
+    {
+      "sol": 380,
+      "easting": 4354629.788,
+      "northing": 1093531.656,
+      "elevation_m": -2570.233
+    },
+    {
+      "sol": 382,
+      "easting": 4354761.92,
+      "northing": 1093594.424,
+      "elevation_m": -2570.59
+    },
+    {
+      "sol": 383,
+      "easting": 4354980.195,
+      "northing": 1093711.873,
+      "elevation_m": -2572.05
+    },
+    {
+      "sol": 383,
+      "easting": 4355057.71,
+      "northing": 1093768.778,
+      "elevation_m": -2571.432
+    },
+    {
+      "sol": 383,
+      "easting": 4355111.101,
+      "northing": 1093833.369,
+      "elevation_m": -2570.728
+    },
+    {
+      "sol": 384,
+      "easting": 4355111.248,
+      "northing": 1093906.346,
+      "elevation_m": -2567.808
+    },
+    {
+      "sol": 384,
+      "easting": 4355124.689,
+      "northing": 1093986.439,
+      "elevation_m": -2567.357
+    },
+    {
+      "sol": 386,
+      "easting": 4355102.935,
+      "northing": 1094107.224,
+      "elevation_m": -2570.162
+    },
+    {
+      "sol": 387,
+      "easting": 4355165.676,
+      "northing": 1094302.807,
+      "elevation_m": -2567.295
+    },
+    {
+      "sol": 388,
+      "easting": 4355078.847,
+      "northing": 1094504.848,
+      "elevation_m": -2567.464
+    },
+    {
+      "sol": 388,
+      "easting": 4355034.327,
+      "northing": 1094566.893,
+      "elevation_m": -2566.891
+    },
+    {
+      "sol": 388,
+      "easting": 4354969.44,
+      "northing": 1094602.956,
+      "elevation_m": -2565.441
+    },
+    {
+      "sol": 389,
+      "easting": 4354902.635,
+      "northing": 1094643.881,
+      "elevation_m": -2564.548
+    },
+    {
+      "sol": 389,
+      "easting": 4354829.769,
+      "northing": 1094676.755,
+      "elevation_m": -2564.607
+    },
+    {
+      "sol": 389,
+      "easting": 4354757.172,
+      "northing": 1094701.238,
+      "elevation_m": -2564.069
+    },
+    {
+      "sol": 390,
+      "easting": 4354675.388,
+      "northing": 1094700.817,
+      "elevation_m": -2563.063
+    },
+    {
+      "sol": 390,
+      "easting": 4354596.419,
+      "northing": 1094697.47,
+      "elevation_m": -2562.107
+    },
+    {
+      "sol": 395,
+      "easting": 4354382.362,
+      "northing": 1094675.196,
+      "elevation_m": -2557.079
+    },
+    {
+      "sol": 397,
+      "easting": 4354183.213,
+      "northing": 1094635.569,
+      "elevation_m": -2557.399
+    },
+    {
+      "sol": 398,
+      "easting": 4354156.391,
+      "northing": 1094553.862,
+      "elevation_m": -2559.724
+    },
+    {
+      "sol": 398,
+      "easting": 4354064.078,
+      "northing": 1094559.718,
+      "elevation_m": -2558.494
+    },
+    {
+      "sol": 399,
+      "easting": 4353915.822,
+      "northing": 1094491.574,
+      "elevation_m": -2558.466
+    },
+    {
+      "sol": 400,
+      "easting": 4353787.222,
+      "northing": 1094414.609,
+      "elevation_m": -2556.414
+    },
+    {
+      "sol": 401,
+      "easting": 4353581.478,
+      "northing": 1094312.278,
+      "elevation_m": -2553.614
+    },
+    {
+      "sol": 402,
+      "easting": 4353445.644,
+      "northing": 1094284.599,
+      "elevation_m": -2552.183
+    },
+    {
+      "sol": 402,
+      "easting": 4353349.457,
+      "northing": 1094258.95,
+      "elevation_m": -2552.62
+    },
+    {
+      "sol": 404,
+      "easting": 4353270.887,
+      "northing": 1094231.221,
+      "elevation_m": -2549.128
+    },
+    {
+      "sol": 404,
+      "easting": 4353200.857,
+      "northing": 1094201.772,
+      "elevation_m": -2547.988
+    },
+    {
+      "sol": 404,
+      "easting": 4353130.591,
+      "northing": 1094178.336,
+      "elevation_m": -2547.449
+    },
+    {
+      "sol": 405,
+      "easting": 4353047.096,
+      "northing": 1094165.314,
+      "elevation_m": -2547.379
+    },
+    {
+      "sol": 405,
+      "easting": 4352979.27,
+      "northing": 1094126.766,
+      "elevation_m": -2548.05
+    },
+    {
+      "sol": 405,
+      "easting": 4352917.018,
+      "northing": 1094075.543,
+      "elevation_m": -2549.348
+    },
+    {
+      "sol": 407,
+      "easting": 4352857.819,
+      "northing": 1094037.678,
+      "elevation_m": -2549.869
+    },
+    {
+      "sol": 407,
+      "easting": 4352784.904,
+      "northing": 1094002.867,
+      "elevation_m": -2550.656
+    },
+    {
+      "sol": 407,
+      "easting": 4352718.485,
+      "northing": 1093959.481,
+      "elevation_m": -2551.245
+    },
+    {
+      "sol": 408,
+      "easting": 4352651.238,
+      "northing": 1093924.963,
+      "elevation_m": -2551.68
+    },
+    {
+      "sol": 408,
+      "easting": 4352582.29,
+      "northing": 1093893.006,
+      "elevation_m": -2551.338
+    },
+    {
+      "sol": 408,
+      "easting": 4352503.929,
+      "northing": 1093871.597,
+      "elevation_m": -2551.143
+    },
+    {
+      "sol": 408,
+      "easting": 4352428.77,
+      "northing": 1093845.538,
+      "elevation_m": -2549.284
+    },
+    {
+      "sol": 409,
+      "easting": 4352348.49,
+      "northing": 1093838.706,
+      "elevation_m": -2547.97
+    },
+    {
+      "sol": 409,
+      "easting": 4352269.829,
+      "northing": 1093844.31,
+      "elevation_m": -2546.231
+    },
+    {
+      "sol": 413,
+      "easting": 4352189.884,
+      "northing": 1093857.672,
+      "elevation_m": -2545.158
+    },
+    {
+      "sol": 413,
+      "easting": 4352122.824,
+      "northing": 1093841.973,
+      "elevation_m": -2544.91
+    },
+    {
+      "sol": 414,
+      "easting": 4352070.331,
+      "northing": 1093779.178,
+      "elevation_m": -2545.243
+    },
+    {
+      "sol": 414,
+      "easting": 4352000.009,
+      "northing": 1093748.919,
+      "elevation_m": -2544.989
+    },
+    {
+      "sol": 415,
+      "easting": 4351944.659,
+      "northing": 1093671.531,
+      "elevation_m": -2543.76
+    },
+    {
+      "sol": 416,
+      "easting": 4351918.403,
+      "northing": 1093556.589,
+      "elevation_m": -2538.251
+    },
+    {
+      "sol": 418,
+      "easting": 4351856.718,
+      "northing": 1093527.337,
+      "elevation_m": -2531.502
+    },
+    {
+      "sol": 418,
+      "easting": 4351784.507,
+      "northing": 1093545.559,
+      "elevation_m": -2525.784
+    },
+    {
+      "sol": 419,
+      "easting": 4351721.858,
+      "northing": 1093545.104,
+      "elevation_m": -2520.588
+    },
+    {
+      "sol": 421,
+      "easting": 4351709.797,
+      "northing": 1093607.795,
+      "elevation_m": -2523.072
+    },
+    {
+      "sol": 426,
+      "easting": 4351730.493,
+      "northing": 1093632.1,
+      "elevation_m": -2526.4
+    },
+    {
+      "sol": 426,
+      "easting": 4351816.022,
+      "northing": 1093626.579,
+      "elevation_m": -2533.68
+    },
+    {
+      "sol": 427,
+      "easting": 4351886.083,
+      "northing": 1093618.088,
+      "elevation_m": -2539.1
+    },
+    {
+      "sol": 428,
+      "easting": 4351930.577,
+      "northing": 1093708.453,
+      "elevation_m": -2543.986
+    },
+    {
+      "sol": 432,
+      "easting": 4352003.186,
+      "northing": 1093763.782,
+      "elevation_m": -2544.703
+    },
+    {
+      "sol": 433,
+      "easting": 4352105.431,
+      "northing": 1093830.347,
+      "elevation_m": -2545.026
+    },
+    {
+      "sol": 436,
+      "easting": 4352111.482,
+      "northing": 1093920.786,
+      "elevation_m": -2544.306
+    },
+    {
+      "sol": 437,
+      "easting": 4352111.843,
+      "northing": 1094002.327,
+      "elevation_m": -2541.989
+    },
+    {
+      "sol": 441,
+      "easting": 4352115.527,
+      "northing": 1094072.295,
+      "elevation_m": -2535.63
+    },
+    {
+      "sol": 449,
+      "easting": 4351988.478,
+      "northing": 1094063.715,
+      "elevation_m": -2534.735
+    },
+    {
+      "sol": 460,
+      "easting": 4351978.597,
+      "northing": 1094120.468,
+      "elevation_m": -2524.368
+    },
+    {
+      "sol": 477,
+      "easting": 4351975.175,
+      "northing": 1094141.241,
+      "elevation_m": -2522.185
+    },
+    {
+      "sol": 535,
+      "easting": 4351996.371,
+      "northing": 1094113.646,
+      "elevation_m": -2524.846
+    },
+    {
+      "sol": 536,
+      "easting": 4352093.04,
+      "northing": 1094105.875,
+      "elevation_m": -2526.412
+    },
+    {
+      "sol": 538,
+      "easting": 4352123.056,
+      "northing": 1094032.338,
+      "elevation_m": -2540.544
+    },
+    {
+      "sol": 539,
+      "easting": 4352086.363,
+      "northing": 1093949.873,
+      "elevation_m": -2543.508
+    },
+    {
+      "sol": 541,
+      "easting": 4352042.912,
+      "northing": 1093869.847,
+      "elevation_m": -2543.629
+    },
+    {
+      "sol": 542,
+      "easting": 4351995.922,
+      "northing": 1093804.371,
+      "elevation_m": -2543.897
+    },
+    {
+      "sol": 543,
+      "easting": 4351946.159,
+      "northing": 1093715.209,
+      "elevation_m": -2544.382
+    },
+    {
+      "sol": 555,
+      "easting": 4351892.771,
+      "northing": 1093616.309,
+      "elevation_m": -2539.266
+    },
+    {
+      "sol": 555,
+      "easting": 4351834.141,
+      "northing": 1093626.608,
+      "elevation_m": -2534.899
+    },
+    {
+      "sol": 555,
+      "easting": 4351742.247,
+      "northing": 1093635.622,
+      "elevation_m": -2527.867
+    },
+    {
+      "sol": 592,
+      "easting": 4351708.966,
+      "northing": 1093668.723,
+      "elevation_m": -2526.353
+    },
+    {
+      "sol": 606,
+      "easting": 4351688.856,
+      "northing": 1093729.259,
+      "elevation_m": -2521.767
+    },
+    {
+      "sol": 606,
+      "easting": 4351620.25,
+      "northing": 1093774.147,
+      "elevation_m": -2519.53
+    },
+    {
+      "sol": 629,
+      "easting": 4351586.525,
+      "northing": 1093834.432,
+      "elevation_m": -2517.364
+    },
+    {
+      "sol": 629,
+      "easting": 4351627.252,
+      "northing": 1093764.822,
+      "elevation_m": -2519.131
+    },
+    {
+      "sol": 629,
+      "easting": 4351701.91,
+      "northing": 1093726.446,
+      "elevation_m": -2522.678
+    },
+    {
+      "sol": 641,
+      "easting": 4351699.287,
+      "northing": 1093654.579,
+      "elevation_m": -2525.319
+    },
+    {
+      "sol": 645,
+      "easting": 4351763.635,
+      "northing": 1093628.396,
+      "elevation_m": -2528.935
+    },
+    {
+      "sol": 646,
+      "easting": 4351867.542,
+      "northing": 1093630.962,
+      "elevation_m": -2538.258
+    },
+    {
+      "sol": 647,
+      "easting": 4351926.255,
+      "northing": 1093668.026,
+      "elevation_m": -2542.885
+    },
+    {
+      "sol": 648,
+      "easting": 4351963.034,
+      "northing": 1093740.264,
+      "elevation_m": -2544.336
+    },
+    {
+      "sol": 648,
+      "easting": 4352038.05,
+      "northing": 1093767.328,
+      "elevation_m": -2545.159
+    },
+    {
+      "sol": 663,
+      "easting": 4352087.622,
+      "northing": 1093778.785,
+      "elevation_m": -2545.258
+    },
+    {
+      "sol": 678,
+      "easting": 4352109.286,
+      "northing": 1093791.255,
+      "elevation_m": -2545.232
+    },
+    {
+      "sol": 693,
+      "easting": 4352107.943,
+      "northing": 1093853.904,
+      "elevation_m": -2544.722
+    },
+    {
+      "sol": 694,
+      "easting": 4352106.633,
+      "northing": 1093951.632,
+      "elevation_m": -2543.82
+    },
+    {
+      "sol": 694,
+      "easting": 4352127.025,
+      "northing": 1094046.356,
+      "elevation_m": -2539.437
+    },
+    {
+      "sol": 700,
+      "easting": 4352125.857,
+      "northing": 1094098.8,
+      "elevation_m": -2528.164
+    },
+    {
+      "sol": 708,
+      "easting": 4352083.659,
+      "northing": 1094149.719,
+      "elevation_m": -2520.41
+    },
+    {
+      "sol": 708,
+      "easting": 4352013.628,
+      "northing": 1094181.681,
+      "elevation_m": -2515.134
+    },
+    {
+      "sol": 709,
+      "easting": 4351945.933,
+      "northing": 1094224.116,
+      "elevation_m": -2508.111
+    },
+    {
+      "sol": 709,
+      "easting": 4351893.389,
+      "northing": 1094283.595,
+      "elevation_m": -2500.05
+    },
+    {
+      "sol": 709,
+      "easting": 4351810.633,
+      "northing": 1094306.666,
+      "elevation_m": -2497.632
+    },
+    {
+      "sol": 713,
+      "easting": 4351811.618,
+      "northing": 1094363.413,
+      "elevation_m": -2494.843
+    },
+    {
+      "sol": 713,
+      "easting": 4351766.401,
+      "northing": 1094423.281,
+      "elevation_m": -2490.684
+    },
+    {
+      "sol": 715,
+      "easting": 4351667.729,
+      "northing": 1094540.753,
+      "elevation_m": -2490.419
+    },
+    {
+      "sol": 715,
+      "easting": 4351654.067,
+      "northing": 1094618.625,
+      "elevation_m": -2489.512
+    },
+    {
+      "sol": 715,
+      "easting": 4351632.384,
+      "northing": 1094696.897,
+      "elevation_m": -2487.217
+    },
+    {
+      "sol": 716,
+      "easting": 4351616.244,
+      "northing": 1094781.944,
+      "elevation_m": -2485.764
+    },
+    {
+      "sol": 716,
+      "easting": 4351585.821,
+      "northing": 1094863.022,
+      "elevation_m": -2483.263
+    },
+    {
+      "sol": 717,
+      "easting": 4351584.115,
+      "northing": 1094948.077,
+      "elevation_m": -2482.731
+    },
+    {
+      "sol": 717,
+      "easting": 4351550.511,
+      "northing": 1095023.477,
+      "elevation_m": -2480.781
+    },
+    {
+      "sol": 718,
+      "easting": 4351485.104,
+      "northing": 1095063.125,
+      "elevation_m": -2477.907
+    },
+    {
+      "sol": 718,
+      "easting": 4351410.819,
+      "northing": 1095085.021,
+      "elevation_m": -2474.988
+    },
+    {
+      "sol": 718,
+      "easting": 4351336.678,
+      "northing": 1095108.985,
+      "elevation_m": -2474.852
+    },
+    {
+      "sol": 719,
+      "easting": 4351267.742,
+      "northing": 1095138.192,
+      "elevation_m": -2473.875
+    },
+    {
+      "sol": 719,
+      "easting": 4351196.34,
+      "northing": 1095137.887,
+      "elevation_m": -2466.345
+    },
+    {
+      "sol": 719,
+      "easting": 4351120.46,
+      "northing": 1095135.875,
+      "elevation_m": -2463.531
+    },
+    {
+      "sol": 721,
+      "easting": 4351063.103,
+      "northing": 1095143.368,
+      "elevation_m": -2463.121
+    },
+    {
+      "sol": 731,
+      "easting": 4351060.38,
+      "northing": 1095069.798,
+      "elevation_m": -2459.419
+    },
+    {
+      "sol": 731,
+      "easting": 4350975.845,
+      "northing": 1095086.002,
+      "elevation_m": -2462.533
+    },
+    {
+      "sol": 731,
+      "easting": 4350897.25,
+      "northing": 1095079.536,
+      "elevation_m": -2459.999
+    },
+    {
+      "sol": 731,
+      "easting": 4350886.77,
+      "northing": 1095004.374,
+      "elevation_m": -2456.707
+    },
+    {
+      "sol": 732,
+      "easting": 4350891.456,
+      "northing": 1094928.696,
+      "elevation_m": -2454.864
+    },
+    {
+      "sol": 732,
+      "easting": 4350895.744,
+      "northing": 1094858.902,
+      "elevation_m": -2454.299
+    },
+    {
+      "sol": 732,
+      "easting": 4350828.076,
+      "northing": 1094838.339,
+      "elevation_m": -2449.84
+    },
+    {
+      "sol": 732,
+      "easting": 4350754.617,
+      "northing": 1094828.139,
+      "elevation_m": -2449.289
+    },
+    {
+      "sol": 753,
+      "easting": 4350709.047,
+      "northing": 1094864.373,
+      "elevation_m": -2449.05
+    },
+    {
+      "sol": 753,
+      "easting": 4350615.136,
+      "northing": 1094862.004,
+      "elevation_m": -2451.325
+    },
+    {
+      "sol": 755,
+      "easting": 4350454.653,
+      "northing": 1094840.098,
+      "elevation_m": -2442.761
+    },
+    {
+      "sol": 755,
+      "easting": 4350384.804,
+      "northing": 1094878.519,
+      "elevation_m": -2438.01
+    },
+    {
+      "sol": 759,
+      "easting": 4350415.267,
+      "northing": 1094897.347,
+      "elevation_m": -2439.775
+    },
+    {
+      "sol": 759,
+      "easting": 4350473.077,
+      "northing": 1094970.828,
+      "elevation_m": -2441.987
+    },
+    {
+      "sol": 762,
+      "easting": 4350501.019,
+      "northing": 1095015.145,
+      "elevation_m": -2441.589
+    },
+    {
+      "sol": 763,
+      "easting": 4350302.449,
+      "northing": 1095047.089,
+      "elevation_m": -2430.141
+    },
+    {
+      "sol": 763,
+      "easting": 4350236.356,
+      "northing": 1095081.189,
+      "elevation_m": -2423.096
+    },
+    {
+      "sol": 763,
+      "easting": 4350172.902,
+      "northing": 1095118.269,
+      "elevation_m": -2422.153
+    },
+    {
+      "sol": 764,
+      "easting": 4350105.507,
+      "northing": 1095165.749,
+      "elevation_m": -2422.134
+    },
+    {
+      "sol": 764,
+      "easting": 4350039.915,
+      "northing": 1095208.073,
+      "elevation_m": -2421.141
+    },
+    {
+      "sol": 765,
+      "easting": 4349976.361,
+      "northing": 1095252.309,
+      "elevation_m": -2420.167
+    },
+    {
+      "sol": 765,
+      "easting": 4349926.299,
+      "northing": 1095315.999,
+      "elevation_m": -2420.266
+    },
+    {
+      "sol": 766,
+      "easting": 4349905.995,
+      "northing": 1095390.68,
+      "elevation_m": -2419.862
+    },
+    {
+      "sol": 768,
+      "easting": 4349894.83,
+      "northing": 1095470.366,
+      "elevation_m": -2421.402
+    },
+    {
+      "sol": 770,
+      "easting": 4349886.643,
+      "northing": 1095536.502,
+      "elevation_m": -2423.503
+    },
+    {
+      "sol": 784,
+      "easting": 4349870.808,
+      "northing": 1095559.54,
+      "elevation_m": -2421.887
+    },
+    {
+      "sol": 816,
+      "easting": 4349865.176,
+      "northing": 1095599.632,
+      "elevation_m": -2422.282
+    },
+    {
+      "sol": 836,
+      "easting": 4349779.424,
+      "northing": 1095586.003,
+      "elevation_m": -2417.866
+    },
+    {
+      "sol": 838,
+      "easting": 4349728.896,
+      "northing": 1095494.941,
+      "elevation_m": -2413.519
+    },
+    {
+      "sol": 854,
+      "easting": 4349711.931,
+      "northing": 1095478.561,
+      "elevation_m": -2415.286
+    },
+    {
+      "sol": 856,
+      "easting": 4349650.374,
+      "northing": 1095461.857,
+      "elevation_m": -2415.759
+    },
+    {
+      "sol": 866,
+      "easting": 4349578.406,
+      "northing": 1095446.234,
+      "elevation_m": -2416.117
+    },
+    {
+      "sol": 868,
+      "easting": 4349503.921,
+      "northing": 1095463.64,
+      "elevation_m": -2415.994
+    },
+    {
+      "sol": 870,
+      "easting": 4349473.105,
+      "northing": 1095457.401,
+      "elevation_m": -2416.791
+    },
+    {
+      "sol": 871,
+      "easting": 4349421.005,
+      "northing": 1095583.075,
+      "elevation_m": -2418.06
+    },
+    {
+      "sol": 884,
+      "easting": 4349433.447,
+      "northing": 1095622.699,
+      "elevation_m": -2418.575
+    },
+    {
+      "sol": 885,
+      "easting": 4349399.023,
+      "northing": 1095546.779,
+      "elevation_m": -2418.664
+    },
+    {
+      "sol": 896,
+      "easting": 4349313.859,
+      "northing": 1095543.919,
+      "elevation_m": -2415.689
+    },
+    {
+      "sol": 905,
+      "easting": 4349255.436,
+      "northing": 1095542.762,
+      "elevation_m": -2414.621
+    },
+    {
+      "sol": 905,
+      "easting": 4349280.228,
+      "northing": 1095538.143,
+      "elevation_m": -2414.842
+    },
+    {
+      "sol": 908,
+      "easting": 4349255.931,
+      "northing": 1095537.325,
+      "elevation_m": -2414.925
+    },
+    {
+      "sol": 908,
+      "easting": 4349166.882,
+      "northing": 1095520.21,
+      "elevation_m": -2415.489
+    },
+    {
+      "sol": 908,
+      "easting": 4349093.618,
+      "northing": 1095548.885,
+      "elevation_m": -2413.723
+    },
+    {
+      "sol": 908,
+      "easting": 4349045.969,
+      "northing": 1095597.639,
+      "elevation_m": -2411.995
+    },
+    {
+      "sol": 909,
+      "easting": 4348958.359,
+      "northing": 1095575.177,
+      "elevation_m": -2418.343
+    },
+    {
+      "sol": 909,
+      "easting": 4348894.345,
+      "northing": 1095597.437,
+      "elevation_m": -2421.817
+    },
+    {
+      "sol": 925,
+      "easting": 4348854.474,
+      "northing": 1095597.467,
+      "elevation_m": -2423.361
+    },
+    {
+      "sol": 926,
+      "easting": 4348856.086,
+      "northing": 1095668.762,
+      "elevation_m": -2422.224
+    },
+    {
+      "sol": 927,
+      "easting": 4348853.516,
+      "northing": 1095763.394,
+      "elevation_m": -2418.208
+    },
+    {
+      "sol": 927,
+      "easting": 4348821.708,
+      "northing": 1095848.664,
+      "elevation_m": -2414.451
+    },
+    {
+      "sol": 929,
+      "easting": 4348789.466,
+      "northing": 1095829.424,
+      "elevation_m": -2414.722
+    },
+    {
+      "sol": 931,
+      "easting": 4348736.643,
+      "northing": 1095825.133,
+      "elevation_m": -2413.801
+    },
+    {
+      "sol": 932,
+      "easting": 4348640.066,
+      "northing": 1095837.928,
+      "elevation_m": -2410.51
+    },
+    {
+      "sol": 932,
+      "easting": 4348633.975,
+      "northing": 1095905.51,
+      "elevation_m": -2408.119
+    },
+    {
+      "sol": 950,
+      "easting": 4348655.425,
+      "northing": 1095947.465,
+      "elevation_m": -2407.144
+    },
+    {
+      "sol": 950,
+      "easting": 4348688.096,
+      "northing": 1096010.435,
+      "elevation_m": -2405.904
+    },
+    {
+      "sol": 950,
+      "easting": 4348709.103,
+      "northing": 1096023.749,
+      "elevation_m": -2405.838
+    },
+    {
+      "sol": 950,
+      "easting": 4348739.269,
+      "northing": 1096084.133,
+      "elevation_m": -2405.192
+    },
+    {
+      "sol": 952,
+      "easting": 4348721.799,
+      "northing": 1096152.876,
+      "elevation_m": -2403.222
+    },
+    {
+      "sol": 952,
+      "easting": 4348700.191,
+      "northing": 1096222.908,
+      "elevation_m": -2401.286
+    },
+    {
+      "sol": 957,
+      "easting": 4348698.895,
+      "northing": 1096237.108,
+      "elevation_m": -2400.547
+    },
+    {
+      "sol": 959,
+      "easting": 4348676.421,
+      "northing": 1096332.115,
+      "elevation_m": -2399.211
+    },
+    {
+      "sol": 959,
+      "easting": 4348740.822,
+      "northing": 1096357.236,
+      "elevation_m": -2405.369
+    },
+    {
+      "sol": 959,
+      "easting": 4348813.797,
+      "northing": 1096370.896,
+      "elevation_m": -2408.575
+    },
+    {
+      "sol": 959,
+      "easting": 4348882.127,
+      "northing": 1096376.322,
+      "elevation_m": -2408.802
+    },
+    {
+      "sol": 991,
+      "easting": 4348946.551,
+      "northing": 1096377.513,
+      "elevation_m": -2407.499
+    },
+    {
+      "sol": 993,
+      "easting": 4348902.376,
+      "northing": 1096429.001,
+      "elevation_m": -2410.38
+    },
+    {
+      "sol": 994,
+      "easting": 4348915.137,
+      "northing": 1096499.526,
+      "elevation_m": -2414.602
+    },
+    {
+      "sol": 997,
+      "easting": 4348885.031,
+      "northing": 1096551.802,
+      "elevation_m": -2419.684
+    },
+    {
+      "sol": 997,
+      "easting": 4348851.728,
+      "northing": 1096484.264,
+      "elevation_m": -2415.765
+    },
+    {
+      "sol": 998,
+      "easting": 4348782.349,
+      "northing": 1096483.944,
+      "elevation_m": -2414.089
+    },
+    {
+      "sol": 998,
+      "easting": 4348755.597,
+      "northing": 1096475.035,
+      "elevation_m": -2410.776
+    },
+    {
+      "sol": 999,
+      "easting": 4348737.799,
+      "northing": 1096428.709,
+      "elevation_m": -2408.704
+    },
+    {
+      "sol": 999,
+      "easting": 4348712.074,
+      "northing": 1096365.794,
+      "elevation_m": -2404.984
+    },
+    {
+      "sol": 999,
+      "easting": 4348655.852,
+      "northing": 1096320.389,
+      "elevation_m": -2397.468
+    },
+    {
+      "sol": 1001,
+      "easting": 4348610.668,
+      "northing": 1096286.897,
+      "elevation_m": -2403.049
+    },
+    {
+      "sol": 1001,
+      "easting": 4348610.772,
+      "northing": 1096308.646,
+      "elevation_m": -2400.143
+    },
+    {
+      "sol": 1001,
+      "easting": 4348618.826,
+      "northing": 1096298.719,
+      "elevation_m": -2400.572
+    },
+    {
+      "sol": 1002,
+      "easting": 4348559.927,
+      "northing": 1096240.615,
+      "elevation_m": -2410.155
+    },
+    {
+      "sol": 1006,
+      "easting": 4348504.911,
+      "northing": 1096267.619,
+      "elevation_m": -2408.874
+    },
+    {
+      "sol": 1007,
+      "easting": 4348480.606,
+      "northing": 1096229.955,
+      "elevation_m": -2409.442
+    },
+    {
+      "sol": 1007,
+      "easting": 4348444.338,
+      "northing": 1096178.289,
+      "elevation_m": -2411.47
+    },
+    {
+      "sol": 1007,
+      "easting": 4348387.074,
+      "northing": 1096150.716,
+      "elevation_m": -2409.891
+    },
+    {
+      "sol": 1018,
+      "easting": 4348332.964,
+      "northing": 1096145.968,
+      "elevation_m": -2409.149
+    },
+    {
+      "sol": 1018,
+      "easting": 4348282.187,
+      "northing": 1096154.638,
+      "elevation_m": -2408.102
+    },
+    {
+      "sol": 1018,
+      "easting": 4348234.924,
+      "northing": 1096149.516,
+      "elevation_m": -2407.863
+    },
+    {
+      "sol": 1019,
+      "easting": 4348265.312,
+      "northing": 1096145.5,
+      "elevation_m": -2407.865
+    },
+    {
+      "sol": 1019,
+      "easting": 4348263.219,
+      "northing": 1096146.524,
+      "elevation_m": -2407.882
+    },
+    {
+      "sol": 1041,
+      "easting": 4348225.18,
+      "northing": 1096154.64,
+      "elevation_m": -2408.25
+    },
+    {
+      "sol": 1041,
+      "easting": 4348166.282,
+      "northing": 1096203.828,
+      "elevation_m": -2411.037
+    },
+    {
+      "sol": 1041,
+      "easting": 4348113.072,
+      "northing": 1096147.637,
+      "elevation_m": -2407.901
+    },
+    {
+      "sol": 1042,
+      "easting": 4348039.948,
+      "northing": 1096149.351,
+      "elevation_m": -2401.815
+    },
+    {
+      "sol": 1042,
+      "easting": 4348051.663,
+      "northing": 1096141.664,
+      "elevation_m": -2402.257
+    },
+    {
+      "sol": 1042,
+      "easting": 4348043.454,
+      "northing": 1096162.98,
+      "elevation_m": -2402.535
+    },
+    {
+      "sol": 1045,
+      "easting": 4347970.622,
+      "northing": 1096147.361,
+      "elevation_m": -2400.449
+    },
+    {
+      "sol": 1045,
+      "easting": 4347901.962,
+      "northing": 1096184.151,
+      "elevation_m": -2401.231
+    },
+    {
+      "sol": 1046,
+      "easting": 4347849.308,
+      "northing": 1096165.197,
+      "elevation_m": -2398.347
+    },
+    {
+      "sol": 1046,
+      "easting": 4347835.26,
+      "northing": 1096106.693,
+      "elevation_m": -2394.807
+    },
+    {
+      "sol": 1046,
+      "easting": 4347770.738,
+      "northing": 1096068.236,
+      "elevation_m": -2392.396
+    },
+    {
+      "sol": 1047,
+      "easting": 4347702.954,
+      "northing": 1096043.668,
+      "elevation_m": -2386.835
+    },
+    {
+      "sol": 1049,
+      "easting": 4347637.28,
+      "northing": 1096058.804,
+      "elevation_m": -2383.139
+    },
+    {
+      "sol": 1052,
+      "easting": 4347598.11,
+      "northing": 1096077.537,
+      "elevation_m": -2382.133
+    },
+    {
+      "sol": 1052,
+      "easting": 4347544.024,
+      "northing": 1096083.828,
+      "elevation_m": -2382.468
+    },
+    {
+      "sol": 1068,
+      "easting": 4347540.621,
+      "northing": 1096095.666,
+      "elevation_m": -2382.809
+    },
+    {
+      "sol": 1096,
+      "easting": 4347505.493,
+      "northing": 1096108.307,
+      "elevation_m": -2381.859
+    },
+    {
+      "sol": 1101,
+      "easting": 4347479.572,
+      "northing": 1096097.055,
+      "elevation_m": -2379.853
+    },
+    {
+      "sol": 1101,
+      "easting": 4347455.794,
+      "northing": 1096036.795,
+      "elevation_m": -2374.304
+    },
+    {
+      "sol": 1103,
+      "easting": 4347409.807,
+      "northing": 1096046.641,
+      "elevation_m": -2374.18
+    },
+    {
+      "sol": 1108,
+      "easting": 4347366.495,
+      "northing": 1096024.692,
+      "elevation_m": -2370.062
+    },
+    {
+      "sol": 1110,
+      "easting": 4347329.849,
+      "northing": 1096047.975,
+      "elevation_m": -2369.07
+    },
+    {
+      "sol": 1115,
+      "easting": 4347271.041,
+      "northing": 1096021.843,
+      "elevation_m": -2370.297
+    },
+    {
+      "sol": 1117,
+      "easting": 4347212.369,
+      "northing": 1095990.603,
+      "elevation_m": -2366.408
+    },
+    {
+      "sol": 1118,
+      "easting": 4347217.329,
+      "northing": 1095925.658,
+      "elevation_m": -2359.471
+    },
+    {
+      "sol": 1122,
+      "easting": 4347168.797,
+      "northing": 1095941.155,
+      "elevation_m": -2357.424
+    },
+    {
+      "sol": 1124,
+      "easting": 4347146.767,
+      "northing": 1095961.136,
+      "elevation_m": -2355.94
+    },
+    {
+      "sol": 1136,
+      "easting": 4347117.403,
+      "northing": 1095985.557,
+      "elevation_m": -2357.106
+    },
+    {
+      "sol": 1138,
+      "easting": 4347027.511,
+      "northing": 1095985.012,
+      "elevation_m": -2352.809
+    },
+    {
+      "sol": 1142,
+      "easting": 4346935.574,
+      "northing": 1095985.084,
+      "elevation_m": -2352.458
+    },
+    {
+      "sol": 1144,
+      "easting": 4346860.07,
+      "northing": 1095989.754,
+      "elevation_m": -2350.105
+    },
+    {
+      "sol": 1148,
+      "easting": 4346810.946,
+      "northing": 1096007.604,
+      "elevation_m": -2350.688
+    },
+    {
+      "sol": 1156,
+      "easting": 4346760.521,
+      "northing": 1096036.65,
+      "elevation_m": -2353.774
+    },
+    {
+      "sol": 1162,
+      "easting": 4346712.385,
+      "northing": 1096090.567,
+      "elevation_m": -2365.474
+    },
+    {
+      "sol": 1162,
+      "easting": 4346714.843,
+      "northing": 1096164.715,
+      "elevation_m": -2366.305
+    },
+    {
+      "sol": 1162,
+      "easting": 4346771.442,
+      "northing": 1096214.065,
+      "elevation_m": -2370.337
+    },
+    {
+      "sol": 1168,
+      "easting": 4346793.913,
+      "northing": 1096263.286,
+      "elevation_m": -2371.348
+    },
+    {
+      "sol": 1168,
+      "easting": 4346783.153,
+      "northing": 1096329.059,
+      "elevation_m": -2370.427
+    },
+    {
+      "sol": 1170,
+      "easting": 4346747.036,
+      "northing": 1096328.18,
+      "elevation_m": -2369.071
+    },
+    {
+      "sol": 1170,
+      "easting": 4346681.949,
+      "northing": 1096313.434,
+      "elevation_m": -2366.417
+    },
+    {
+      "sol": 1171,
+      "easting": 4346611.386,
+      "northing": 1096311.921,
+      "elevation_m": -2365.785
+    },
+    {
+      "sol": 1171,
+      "easting": 4346538.432,
+      "northing": 1096307.009,
+      "elevation_m": -2363.459
+    },
+    {
+      "sol": 1174,
+      "easting": 4346467.352,
+      "northing": 1096303.421,
+      "elevation_m": -2361.069
+    },
+    {
+      "sol": 1174,
+      "easting": 4346393.733,
+      "northing": 1096294.916,
+      "elevation_m": -2360.036
+    },
+    {
+      "sol": 1175,
+      "easting": 4346323.63,
+      "northing": 1096279.763,
+      "elevation_m": -2359.966
+    },
+    {
+      "sol": 1175,
+      "easting": 4346254.608,
+      "northing": 1096293.366,
+      "elevation_m": -2360.486
+    },
+    {
+      "sol": 1182,
+      "easting": 4346226.56,
+      "northing": 1096351.46,
+      "elevation_m": -2362.836
+    },
+    {
+      "sol": 1182,
+      "easting": 4346281.742,
+      "northing": 1096407.174,
+      "elevation_m": -2358.649
+    },
+    {
+      "sol": 1185,
+      "easting": 4346303.08,
+      "northing": 1096431.95,
+      "elevation_m": -2354.295
+    },
+    {
+      "sol": 1206,
+      "easting": 4346315.69,
+      "northing": 1096434.864,
+      "elevation_m": -2353.121
+    },
+    {
+      "sol": 1219,
+      "easting": 4346278.675,
+      "northing": 1096401.814,
+      "elevation_m": -2359.488
+    },
+    {
+      "sol": 1219,
+      "easting": 4346222.608,
+      "northing": 1096357.135,
+      "elevation_m": -2362.493
+    },
+    {
+      "sol": 1224,
+      "easting": 4346216.813,
+      "northing": 1096295.276,
+      "elevation_m": -2359.529
+    },
+    {
+      "sol": 1224,
+      "easting": 4346221.168,
+      "northing": 1096234.044,
+      "elevation_m": -2358.446
+    },
+    {
+      "sol": 1224,
+      "easting": 4346196.47,
+      "northing": 1096169.867,
+      "elevation_m": -2354.134
+    },
+    {
+      "sol": 1226,
+      "easting": 4346135.534,
+      "northing": 1096199.266,
+      "elevation_m": -2357.044
+    },
+    {
+      "sol": 1227,
+      "easting": 4346072.298,
+      "northing": 1096184.307,
+      "elevation_m": -2354.44
+    },
+    {
+      "sol": 1230,
+      "easting": 4346071.9,
+      "northing": 1096128.26,
+      "elevation_m": -2349.64
+    },
+    {
+      "sol": 1244,
+      "easting": 4346069.246,
+      "northing": 1096078.153,
+      "elevation_m": -2342.521
+    },
+    {
+      "sol": 1245,
+      "easting": 4346055.851,
+      "northing": 1096061.825,
+      "elevation_m": -2340.019
+    },
+    {
+      "sol": 1246,
+      "easting": 4346011.156,
+      "northing": 1096037.132,
+      "elevation_m": -2331.761
+    },
+    {
+      "sol": 1247,
+      "easting": 4345969.413,
+      "northing": 1095960.537,
+      "elevation_m": -2309.022
+    },
+    {
+      "sol": 1251,
+      "easting": 4345944.015,
+      "northing": 1095918.882,
+      "elevation_m": -2295.681
+    },
+    {
+      "sol": 1252,
+      "easting": 4345919.729,
+      "northing": 1095859.113,
+      "elevation_m": -2275.489
+    },
+    {
+      "sol": 1265,
+      "easting": 4345935.304,
+      "northing": 1095824.657,
+      "elevation_m": -2267.301
+    },
+    {
+      "sol": 1265,
+      "easting": 4346002.574,
+      "northing": 1095800.807,
+      "elevation_m": -2271.109
+    },
+    {
+      "sol": 1266,
+      "easting": 4346027.284,
+      "northing": 1095740.545,
+      "elevation_m": -2259.43
+    },
+    {
+      "sol": 1266,
+      "easting": 4346042.506,
+      "northing": 1095671.022,
+      "elevation_m": -2250.035
+    },
+    {
+      "sol": 1268,
+      "easting": 4346036.455,
+      "northing": 1095605.175,
+      "elevation_m": -2239.655
+    },
+    {
+      "sol": 1268,
+      "easting": 4346029.54,
+      "northing": 1095532.284,
+      "elevation_m": -2227.714
+    },
+    {
+      "sol": 1270,
+      "easting": 4346029.274,
+      "northing": 1095464.118,
+      "elevation_m": -2218.69
+    },
+    {
+      "sol": 1270,
+      "easting": 4346031.77,
+      "northing": 1095394.988,
+      "elevation_m": -2211.285
+    },
+    {
+      "sol": 1271,
+      "easting": 4346041.571,
+      "northing": 1095322.615,
+      "elevation_m": -2205.767
+    },
+    {
+      "sol": 1274,
+      "easting": 4346005.166,
+      "northing": 1095266.687,
+      "elevation_m": -2194.022
+    },
+    {
+      "sol": 1274,
+      "easting": 4345979.838,
+      "northing": 1095204.849,
+      "elevation_m": -2184.87
+    },
+    {
+      "sol": 1278,
+      "easting": 4346001.079,
+      "northing": 1095162.789,
+      "elevation_m": -2186.688
+    },
+    {
+      "sol": 1278,
+      "easting": 4345996.168,
+      "northing": 1095093.072,
+      "elevation_m": -2178.456
+    },
+    {
+      "sol": 1280,
+      "easting": 4345983.94,
+      "northing": 1095026.717,
+      "elevation_m": -2169.566
+    },
+    {
+      "sol": 1283,
+      "easting": 4345986.089,
+      "northing": 1095005.39,
+      "elevation_m": -2167.876
+    },
+    {
+      "sol": 1283,
+      "easting": 4346030.602,
+      "northing": 1094952.362,
+      "elevation_m": -2170.48
+    },
+    {
+      "sol": 1284,
+      "easting": 4346005.589,
+      "northing": 1094900.988,
+      "elevation_m": -2159.133
+    },
+    {
+      "sol": 1286,
+      "easting": 4345957.888,
+      "northing": 1094909.916,
+      "elevation_m": -2149.608
+    },
+    {
+      "sol": 1292,
+      "easting": 4345892.949,
+      "northing": 1094904.867,
+      "elevation_m": -2134.495
+    },
+    {
+      "sol": 1293,
+      "easting": 4345790.02,
+      "northing": 1094852.412,
+      "elevation_m": -2104.578
+    },
+    {
+      "sol": 1295,
+      "easting": 4345727.82,
+      "northing": 1094832.517,
+      "elevation_m": -2086.554
+    },
+    {
+      "sol": 1298,
+      "easting": 4345672.176,
+      "northing": 1094770.585,
+      "elevation_m": -2067.931
+    },
+    {
+      "sol": 1301,
+      "easting": 4345620.022,
+      "northing": 1094746.407,
+      "elevation_m": -2056.385
+    },
+    {
+      "sol": 1305,
+      "easting": 4345627.343,
+      "northing": 1094760.048,
+      "elevation_m": -2058.096
+    },
+    {
+      "sol": 1305,
+      "easting": 4345603.216,
+      "northing": 1094692.351,
+      "elevation_m": -2049.71
+    },
+    {
+      "sol": 1305,
+      "easting": 4345542.128,
+      "northing": 1094663.631,
+      "elevation_m": -2039.928
+    },
+    {
+      "sol": 1311,
+      "easting": 4345521.541,
+      "northing": 1094699.217,
+      "elevation_m": -2036.529
+    },
+    {
+      "sol": 1318,
+      "easting": 4345530.218,
+      "northing": 1094691.094,
+      "elevation_m": -2038.564
+    },
+    {
+      "sol": 1321,
+      "easting": 4345503.872,
+      "northing": 1094678.506,
+      "elevation_m": -2031.878
+    },
+    {
+      "sol": 1322,
+      "easting": 4345500.964,
+      "northing": 1094622.789,
+      "elevation_m": -2032.154
+    },
+    {
+      "sol": 1324,
+      "easting": 4345494.063,
+      "northing": 1094543.323,
+      "elevation_m": -2028.645
+    },
+    {
+      "sol": 1324,
+      "easting": 4345434.529,
+      "northing": 1094511.269,
+      "elevation_m": -2019.722
+    },
+    {
+      "sol": 1326,
+      "easting": 4345370.41,
+      "northing": 1094495.8,
+      "elevation_m": -2009.124
+    },
+    {
+      "sol": 1326,
+      "easting": 4345314.804,
+      "northing": 1094480.502,
+      "elevation_m": -1998.672
+    },
+    {
+      "sol": 1332,
+      "easting": 4345260.337,
+      "northing": 1094501.977,
+      "elevation_m": -1988.431
+    },
+    {
+      "sol": 1338,
+      "easting": 4345234.532,
+      "northing": 1094469.906,
+      "elevation_m": -1985.293
+    },
+    {
+      "sol": 1338,
+      "easting": 4345194.268,
+      "northing": 1094418.351,
+      "elevation_m": -1977.513
+    },
+    {
+      "sol": 1339,
+      "easting": 4345138.126,
+      "northing": 1094389.613,
+      "elevation_m": -1967.927
+    },
+    {
+      "sol": 1347,
+      "easting": 4345071.28,
+      "northing": 1094362.771,
+      "elevation_m": -1957.495
+    },
+    {
+      "sol": 1347,
+      "easting": 4345016.141,
+      "northing": 1094335.682,
+      "elevation_m": -1948.126
+    },
+    {
+      "sol": 1347,
+      "easting": 4344952.292,
+      "northing": 1094337.094,
+      "elevation_m": -1937.6
+    },
+    {
+      "sol": 1348,
+      "easting": 4344895.832,
+      "northing": 1094328.171,
+      "elevation_m": -1927.059
+    },
+    {
+      "sol": 1348,
+      "easting": 4344836.829,
+      "northing": 1094334.174,
+      "elevation_m": -1915.421
+    },
+    {
+      "sol": 1348,
+      "easting": 4344782.296,
+      "northing": 1094304.451,
+      "elevation_m": -1903.021
+    },
+    {
+      "sol": 1349,
+      "easting": 4344720.535,
+      "northing": 1094254.791,
+      "elevation_m": -1889.585
+    },
+    {
+      "sol": 1349,
+      "easting": 4344664.972,
+      "northing": 1094228.539,
+      "elevation_m": -1877.739
+    },
+    {
+      "sol": 1349,
+      "easting": 4344600.106,
+      "northing": 1094218.347,
+      "elevation_m": -1863.239
+    },
+    {
+      "sol": 1351,
+      "easting": 4344536.98,
+      "northing": 1094194.703,
+      "elevation_m": -1850.447
+    },
+    {
+      "sol": 1351,
+      "easting": 4344477.589,
+      "northing": 1094182.49,
+      "elevation_m": -1837.958
+    },
+    {
+      "sol": 1354,
+      "easting": 4344418.768,
+      "northing": 1094157.819,
+      "elevation_m": -1823.47
+    },
+    {
+      "sol": 1354,
+      "easting": 4344371.875,
+      "northing": 1094113.695,
+      "elevation_m": -1810.863
+    },
+    {
+      "sol": 1354,
+      "easting": 4344313.873,
+      "northing": 1094086.252,
+      "elevation_m": -1798.554
+    },
+    {
+      "sol": 1354,
+      "easting": 4344249.918,
+      "northing": 1094064.476,
+      "elevation_m": -1786.754
+    },
+    {
+      "sol": 1358,
+      "easting": 4344209.854,
+      "northing": 1094114.865,
+      "elevation_m": -1790.808
+    },
+    {
+      "sol": 1359,
+      "easting": 4344158.644,
+      "northing": 1094162.379,
+      "elevation_m": -1794.38
+    },
+    {
+      "sol": 1359,
+      "easting": 4344083.637,
+      "northing": 1094152.4,
+      "elevation_m": -1802.816
+    },
+    {
+      "sol": 1362,
+      "easting": 4344032.294,
+      "northing": 1094158.432,
+      "elevation_m": -1813.727
+    },
+    {
+      "sol": 1363,
+      "easting": 4344028.063,
+      "northing": 1094236.011,
+      "elevation_m": -1819.758
+    },
+    {
+      "sol": 1380,
+      "easting": 4343976.511,
+      "northing": 1094225.987,
+      "elevation_m": -1831.789
+    },
+    {
+      "sol": 1380,
+      "easting": 4343904.229,
+      "northing": 1094211.959,
+      "elevation_m": -1848.343
+    },
+    {
+      "sol": 1397,
+      "easting": 4343937.362,
+      "northing": 1094216.597,
+      "elevation_m": -1840.787
+    },
+    {
+      "sol": 1397,
+      "easting": 4344005.705,
+      "northing": 1094244.93,
+      "elevation_m": -1825.531
+    },
+    {
+      "sol": 1407,
+      "easting": 4344026.073,
+      "northing": 1094228.81,
+      "elevation_m": -1820.086
+    },
+    {
+      "sol": 1407,
+      "easting": 4344033.556,
+      "northing": 1094153.566,
+      "elevation_m": -1813.228
+    },
+    {
+      "sol": 1415,
+      "easting": 4344033.874,
+      "northing": 1094152.458,
+      "elevation_m": -1813.175
+    },
+    {
+      "sol": 1415,
+      "easting": 4344024.651,
+      "northing": 1094229.576,
+      "elevation_m": -1820.481
+    },
+    {
+      "sol": 1429,
+      "easting": 4343981.164,
+      "northing": 1094242.561,
+      "elevation_m": -1831.134
+    },
+    {
+      "sol": 1429,
+      "easting": 4343892.175,
+      "northing": 1094225.246,
+      "elevation_m": -1851.372
+    },
+    {
+      "sol": 1431,
+      "easting": 4343815.25,
+      "northing": 1094238.968,
+      "elevation_m": -1871.91
+    },
+    {
+      "sol": 1431,
+      "easting": 4343740.131,
+      "northing": 1094288.959,
+      "elevation_m": -1899.808
+    },
+    {
+      "sol": 1451,
+      "easting": 4343653.809,
+      "northing": 1094332.133,
+      "elevation_m": -1924.122
+    },
+    {
+      "sol": 1468,
+      "easting": 4343641.572,
+      "northing": 1094342.876,
+      "elevation_m": -1926.461
+    },
+    {
+      "sol": 1468,
+      "easting": 4343670.375,
+      "northing": 1094282.049,
+      "elevation_m": -1920.511
+    },
+    {
+      "sol": 1477,
+      "easting": 4343614.354,
+      "northing": 1094263.729,
+      "elevation_m": -1936.557
+    },
+    {
+      "sol": 1477,
+      "easting": 4343641.557,
+      "northing": 1094334.397,
+      "elevation_m": -1927.189
+    },
+    {
+      "sol": 1502,
+      "easting": 4343613.687,
+      "northing": 1094289.176,
+      "elevation_m": -1936.825
+    },
+    {
+      "sol": 1502,
+      "easting": 4343537.474,
+      "northing": 1094262.81,
+      "elevation_m": -1955.445
+    },
+    {
+      "sol": 1503,
+      "easting": 4343460.307,
+      "northing": 1094247.46,
+      "elevation_m": -1969.278
+    },
+    {
+      "sol": 1509,
+      "easting": 4343452.482,
+      "northing": 1094214.601,
+      "elevation_m": -1968.142
+    },
+    {
+      "sol": 1509,
+      "easting": 4343499.032,
+      "northing": 1094162.276,
+      "elevation_m": -1957.154
+    },
+    {
+      "sol": 1509,
+      "easting": 4343512.406,
+      "northing": 1094085.937,
+      "elevation_m": -1948.946
+    },
+    {
+      "sol": 1510,
+      "easting": 4343507.006,
+      "northing": 1094002.594,
+      "elevation_m": -1946.722
+    },
+    {
+      "sol": 1510,
+      "easting": 4343518.006,
+      "northing": 1093928.87,
+      "elevation_m": -1942.26
+    },
+    {
+      "sol": 1511,
+      "easting": 4343527.153,
+      "northing": 1093854.532,
+      "elevation_m": -1940.083
+    },
+    {
+      "sol": 1511,
+      "easting": 4343485.159,
+      "northing": 1093799.616,
+      "elevation_m": -1950.456
+    },
+    {
+      "sol": 1512,
+      "easting": 4343414.823,
+      "northing": 1093770.935,
+      "elevation_m": -1961.02
+    },
+    {
+      "sol": 1518,
+      "easting": 4343404.361,
+      "northing": 1093769.712,
+      "elevation_m": -1961.998
+    },
+    {
+      "sol": 1519,
+      "easting": 4343481.825,
+      "northing": 1093778.183,
+      "elevation_m": -1952.224
+    },
+    {
+      "sol": 1519,
+      "easting": 4343557.365,
+      "northing": 1093794.433,
+      "elevation_m": -1936.656
+    },
+    {
+      "sol": 1520,
+      "easting": 4343601.694,
+      "northing": 1093832.701,
+      "elevation_m": -1921.185
+    },
+    {
+      "sol": 1523,
+      "easting": 4343586.806,
+      "northing": 1093877.188,
+      "elevation_m": -1922.568
+    },
+    {
+      "sol": 1540,
+      "easting": 4343526.045,
+      "northing": 1093879.378,
+      "elevation_m": -1939.975
+    },
+    {
+      "sol": 1540,
+      "easting": 4343515.528,
+      "northing": 1094120.546,
+      "elevation_m": -1951.398
+    },
+    {
+      "sol": 1549,
+      "easting": 4343516.488,
+      "northing": 1094255.619,
+      "elevation_m": -1959.767
+    },
+    {
+      "sol": 1549,
+      "easting": 4343600.222,
+      "northing": 1094273.483,
+      "elevation_m": -1940.253
+    },
+    {
+      "sol": 1556,
+      "easting": 4343554.989,
+      "northing": 1094249.218,
+      "elevation_m": -1951.222
+    },
+    {
+      "sol": 1556,
+      "easting": 4343483.377,
+      "northing": 1094224.699,
+      "elevation_m": -1964.189
+    },
+    {
+      "sol": 1560,
+      "easting": 4343457.548,
+      "northing": 1094179.322,
+      "elevation_m": -1962.766
+    },
+    {
+      "sol": 1576,
+      "easting": 4343441.875,
+      "northing": 1094172.68,
+      "elevation_m": -1965.533
+    },
+    {
+      "sol": 1576,
+      "easting": 4343508.657,
+      "northing": 1094125.853,
+      "elevation_m": -1952.436
+    },
+    {
+      "sol": 1576,
+      "easting": 4343515.386,
+      "northing": 1094045.701,
+      "elevation_m": -1946.09
+    },
+    {
+      "sol": 1577,
+      "easting": 4343510.472,
+      "northing": 1093965.625,
+      "elevation_m": -1944.72
+    },
+    {
+      "sol": 1577,
+      "easting": 4343514.569,
+      "northing": 1093870.141,
+      "elevation_m": -1942.101
+    },
+    {
+      "sol": 1577,
+      "easting": 4343557.665,
+      "northing": 1093816.963,
+      "elevation_m": -1934.345
+    },
+    {
+      "sol": 1578,
+      "easting": 4343627.672,
+      "northing": 1093796.94,
+      "elevation_m": -1917.283
+    },
+    {
+      "sol": 1592,
+      "easting": 4343593.493,
+      "northing": 1093730.982,
+      "elevation_m": -1934.778
+    },
+    {
+      "sol": 1593,
+      "easting": 4343534.032,
+      "northing": 1093680.368,
+      "elevation_m": -1951.145
+    },
+    {
+      "sol": 1595,
+      "easting": 4343609.797,
+      "northing": 1093632.745,
+      "elevation_m": -1940.75
+    },
+    {
+      "sol": 1597,
+      "easting": 4343672.7,
+      "northing": 1093521.03,
+      "elevation_m": -1931.924
+    },
+    {
+      "sol": 1597,
+      "easting": 4343725.882,
+      "northing": 1093472.15,
+      "elevation_m": -1922.782
+    },
+    {
+      "sol": 1597,
+      "easting": 4343786.445,
+      "northing": 1093438.223,
+      "elevation_m": -1915.291
+    },
+    {
+      "sol": 1601,
+      "easting": 4343845.636,
+      "northing": 1093425.107,
+      "elevation_m": -1907.18
+    },
+    {
+      "sol": 1601,
+      "easting": 4343912.323,
+      "northing": 1093452.222,
+      "elevation_m": -1895.891
+    },
+    {
+      "sol": 1601,
+      "easting": 4343980.315,
+      "northing": 1093475.231,
+      "elevation_m": -1880.583
+    },
+    {
+      "sol": 1622,
+      "easting": 4344000.69,
+      "northing": 1093479.33,
+      "elevation_m": -1875.594
+    },
+    {
+      "sol": 1635,
+      "easting": 4343999.502,
+      "northing": 1093480.777,
+      "elevation_m": -1875.692
+    },
+    {
+      "sol": 1646,
+      "easting": 4344024.724,
+      "northing": 1093507.542,
+      "elevation_m": -1866.698
+    },
+    {
+      "sol": 1661,
+      "easting": 4344032.642,
+      "northing": 1093554.371,
+      "elevation_m": -1856.403
+    },
+    {
+      "sol": 1668,
+      "easting": 4344031.079,
+      "northing": 1093522.561,
+      "elevation_m": -1862.843
+    },
+    {
+      "sol": 1674,
+      "easting": 4344003.257,
+      "northing": 1093473.387,
+      "elevation_m": -1875.89
+    },
+    {
+      "sol": 1674,
+      "easting": 4343948.762,
+      "northing": 1093419.098,
+      "elevation_m": -1891.857
+    },
+    {
+      "sol": 1674,
+      "easting": 4343909.375,
+      "northing": 1093351.082,
+      "elevation_m": -1900.91
+    },
+    {
+      "sol": 1675,
+      "easting": 4343880.843,
+      "northing": 1093282.696,
+      "elevation_m": -1904.349
+    },
+    {
+      "sol": 1675,
+      "easting": 4343845.274,
+      "northing": 1093217.646,
+      "elevation_m": -1905.56
+    },
+    {
+      "sol": 1675,
+      "easting": 4343809.178,
+      "northing": 1093162.85,
+      "elevation_m": -1904.249
+    },
+    {
+      "sol": 1686,
+      "easting": 4343735.706,
+      "northing": 1093134.873,
+      "elevation_m": -1911.279
+    },
+    {
+      "sol": 1686,
+      "easting": 4343690.604,
+      "northing": 1093080.816,
+      "elevation_m": -1912.934
+    },
+    {
+      "sol": 1686,
+      "easting": 4343666.763,
+      "northing": 1093003.751,
+      "elevation_m": -1906.77
+    },
+    {
+      "sol": 1686,
+      "easting": 4343626.126,
+      "northing": 1092942.459,
+      "elevation_m": -1904.076
+    },
+    {
+      "sol": 1687,
+      "easting": 4343618.389,
+      "northing": 1092816.774,
+      "elevation_m": -1892.278
+    },
+    {
+      "sol": 1688,
+      "easting": 4343543.671,
+      "northing": 1092669.878,
+      "elevation_m": -1881.758
+    },
+    {
+      "sol": 1688,
+      "easting": 4343503.14,
+      "northing": 1092615.249,
+      "elevation_m": -1875.938
+    },
+    {
+      "sol": 1688,
+      "easting": 4343450.642,
+      "northing": 1092565.911,
+      "elevation_m": -1875.147
+    },
+    {
+      "sol": 1688,
+      "easting": 4343412.185,
+      "northing": 1092505.259,
+      "elevation_m": -1870.83
+    },
+    {
+      "sol": 1688,
+      "easting": 4343377.73,
+      "northing": 1092447.536,
+      "elevation_m": -1864.699
+    },
+    {
+      "sol": 1698,
+      "easting": 4343328.835,
+      "northing": 1092395.561,
+      "elevation_m": -1865.643
+    },
+    {
+      "sol": 1698,
+      "easting": 4343258.008,
+      "northing": 1092370.411,
+      "elevation_m": -1878.624
+    },
+    {
+      "sol": 1701,
+      "easting": 4343192.345,
+      "northing": 1092350.81,
+      "elevation_m": -1891.081
+    },
+    {
+      "sol": 1701,
+      "easting": 4342993.49,
+      "northing": 1092335.957,
+      "elevation_m": -1932.894
+    },
+    {
+      "sol": 1703,
+      "easting": 4342875.625,
+      "northing": 1092325.813,
+      "elevation_m": -1955.65
+    },
+    {
+      "sol": 1703,
+      "easting": 4342795.444,
+      "northing": 1092298.961,
+      "elevation_m": -1967.972
+    },
+    {
+      "sol": 1704,
+      "easting": 4342731.091,
+      "northing": 1092315.467,
+      "elevation_m": -1973.993
+    },
+    {
+      "sol": 1707,
+      "easting": 4342661.806,
+      "northing": 1092344.016,
+      "elevation_m": -1978.162
+    },
+    {
+      "sol": 1707,
+      "easting": 4342600.097,
+      "northing": 1092407.511,
+      "elevation_m": -1981.179
+    },
+    {
+      "sol": 1709,
+      "easting": 4342477.963,
+      "northing": 1092332.091,
+      "elevation_m": -1980.169
+    },
+    {
+      "sol": 1710,
+      "easting": 4342377.983,
+      "northing": 1092285.871,
+      "elevation_m": -1974.892
+    },
+    {
+      "sol": 1756,
+      "easting": 4342307.818,
+      "northing": 1092326.071,
+      "elevation_m": -1971.349
+    },
+    {
+      "sol": 1756,
+      "easting": 4342249.643,
+      "northing": 1092376.897,
+      "elevation_m": -1964.259
+    },
+    {
+      "sol": 1760,
+      "easting": 4342211.828,
+      "northing": 1092416.599,
+      "elevation_m": -1960.363
+    },
+    {
+      "sol": 1762,
+      "easting": 4342129.561,
+      "northing": 1092419.617,
+      "elevation_m": -1960.962
+    },
+    {
+      "sol": 1765,
+      "easting": 4342054.825,
+      "northing": 1092423.609,
+      "elevation_m": -1957.686
+    },
+    {
+      "sol": 1765,
+      "easting": 4342004.213,
+      "northing": 1092359.882,
+      "elevation_m": -1959.391
+    },
+    {
+      "sol": 1765,
+      "easting": 4341970.21,
+      "northing": 1092287.791,
+      "elevation_m": -1963.018
+    },
+    {
+      "sol": 1775,
+      "easting": 4341924.273,
+      "northing": 1092279.47,
+      "elevation_m": -1962.98
+    },
+    {
+      "sol": 1781,
+      "easting": 4341900.294,
+      "northing": 1092296.493,
+      "elevation_m": -1959.665
+    },
+    {
+      "sol": 1805,
+      "easting": 4341890.782,
+      "northing": 1092294.18,
+      "elevation_m": -1959.172
+    },
+    {
+      "sol": 1814,
+      "easting": 4341866.338,
+      "northing": 1092264.344,
+      "elevation_m": -1962.645
+    },
+    {
+      "sol": 1814,
+      "easting": 4341788.431,
+      "northing": 1092255.475,
+      "elevation_m": -1959.705
+    },
+    {
+      "sol": 1814,
+      "easting": 4341717.636,
+      "northing": 1092275.185,
+      "elevation_m": -1956.222
+    },
+    {
+      "sol": 1815,
+      "easting": 4341649.742,
+      "northing": 1092302.455,
+      "elevation_m": -1949.489
+    },
+    {
+      "sol": 1815,
+      "easting": 4341596.615,
+      "northing": 1092358.243,
+      "elevation_m": -1943.992
+    },
+    {
+      "sol": 1815,
+      "easting": 4341540.944,
+      "northing": 1092414.251,
+      "elevation_m": -1955.159
+    },
+    {
+      "sol": 1817,
+      "easting": 4341483.978,
+      "northing": 1092460.099,
+      "elevation_m": -1964.534
+    },
+    {
+      "sol": 1817,
+      "easting": 4341430.59,
+      "northing": 1092517.026,
+      "elevation_m": -1974.828
+    },
+    {
+      "sol": 1835,
+      "easting": 4341420.508,
+      "northing": 1092531.581,
+      "elevation_m": -1977.047
+    },
+    {
+      "sol": 1835,
+      "easting": 4341482.309,
+      "northing": 1092572.389,
+      "elevation_m": -1972.886
+    },
+    {
+      "sol": 1842,
+      "easting": 4341530.164,
+      "northing": 1092582.747,
+      "elevation_m": -1968.855
+    },
+    {
+      "sol": 1856,
+      "easting": 4341525.145,
+      "northing": 1092578.514,
+      "elevation_m": -1968.601
+    },
+    {
+      "sol": 1863,
+      "easting": 4341527.047,
+      "northing": 1092509.422,
+      "elevation_m": -1960.84
+    },
+    {
+      "sol": 1880,
+      "easting": 4341543.019,
+      "northing": 1092486.88,
+      "elevation_m": -1957.418
+    },
+    {
+      "sol": 1890,
+      "easting": 4341546.505,
+      "northing": 1092444.258,
+      "elevation_m": -1956.33
+    },
+    {
+      "sol": 1890,
+      "easting": 4341484.81,
+      "northing": 1092396.32,
+      "elevation_m": -1960.491
+    },
+    {
+      "sol": 1890,
+      "easting": 4341424.397,
+      "northing": 1092348.893,
+      "elevation_m": -1963.673
+    },
+    {
+      "sol": 1893,
+      "easting": 4341365.886,
+      "northing": 1092311.951,
+      "elevation_m": -1970.57
+    },
+    {
+      "sol": 1893,
+      "easting": 4341344.192,
+      "northing": 1092246.79,
+      "elevation_m": -1968.76
+    },
+    {
+      "sol": 1893,
+      "easting": 4341391.313,
+      "northing": 1092197.497,
+      "elevation_m": -1959.876
+    },
+    {
+      "sol": 1896,
+      "easting": 4341429.996,
+      "northing": 1092141.945,
+      "elevation_m": -1964.01
+    },
+    {
+      "sol": 1897,
+      "easting": 4341478.537,
+      "northing": 1092086.929,
+      "elevation_m": -1968.808
+    },
+    {
+      "sol": 1897,
+      "easting": 4341524.301,
+      "northing": 1092026.196,
+      "elevation_m": -1973.614
+    },
+    {
+      "sol": 1897,
+      "easting": 4341553.25,
+      "northing": 1091959.1,
+      "elevation_m": -1973.538
+    }
+  ],
+  "total_records": 33370,
+  "returned_records": 499,
+  "coordinate_note": "Mars projected metres; not Earth longitude/latitude.",
+  "crs": "Jezero_Crater_Projection",
+  "source": "data/raw/jezero/Martian_Map_Rover_Files/Martian_Map_Rover_Files/best_interp.csv",
+  "note": "Historical NASA PDS rover localization records, not live tracking or science-target observations."
+}
