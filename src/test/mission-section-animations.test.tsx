@@ -72,7 +72,7 @@ function routeFeature(evaHours: number, scienceHours: number, bufferHours: numbe
   const total = oneWay * 2 + scienceHours + bufferHours;
   return {
     type: "Feature" as const,
-    geometry: { type: "LineString" as const, coordinates: [[4354494, 1093299], [4348000, 1091000]] as [number, number][] },
+    geometry: { type: "LineString" as const, coordinates: [[4354494, 1093299], [4356494, 1093299]] as [number, number][] },
     properties: {
       mode: "terrain_aware" as const,
       algorithm: "A* test",
@@ -243,6 +243,7 @@ function MissionControls() {
       <button
         onClick={() => {
           mission.setEnvChanged(true);
+          mission.setRevisedMissionPlan(reroutedPlan);
           mission.setRerouted(true);
           mission.setActiveRoute("A");
         }}

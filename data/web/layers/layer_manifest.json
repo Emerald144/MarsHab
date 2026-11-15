@@ -183,6 +183,105 @@
       "display_pixel_size_m": 80.0,
       "source_pixel_size_m": 20.0,
       "note": "Display-only RGBA PNG; transparent = NoData. Equidistant cylindrical, so the image is also a plain equirectangular image in Mars lon/lat between the given bounds."
+    },
+    {
+      "id": "constraints",
+      "name": "Terrain constraints",
+      "path": "data/web/layers/constraints_preview.png",
+      "source": [
+        "data/raw/jezero/Jezero_CTX_DEM/M20_JezeroCrater_CTXDEM_20m.tif",
+        "data/raw/jezero/Jezero_CTX_DEM/Jezero_Slope.tif",
+        "data/raw/jezero/Jezero_CTX_DEM/Jezero_Terrain_Cost.tif"
+      ],
+      "legend": {
+        "unit": "category",
+        "classes": [
+          {
+            "name": "Steep terrain (>15°)",
+            "color": "#d23232"
+          },
+          {
+            "name": "Other routing exclusions",
+            "color": "#f0b428"
+          },
+          {
+            "name": "NoData / unassessed",
+            "color": "#94a3b8"
+          }
+        ]
+      },
+      "bounds": {
+        "projected_m": {
+          "xmin": 4328999.999999998,
+          "ymin": 1042080.0000000028,
+          "xmax": 4418119.999999998,
+          "ymax": 1143420.0000000028
+        },
+        "mars_lon_lat_deg": {
+          "west": 76.997437,
+          "south": 17.58052,
+          "east": 78.582563,
+          "north": 19.290187
+        }
+      },
+      "crs": "Jezero_Crater_Projection",
+      "width_px": 1114,
+      "height_px": 1267,
+      "display_pixel_size_m": 80.0,
+      "source_pixel_size_m": 20.0,
+      "note": "Display-only source-resolution constraints. Steep >15°; other = cost outside [1,100) or negative slope. NoData is unassessed, not a confirmed hazard. Router uses its own resampled grid; no individual rocks or simulated closures are shown.",
+      "resampling": "Maximum class over source pixels: NoData > other exclusions > steep > transparent"
+    },
+    {
+      "id": "ctx",
+      "name": "CTX imagery",
+      "path": "data/web/layers/ctx_preview.png",
+      "source": [
+        "data/jezero/jezero-ctx-mosaic.tif"
+      ],
+      "legend": {
+        "unit": "image intensity",
+        "min": 0,
+        "max": 255
+      },
+      "bounds": {
+        "projected_m": {
+          "xmin": 4328999.999999998,
+          "ymin": 1042080.0000000028,
+          "xmax": 4418119.999999998,
+          "ymax": 1143420.0000000028
+        },
+        "mars_lon_lat_deg": {
+          "west": 76.997437,
+          "south": 17.58052,
+          "east": 78.582563,
+          "north": 19.290187
+        }
+      },
+      "crs": "Jezero_Crater_Projection",
+      "width_px": 1114,
+      "height_px": 1267,
+      "display_pixel_size_m": 80.0,
+      "source_pixel_size_m": 6.0,
+      "note": "Partial CTX coverage; transparent outside the source footprint. Original TIFF CRS/transform used, not the unregistered JPEG or viewer center coordinates.",
+      "coverage_preview_px": {
+        "x": 115,
+        "y": 422,
+        "width": 378,
+        "height": 378
+      },
+      "coverage_fraction": 0.10123292698652013,
+      "resampling": "Bilinear imagery / nearest valid-data mask, reprojected to DEM preview grid",
+      "source_crs": "ESRI:103885",
+      "source_transform": [
+        6.0,
+        0.0,
+        4573663.250853,
+        0.0,
+        -6.0,
+        1109693.140188
+      ],
+      "source_sha256": "842b457afee7c2672022b66e3f60be836c6d52e99474015bfd9ced60099b8615"
     }
   ],
   "vector_layers": [
@@ -208,5 +307,10 @@
   "statistics": [
     "data/web/statistics/zone_terrain_statistics.json",
     "data/web/statistics/zone_terrain_statistics.csv"
-  ]
+  ],
+  "rover_track": {
+    "path": "rover_track.json",
+    "crs": "Jezero_Crater_Projection",
+    "source": "data/raw/jezero/Martian_Map_Rover_Files/Martian_Map_Rover_Files/best_interp.csv"
+  }
 }

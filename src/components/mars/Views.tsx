@@ -24,6 +24,9 @@ import {
   type MissionPlan,
 } from "@/lib/mission-api";
 import type { RouteId } from "@/lib/mission-data";
+import { PlanningFields, RouteAssessment, planningInputs } from "./RouteAssessment";
+import { evaluatedPlan, rankedRoutes, assessEmergencyPath } from "@/lib/mission-evaluation";
+import type { Setup } from "@/lib/mission-store";
 import { useMission } from "@/lib/mission-store";
 import { RealTerrainMap } from "./RealTerrainMap";
 import { HistoricalObservationPanel } from "./HistoricalObservationPanel";
@@ -34,7 +37,7 @@ export { SurvivalMapView } from "@/features/survival-map/SurvivalMapView";
 /** Shared real mission plan for the currently selected JZ destination + mission setup. */
 function useRealMissionPlan(enabled = true) {
   const { destination, scienceWaypointId, setup } = useMission();
-  return useMissionPlanQuery(
+  const query = useMissionPlanQuery(
     {
       destinationZoneId: destination,
       scienceWaypointId,
@@ -48,13 +51,11 @@ function useRealMissionPlan(enabled = true) {
     },
     enabled,
   );
+  return { ...query, data: evaluatedPlan(query.data, planningInputs(setup)) };
 }
 
-function preferredRoute(plan: MissionPlan | undefined) {
-  if (!plan) return null;
-  if (plan.routes.B.available) return { id: "B" as const, route: plan.routes.B.route };
-  if (plan.routes.A.available) return { id: "A" as const, route: plan.routes.A.route };
-  return null;
+function preferredRoute(plan: MissionPlan | undefined, setup: Setup) {
+  return rankedRoutes(plan, planningInputs(setup))[0] ?? null;
 }
 
 function interpolateAlongPath(coordinates: [number, number][], progress: number): MarsPoint {
@@ -126,13 +127,14 @@ export function Planner() {
     </label>
   );
 
-  const preferred = preferredRoute(plan.data);
+  const preferred = preferredRoute(plan.data, setup);
   const f = plan.data?.feasibility;
 
   const generate = () => {
     if (!plan.data) return;
     setGenerating(true);
     m.setMissionPlan(plan.data);
+    if (preferred) m.setActiveRoute(preferred.id);
     setTimeout(() => {
       m.setRoutesGenerated(true);
       setGenerating(false);
@@ -144,7 +146,8 @@ export function Planner() {
     ? [
         { l: "Outbound", v: preferred.route.properties.estimated_one_way_hours, c: "var(--data)" },
         { l: "Science", v: setup.science, c: "var(--caution)" },
-        { l: "Return", v: preferred.route.properties.estimated_one_way_hours, c: "var(--mars)" },
+        { l: "Return", v: f?.estimated_return_hours ?? 0, c: "var(--mars)" },
+        { l: "Planned rest (h)", v: setup.planning.restHours, c: "var(--data)" },
         { l: "Buffer", v: setup.buffer, c: "var(--nebula)" },
       ]
     : [];
@@ -224,6 +227,7 @@ export function Planner() {
               "Walking speed is a configurable planning assumption, not a measured astronaut pace. Jezero zones are large regional analysis areas, hundreds of km from the landing site — a single EVA will often not reach a zone centroid.",
             )}
           </p>
+          <PlanningFields setup={setup} onChange={(next) => { setSetup(next); m.setFeasibilityChecked(false); }} />
           <p className="text-[11px] leading-relaxed text-muted-foreground">
             Abstract resource model only: percentage points are not oxygen kilograms, battery watt-hours, or NASA-validated life-support limits.
           </p>
@@ -255,6 +259,7 @@ export function Planner() {
       ) : (
         <AnimatedContent distance={35} duration={0.75} scale={0.98} className="min-w-0">
           <Panel title={t("Mission Feasibility")} className="h-full">
+            {preferred && <RouteAssessment setup={setup} route={preferred.route} />}
             {!preferred || !f ? (
               <div className="space-y-2 text-sm">
                 <div className="flex items-center gap-2 font-display font-bold text-danger">
@@ -276,6 +281,7 @@ export function Planner() {
                     ["Outbound Travel (real route)", f.estimated_outbound_hours],
                     ["Science Activity", setup.science],
                     ["Return Travel (real route)", f.estimated_return_hours],
+                    ["Planned rest (h)", setup.planning.restHours],
                     ["Safety Buffer", setup.buffer],
                   ].map(([l, v]) => (
                     <div
@@ -292,7 +298,7 @@ export function Planner() {
                   </div>
                 </div>
                 <div className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
-                  {t("Basis route:")} {preferred.id === "B" ? t("Route B · Terrain-Aware") : t("Route A · Shortest Distance")} ·{" "}
+                  {t("Basis route:")} {preferred.id === "B" ? t("Route B · Terrain-Aware") : preferred.id === "C" ? t("Route C · Science Priority") : t("Route A · Shortest Distance")} ·{" "}
                   {preferred.route.properties.distance_km.toFixed(1)} km ·{" "}
                   {t("mean slope")} {preferred.route.properties.mean_slope_degrees.toFixed(1)}°
                 </div>
@@ -406,7 +412,7 @@ export function RouteAnalysis() {
   const { t, display } = useLanguage();
   const m = useMission();
   const [hl, setHl] = useState<RouteId>("B");
-  const plan = m.missionPlan;
+  const plan = evaluatedPlan(m.missionPlan, planningInputs(m.setup));
   if (!m.routesGenerated || !plan)
     return (
       <div className="glass mx-auto max-w-lg p-10 text-center">
@@ -419,7 +425,7 @@ export function RouteAnalysis() {
       </div>
     );
 
-  const preferred = preferredRoute(plan);
+  const preferred = preferredRoute(plan, m.setup);
   const routeAt = (id: RouteId) => plan.routes[id] as { available: true; route: RouteFeature } | { available: false; reason: string };
   const rows: [string, (id: RouteId) => string][] = [
     ["Distance", (id) => { const r = routeAt(id); return r.available ? `${r.route.properties.distance_km.toFixed(1)} km` : "—"; }],
@@ -462,6 +468,8 @@ export function RouteAnalysis() {
       <div className="grid gap-4 xl:grid-cols-[1fr_380px]">
         <div className="relative">
           <RealTerrainMap
+            layerState={m.realMapLayers}
+            onLayerStateChange={m.setRealMapLayers}
             className="h-[56vh] min-h-[420px]"
             hidePanel
             selectedZoneId={plan.destination_zone_id}
@@ -505,6 +513,7 @@ export function RouteAnalysis() {
                   {isPreferredChoice ? t("⭐ Recommended Route") : t("Selected Route")}
                 </div>
                 <div className="mt-2 font-display text-2xl font-bold">{label}</div>
+                <RouteAssessment setup={m.setup} route={selected.route} />
                 <div className="my-4 flex items-center gap-4">
                   <Ring value={Math.max(0, Math.min(100, 100 - selected.route.properties.mean_slope_degrees * 4))} size={110} />
                   <div className="text-sm text-muted-foreground">
@@ -630,17 +639,19 @@ export function Execution() {
   const [p, setP] = useState(0);
   const [returning, setReturning] = useState(false);
   const emergencyMutation = useEmergencyReturnMutation();
-  const plan = m.missionPlan;
+  const plan = useMemo(() => evaluatedPlan(m.rerouted && m.revisedMissionPlan ? m.revisedMissionPlan : m.missionPlan, planningInputs(m.setup), m.activeRoute), [m.rerouted, m.revisedMissionPlan, m.missionPlan, m.setup, m.activeRoute]);
   const activeOutcome = plan?.routes[m.activeRoute];
   const activeRouteFeature = activeOutcome?.available ? activeOutcome.route : null;
   const coordinates = activeRouteFeature?.geometry.coordinates ?? [];
   const activeWaypoint = activeOutcome?.available && "waypoint" in activeOutcome ? activeOutcome.waypoint : null;
 
-  // A simulated environmental closure/reroute always re-evaluates against Route A/B, since Route C's
-  // revised plan is not recomputed here; falling back to B keeps the reroute UI meaningful either way.
-  const revisedOutcome = m.revisedMissionPlan?.routes[m.activeRoute === "C" ? "B" : m.activeRoute];
+  // Closure requests recompute A/B. Show the best revised option until accepted;
+  // then use that selected route consistently in the map, assessment and report.
+  const revisedPlan = useMemo(() => evaluatedPlan(m.revisedMissionPlan, planningInputs(m.setup)), [m.revisedMissionPlan, m.setup]);
+  const revisedChoice = preferredRoute(revisedPlan, m.setup);
+  const revisedOutcome = revisedChoice ? revisedPlan?.routes[m.rerouted ? m.activeRoute : revisedChoice.id] : undefined;
   const showingRevised = m.envChanged && m.rerouted && revisedOutcome?.available;
-  const emergencyOutcome = m.emergencyRoute?.available ? m.emergencyRoute.route : null;
+  const emergencyOutcome = useMemo(() => m.emergencyRoute?.available ? m.emergencyRoute.route : null, [m.emergencyRoute]);
   const displayedCoordinates = emergencyOutcome?.geometry.coordinates
     ?? (showingRevised && revisedOutcome?.available ? revisedOutcome.route.geometry.coordinates : coordinates);
 
@@ -674,7 +685,9 @@ export function Execution() {
       </div>
     );
 
-  const total = activeRouteFeature.properties.estimated_total_eva_hours;
+  const total = emergencyOutcome
+    ? assessEmergencyPath(emergencyOutcome, planningInputs(m.setup)).emergencyHours ?? NaN
+    : (showingRevised && revisedOutcome?.available ? revisedOutcome.route : activeRouteFeature).properties.estimated_total_eva_hours;
   const elapsed = Math.round(p * total * 10) / 10 || 0;
   const emergency = m.mode === "emergency";
 
@@ -699,14 +712,11 @@ export function Execution() {
 
   const acceptReroute = () => {
     if (m.revisedMissionPlan) {
-      const revisedRoute = m.revisedMissionPlan.routes.B.available
-        ? "B"
-        : m.revisedMissionPlan.routes.A.available
-          ? "A"
-          : null;
-      if (revisedRoute) m.setActiveRoute(revisedRoute);
+      const revisedRoute = preferredRoute(m.revisedMissionPlan, m.setup)?.id;
+      if (!revisedRoute) return;
+      m.setActiveRoute(revisedRoute);
+      m.setRerouted(true);
     }
-    m.setRerouted(true);
   };
 
   const triggerEmergency = () => {
@@ -732,6 +742,8 @@ export function Execution() {
     <div className="grid gap-4 xl:grid-cols-[1fr_360px]">
       <div className="relative">
         <RealTerrainMap
+            layerState={m.realMapLayers}
+            onLayerStateChange={m.setRealMapLayers}
           className="h-[70vh] min-h-[460px]"
           hidePanel
           selectedZoneId={plan.destination_zone_id}
@@ -827,6 +839,7 @@ export function Execution() {
             </button>
           </Panel>
         ) : null}
+        <RouteAssessment setup={m.setup} route={showingRevised && revisedOutcome?.available ? revisedOutcome.route : activeRouteFeature} blocked={m.envChanged && !m.rerouted} />
         <Panel title={returning ? t("Returning to Base") : t("Mission in Progress")}>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
@@ -904,10 +917,11 @@ export function Report() {
   const { t, display } = useLanguage();
   const m = useMission();
   const { data: dataset } = useRealTerrainDataset();
-  const plan = m.missionPlan;
+  const plan = useMemo(() => evaluatedPlan(m.rerouted && m.revisedMissionPlan ? m.revisedMissionPlan : m.missionPlan, planningInputs(m.setup), m.activeRoute), [m.rerouted, m.revisedMissionPlan, m.missionPlan, m.setup, m.activeRoute]);
   const zone = dataset?.zones.find((z) => z.id === m.destination);
   const [exported, setExported] = useState(false);
-  const preferred = preferredRoute(plan ?? undefined);
+  const selected = plan?.routes[m.activeRoute];
+  const preferred = selected?.available ? { id: m.activeRoute, route: selected.route } : null;
   const partial = zone ? partialTerrainScore(zone.factors) : null;
   const resource = plan?.resource_assessment;
 
@@ -962,6 +976,7 @@ export function Report() {
           {exported ? t("Report Prepared (demo export)") : t("Export Mission Report")}
         </button>
       </div>
+      {preferred && <RouteAssessment setup={m.setup} route={preferred.route} blocked={m.envChanged && !m.rerouted} />}
       <AnimatedContent distance={35} duration={0.8} scale={0.98} blur={2}>
         <Panel>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

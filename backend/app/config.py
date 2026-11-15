@@ -1,5 +1,24 @@
 import os
 from pathlib import Path
+from urllib.parse import urlsplit
+
+
+def cors_origins() -> list[str]:
+    configured = os.environ.get("TERRANEXIS_CORS_ORIGINS")
+    if configured is None:
+        return [f"http://{host}:{port}" for port in (5173, 8080) for host in ("localhost", "127.0.0.1")]
+    origins = list(dict.fromkeys(value.strip() for value in configured.split(",") if value.strip()))
+    for origin in origins:
+        parsed = urlsplit(origin)
+        if (parsed.scheme not in ("http", "https") or not parsed.hostname or "*" in origin
+                or parsed.username is not None or parsed.password is not None
+                or parsed.path or parsed.query or parsed.fragment):
+            raise ValueError("TERRANEXIS_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards")
+        _ = parsed.port  # Reject malformed ports as well.
+    return origins
+
+
+CORS_ORIGINS = cors_origins()
 
 # Resolved from this file, so paths work regardless of the current working directory.
 BACKEND_DIR = Path(__file__).resolve().parents[1]   # <repo>/backend

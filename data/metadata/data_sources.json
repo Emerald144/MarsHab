@@ -84,6 +84,41 @@
       ],
       "product_name": "urn:nasa:pds:mars2020_rover_places (best_interp, best_tactical, m20_orbital_dem/map labels)",
       "note": "Rover localization tables; the m20_orbital_dem.img/m20_orbital_map.img data files referenced by the labels are not present"
+    },
+    {
+      "id": "map_display_rover_track",
+      "role": "derived display asset",
+      "file": "data/web/rover/rover_track.json",
+      "sources": [
+        "data/raw/jezero/Martian_Map_Rover_Files/Martian_Map_Rover_Files/best_interp.csv"
+      ],
+      "crs": "Jezero_Crater_Projection",
+      "processing": "Existing backend rover_track(500) stride sampling; first retained coordinate checked against published Mars longitude/latitude",
+      "limitations": "Historical NASA PDS rover localization records, not live tracking or science-target observations."
+    },
+    {
+      "id": "map_display_constraints",
+      "role": "derived display asset",
+      "file": "data/web/layers/constraints_preview.png",
+      "sources": [
+        "data/raw/jezero/Jezero_CTX_DEM/M20_JezeroCrater_CTXDEM_20m.tif",
+        "data/raw/jezero/Jezero_CTX_DEM/Jezero_Slope.tif",
+        "data/raw/jezero/Jezero_CTX_DEM/Jezero_Terrain_Cost.tif"
+      ],
+      "crs": "Jezero_Crater_Projection",
+      "processing": "Maximum class over source pixels: NoData > other exclusions > steep > transparent",
+      "limitations": "Display-only source-resolution constraints. Steep >15°; other = cost outside [1,100) or negative slope. NoData is unassessed, not a confirmed hazard. Router uses its own resampled grid; no individual rocks or simulated closures are shown."
+    },
+    {
+      "id": "map_display_ctx",
+      "role": "derived display asset",
+      "file": "data/web/layers/ctx_preview.png",
+      "sources": [
+        "data/jezero/jezero-ctx-mosaic.tif"
+      ],
+      "crs": "Jezero_Crater_Projection",
+      "processing": "Bilinear imagery / nearest valid-data mask, reprojected to DEM preview grid",
+      "limitations": "Partial CTX coverage; transparent outside the source footprint. Original TIFF CRS/transform used, not the unregistered JPEG or viewer center coordinates."
     }
   ]
 }

@@ -156,4 +156,111 @@ describe("shared comparison and report projection", () => {
       );
     }
   });
+  it("projects a selected science route and its resource budget without changing its waypoint or geometry", () => {
+    const science = {
+      ...plan,
+      resource_assessment: {
+        ...plan.resource_assessment,
+        available: true,
+        warnings: [],
+        assumptions: [],
+      },
+      routes: {
+        ...plan.routes,
+        C: {
+          name: "Science Priority",
+          available: true,
+          route: route(8),
+          waypoint: {
+            id: "verified-science-waypoint",
+            name: "Verified site",
+            kind: "rover_observation",
+            evidence_level: "verified_observation_site",
+            source_id: "test-source",
+            jz_zone_ids: [],
+            limitations: [],
+            location: {
+              x_m: 1000,
+              y_m: 0,
+              crs: "Jezero_Crater_Projection",
+              mars_lon_deg: null,
+              mars_lat_deg: null,
+              location_verified: true,
+            },
+          },
+          feasibility: plan.feasibility!,
+          resource_assessment: {
+            ...plan.resource_assessment,
+            available: true,
+            warnings: [],
+            assumptions: [],
+          },
+        },
+      },
+    } as MissionPlan;
+    const settings = {
+      ...inputs,
+      outboundSpeedKmh: 2,
+      returnSpeedKmh: 4,
+      restHours: 1,
+      resourceBudgetPercent: 80,
+      resourceReservePercent: 20,
+      resourceRatePercentPerHour: 2,
+    };
+    const projected = evaluatedPlan(science, settings, "C")!;
+    const expectedHours = 4 + 2 + inputs.scienceHours + inputs.bufferHours + 1;
+    expect(projected.feasibility).toMatchObject({
+      basis_route: "science_priority",
+      estimated_total_hours: expectedHours,
+    });
+    expect(projected.resource_assessment.estimated_use_percent).toBe(expectedHours * 2);
+    expect(projected.routes.C.available).toBe(true);
+    if (projected.routes.C.available && science.routes.C.available) {
+      expect(projected.routes.C.waypoint).toBe(science.routes.C.waypoint);
+      expect(projected.routes.C.route.geometry).toBe(science.routes.C.route.geometry);
+      expect(projected.routes.C.feasibility.estimated_total_hours).toBe(expectedHours);
+      expect(projected.routes.C.resource_assessment.estimated_use_percent).toBe(expectedHours * 2);
+    }
+    expect(
+      science.routes.C.available && science.routes.C.route.properties.estimated_total_eva_hours,
+    ).toBe(999);
+  });
+  it("retains the verified two-leg Route C retrace when the legs revisit a common grid cell", () => {
+    const first = route(1);
+    const second = {
+      ...route(1),
+      geometry: {
+        type: "LineString" as const,
+        coordinates: [
+          [1000, 0],
+          [0, 0],
+          [0, 1000],
+        ] as [number, number][],
+      },
+    };
+    const combined: RouteFeature = {
+      ...first,
+      geometry: {
+        type: "LineString",
+        coordinates: [
+          [0, 0],
+          [1000, 0],
+          [0, 0],
+          [0, 1000],
+        ],
+      },
+      properties: {
+        ...first.properties,
+        mode: "science_priority",
+        legs: { base_to_waypoint: first, waypoint_to_destination: second },
+      },
+    };
+    expect(
+      assessMissionRoute(combined, { ...inputs, outboundSpeedKmh: 1, returnSpeedKmh: 1 })
+        .totalHours,
+    ).toBe(6 + inputs.scienceHours + inputs.bufferHours);
+    expect(assessMissionRoute(combined, inputs).coverage).toBe("full route");
+    expect(assessMissionRoute(combined, inputs, true).emergency).toBe("unknown");
+    expect(assessMissionRoute(combined, inputs, true).totalHours).toBeNull();
+  });
 });

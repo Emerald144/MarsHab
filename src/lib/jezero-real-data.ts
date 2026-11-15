@@ -7,9 +7,9 @@ import { useQuery } from "@tanstack/react-query";
 
 export type JezeroZoneId = `JZ-0${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}`;
 
-export type RealTerrainLayerId = "terrain" | "elevation" | "slope" | "hillshade";
+export type RealTerrainLayerId = "terrain" | "elevation" | "slope" | "hillshade" | "ctx" | "constraints";
 
-type RasterLayerManifestEntry = {
+export type RasterLayerManifestEntry = {
   id: RealTerrainLayerId;
   name: string;
   path: string;
@@ -25,6 +25,12 @@ type RasterLayerManifestEntry = {
   display_pixel_size_m: number;
   source_pixel_size_m: number;
   note?: string;
+  resampling?: string;
+  source_crs?: string;
+  source_transform?: number[];
+  source_sha256?: string;
+  coverage_preview_px?: { x: number; y: number; width: number; height: number };
+  coverage_fraction?: number;
 };
 
 type LayerManifest = {
@@ -120,6 +126,7 @@ export type RealZone = {
 };
 
 export type RealTerrainDataset = {
+  roverTrack?: { points: { easting: number; northing: number; sol: number }[]; crs: string; source: string } | undefined;
   width: number;
   height: number;
   zones: RealZone[];
@@ -147,10 +154,11 @@ async function fetchJson<T>(path: string): Promise<T> {
 }
 
 async function loadRealTerrainDataset(): Promise<RealTerrainDataset> {
-  const [pixels, stats, manifest] = await Promise.all([
+  const [pixels, stats, manifest, roverTrack] = await Promise.all([
     fetchJson<PreviewPixelsFile>("/jezero/zones_preview_pixels.json"),
     fetchJson<StatisticsFile>("/jezero/zone_terrain_statistics.json"),
     fetchJson<LayerManifest>("/jezero/layer_manifest.json"),
+    fetchJson<NonNullable<RealTerrainDataset["roverTrack"]>>("/jezero/rover_track.json").catch(() => undefined),
   ]);
 
   const statsByZone = new Map(stats.zones.map((z) => [z.zone_id, z]));
@@ -182,7 +190,11 @@ async function loadRealTerrainDataset(): Promise<RealTerrainDataset> {
     };
   });
 
-  return { width: pixels.width, height: pixels.height, zones, layers: manifest.raster_layers };
+  const basis = manifest.raster_layers.find((layer) => layer.id === "terrain");
+  const validTrack = roverTrack?.crs === basis?.crs && roverTrack?.points?.every(
+    (point) => [point.easting, point.northing, point.sol].every(Number.isFinite),
+  ) ? roverTrack : undefined;
+  return { width: pixels.width, height: pixels.height, zones, layers: manifest.raster_layers, roverTrack: validTrack };
 }
 
 export function useRealTerrainDataset() {

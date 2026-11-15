@@ -65,7 +65,7 @@ const manifestFixture = {
 function feasibleRouteFeature(overrides: Partial<Record<string, number>> = {}) {
   return {
     type: "Feature",
-    geometry: { type: "LineString", coordinates: [[4354494, 1093299], [4348000, 1091000]] },
+    geometry: { type: "LineString", coordinates: [[4354494, 1093299], [4356494, 1093299]] },
     properties: {
       mode: "terrain_aware",
       algorithm: "A* test",

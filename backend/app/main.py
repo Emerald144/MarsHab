@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import logging
 
 from . import data, missions, zones
-from .config import DATA_ROOT, missing_data_paths
+from .config import CORS_ORIGINS, DATA_ROOT, missing_data_paths
 from .environment_api import router as environment_router
 from .science_api import router as science_router
 from .models import EmergencyReturnRequest, MissionPlanRequest, RouteRequest
@@ -19,13 +19,7 @@ if _missing:
 app = FastAPI(title="Jezero Terrain Planning API", version="1.0.0", description="NASA/USGS data-backed educational prototype; not an astronaut safety system.")
 app.add_middleware(
     CORSMiddleware,
-    # Vite commonly uses 5173, while this TanStack Start project runs on 8080.
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:8080",
-        "http://127.0.0.1:8080",
-    ],
+    allow_origins=CORS_ORIGINS,
     allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],

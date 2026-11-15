@@ -7,6 +7,25 @@ export function routeEvidence(route: RouteFeature): RouteEvidence {
   const valid =
     coordinates.length >= 2 && coordinates.every((p) => p.length === 2 && p.every(Number.isFinite));
   const loop = new Set(coordinates.map((p) => `${p[0]},${p[1]}`)).size !== coordinates.length;
+  const legs = route.properties.legs;
+  // A two-leg science traverse can revisit a cell while each A* leg is simple.
+  // Verify the exact seam/join before applying the backend's declared retrace assumption.
+  const simpleLeg = (leg: RouteFeature) => {
+    const points = leg.geometry.coordinates;
+    return (
+      points.length >= 2 && new Set(points.map((p) => `${p[0]},${p[1]}`)).size === points.length
+    );
+  };
+  const scienceRetrace =
+    legs &&
+    simpleLeg(legs.base_to_waypoint) &&
+    simpleLeg(legs.waypoint_to_destination) &&
+    JSON.stringify(legs.base_to_waypoint.geometry.coordinates.at(-1)) ===
+      JSON.stringify(legs.waypoint_to_destination.geometry.coordinates[0]) &&
+    JSON.stringify([
+      ...legs.base_to_waypoint.geometry.coordinates,
+      ...legs.waypoint_to_destination.geometry.coordinates.slice(1),
+    ]) === JSON.stringify(coordinates);
   return {
     outbound: valid
       ? coordinates.slice(1).map((p, n) => ({
@@ -16,7 +35,7 @@ export function routeEvidence(route: RouteFeature): RouteEvidence {
     // The backend's static 8-connected grid has symmetric traversal edges.
     // Closures invalidate the original path; revised paths require a new assessment.
     reversible: valid,
-    loop,
+    loop: loop && !scienceRetrace,
     provenance: valid ? "measured" : "unknown",
   };
 }
@@ -35,7 +54,7 @@ export function rankedRoutes(
   blocked = false,
 ) {
   if (!plan) return [];
-  return (["A", "B"] as const)
+  return (["A", "B", "C"] as const)
     .flatMap((id) => {
       const outcome = plan.routes[id];
       return outcome.available
@@ -72,7 +91,7 @@ export function evaluatedPlan(
   const ranked = rankedRoutes(plan, inputs, blocked);
   const best = selectedId ? ranked.find((r) => r.id === selectedId) : ranked[0];
   const routes = { ...plan.routes };
-  for (const id of ["A", "B"] as const) {
+  for (const id of ["A", "B", "C"] as const) {
     const outcome = routes[id];
     if (!outcome.available) continue;
     const a = assessMissionRoute(outcome.route, inputs, blocked);
@@ -91,7 +110,33 @@ export function evaluatedPlan(
     };
     if (id === "A" && routes.A.available) routes.A = { ...routes.A, route: updated };
     if (id === "B" && routes.B.available) routes.B = { ...routes.B, route: updated };
+    if (id === "C" && routes.C.available) routes.C = { ...routes.C, route: updated };
   }
+  const budget = projectBudget(plan, inputs, best);
+  if (routes.C.available) {
+    const scienceBudget = projectBudget(
+      {
+        ...plan,
+        feasibility: routes.C.feasibility,
+        resource_assessment: routes.C.resource_assessment,
+      },
+      inputs,
+      ranked.find((item) => item.id === "C"),
+    );
+    routes.C = {
+      ...routes.C,
+      ...scienceBudget,
+      feasibility: scienceBudget.feasibility ?? routes.C.feasibility,
+    };
+  }
+  return { ...plan, routes, ...budget };
+}
+
+function projectBudget(
+  plan: MissionPlan,
+  inputs: PlanningInputs,
+  best: ReturnType<typeof rankedRoutes>[number] | undefined,
+): Pick<MissionPlan, "feasibility" | "resource_assessment"> {
   const a = best?.assessment;
   const resource = {
     ...plan.resource_assessment,
@@ -150,14 +195,13 @@ export function evaluatedPlan(
           : [];
   }
   return {
-    ...plan,
-    routes,
     resource_assessment: resource,
     feasibility:
       a && plan.feasibility
         ? {
             ...plan.feasibility,
-            basis_route: best.id === "A" ? "shortest" : "terrain_aware",
+            basis_route:
+              best.id === "A" ? "shortest" : best.id === "C" ? "science_priority" : "terrain_aware",
             estimated_outbound_hours: a.outboundHours ?? NaN,
             estimated_return_hours: a.returnHours ?? NaN,
             estimated_total_hours: a.totalHours ?? NaN,

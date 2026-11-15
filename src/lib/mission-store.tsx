@@ -2,10 +2,17 @@ import { createContext, useContext, useState, type ReactNode } from "react";
 import type { Mode, RouteId } from "./mission-data";
 import type { JezeroZoneId } from "./jezero-real-data";
 import type { MissionPlan, RouteOutcome } from "./mission-api";
+import { DEFAULT_PLANNING, type PlanningInputs } from "./route-model";
+import {
+  DEFAULT_REAL_MAP_LAYERS,
+  normalizeRealMapLayers,
+  type RealMapLayers,
+} from "./real-map-layers";
 
 export type View = "overview" | "map" | "planner" | "routes" | "execution" | "report";
 
-type Setup = {
+export type Setup = {
+  planning: PlanningInputs;
   name: string;
   eva: number;
   science: number;
@@ -21,6 +28,8 @@ type Setup = {
 export const isRealZoneId = (id: string): id is JezeroZoneId => /^JZ-0[1-8]$/.test(id);
 
 type State = {
+  realMapLayers: RealMapLayers;
+  setRealMapLayers: (layers: RealMapLayers) => void;
   view: View;
   setView: (v: View) => void;
   mode: Mode;
@@ -55,11 +64,13 @@ type State = {
 const Ctx = createContext<State | null>(null);
 
 export function MissionProvider({ children }: { children: ReactNode }) {
+  const [realMapLayers, setRealMapLayers] = useState<RealMapLayers>({ ...DEFAULT_REAL_MAP_LAYERS });
   const [view, setView] = useState<View>("overview");
   const [mode, setMode] = useState<Mode>("survival");
   const [destination, setDestination] = useState<JezeroZoneId>("JZ-06");
   const [scienceWaypointId, setScienceWaypointIdState] = useState<string | null>(null);
   const [setup, setSetup] = useState<Setup>({
+    planning: { ...DEFAULT_PLANNING },
     name: "Jezero Geological Survey",
     eva: 8,
     science: 1.2,
@@ -101,6 +112,8 @@ export function MissionProvider({ children }: { children: ReactNode }) {
   return (
     <Ctx.Provider
       value={{
+        realMapLayers,
+        setRealMapLayers: (layers) => setRealMapLayers(normalizeRealMapLayers(layers)),
         view,
         setView: (v) => {
           setView(v);

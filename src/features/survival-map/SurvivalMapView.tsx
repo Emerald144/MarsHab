@@ -123,7 +123,7 @@ function Weights() {
 // Survival Map page
 export function SurvivalMapView() {
   const { t, display } = useLanguage();
-  const { mode, setDestination, setView } = useMission();
+  const { mode, setDestination, setView, realMapLayers, setRealMapLayers } = useMission();
 
   const [layers, setLayers] = useState<Layers>({
     suitability: true,
@@ -164,6 +164,9 @@ export function SurvivalMapView() {
 
       {mapKind === "real" ? (
         <RealTerrainMap
+          explorer
+          layerState={realMapLayers}
+          onLayerStateChange={setRealMapLayers}
           className="h-[72vh] min-h-[480px]"
           onSelectAsDestination={(id) => {
             if (isRealZoneId(id)) {

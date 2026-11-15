@@ -68,8 +68,8 @@ export function OverviewDashboard({ plan, isLoading, isError, dataset }: Props) 
   const suitability = zone ? partialTerrainScore(zone.factors) : null;
   const f = plan?.feasibility;
   const resource = plan?.resource_assessment;
-  const preferredAvailable = plan ? plan.routes.B.available || plan.routes.A.available : false;
-  const availableRouteCount = plan ? Number(plan.routes.A.available) + Number(plan.routes.B.available) : 0;
+  const preferredAvailable = plan ? Object.values(plan.routes).some((route) => route.available) : false;
+  const availableRouteCount = plan ? Object.values(plan.routes).filter((route) => route.available).length : 0;
   const missionStatus = routesGenerated
     ? "ROUTES GENERATED"
     : feasibilityChecked

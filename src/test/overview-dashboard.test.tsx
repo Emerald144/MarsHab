@@ -57,6 +57,8 @@ const manifestFixture = {
   ],
 };
 
+// Both geometry and scenario timing reproduce the 30.45 h rounding boundary:
+// 14.375 km each way at 1 km/h + 1.2 h science + 0.5 h buffer.
 const missionPlanFixture = {
   base: {
     easting: 4354494.086,
@@ -75,21 +77,21 @@ const missionPlanFixture = {
       available: true,
       route: {
         type: "Feature",
-        geometry: { type: "LineString", coordinates: [[4354494, 1093299], [4348000, 1091000]] },
+        geometry: { type: "LineString", coordinates: [[4354494, 1093299], [4368869, 1093299]] },
         properties: {
           mode: "shortest",
           algorithm: "A* test",
           assumptions: ["test assumption"],
-          distance_m: 14000,
-          distance_km: 14,
+          distance_m: 14375,
+          distance_km: 14.375,
           elevation_gain_m: 50,
           elevation_loss_m: 20,
           cumulative_terrain_cost: 10,
           mean_slope_degrees: 4.5,
           max_slope_degrees: 12,
           slope_exposure_fraction_above_10deg: 0.05,
-          estimated_one_way_hours: 14,
-          estimated_total_eva_hours: 29.5,
+          estimated_one_way_hours: 14.375,
+          estimated_total_eva_hours: 30.45,
           eva_limit_hours: 8,
           passes_demo_time_assumptions: false,
           grid_resolution_m: [80, 80],
@@ -104,20 +106,20 @@ const missionPlanFixture = {
       available: true,
       route: {
         type: "Feature",
-        geometry: { type: "LineString", coordinates: [[4354494, 1093299], [4348000, 1091000]] },
+        geometry: { type: "LineString", coordinates: [[4354494, 1093299], [4368869, 1093299]] },
         properties: {
           mode: "terrain_aware",
           algorithm: "A* test",
           assumptions: ["test assumption"],
-          distance_m: 14500,
-          distance_km: 14.5,
+          distance_m: 14375,
+          distance_km: 14.375,
           elevation_gain_m: 60,
           elevation_loss_m: 25,
           cumulative_terrain_cost: 12,
           mean_slope_degrees: 3.8,
           max_slope_degrees: 11,
           slope_exposure_fraction_above_10deg: 0.03,
-          estimated_one_way_hours: 14.5,
+          estimated_one_way_hours: 14.375,
           estimated_total_eva_hours: 30.45,
           eva_limit_hours: 8,
           passes_demo_time_assumptions: false,
