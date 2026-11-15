@@ -8,12 +8,24 @@ import { MissionApproach } from "@/components/mars/MissionApproach";
 import { useMissionApproach } from "@/hooks/use-mission-approach";
 
 export const Route = createFileRoute("/")({
-  head: () => ({ meta: [{ title: "TerraNexis — Interplanetary Survival Guide" }] }),
+  head: () => ({
+    meta: [
+      {
+        name: "description",
+        content:
+          "MarsHab prototype Mars mission planner: survival suitability map of Jezero Crater, feasibility checks, route comparison and dynamic rerouting.",
+      },
+      { title: "MarsHab — Interplanetary Survival Guide" },
+    ],
+  }),
   component: Landing,
 });
 
 function Landing() {
-  usePageTranslation("TerraNexis — Interplanetary Survival Guide");
+  usePageTranslation(
+    "MarsHab — Interplanetary Survival Guide",
+    "MarsHab prototype Mars mission planner: survival suitability map of Jezero Crater, feasibility checks, route comparison and dynamic rerouting.",
+  );
   const { t, display } = useLanguage();
   const navigate = useNavigate();
   const router = useRouter();
@@ -52,7 +64,7 @@ function Landing() {
         </p>
 
         <h1 className="font-display text-[clamp(2.75rem,8vw,6.5rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-brand-white [text-shadow:0_4px_24px_var(--brand-midnight)]">
-          TerraNexis
+          MarsHab
         </h1>
 
         <p className="mt-5 max-w-xl font-display text-xl font-medium leading-snug tracking-tight text-brand-amber md:text-2xl">

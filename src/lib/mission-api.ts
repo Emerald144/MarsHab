@@ -4,8 +4,15 @@
 // nothing in this file invents a measurement. See docs/team/INTEGRATION_GUIDE.md.
 import { useMutation, useQuery } from "@tanstack/react-query";
 import type { JezeroZoneId } from "./jezero-real-data";
+import { terrainUrl } from "./terrain-http";
 
-const API_BASE = import.meta.env["VITE_API_BASE_URL"] ?? "http://127.0.0.1:8000";
+function apiUrl(path: string) {
+  return terrainUrl(
+    path,
+    import.meta.env["VITE_API_BASE_URL"] ?? "",
+    typeof window === "undefined" ? undefined : window.location.href,
+  );
+}
 
 export type MarsPoint = { easting: number; northing: number };
 
@@ -151,7 +158,7 @@ export type MissionPlanInput = {
 };
 
 async function postJson<T>(path: string, body: unknown): Promise<T> {
-  const res = await fetch(`${API_BASE}${path}`, {
+  const res = await fetch(apiUrl(path), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -164,7 +171,7 @@ async function postJson<T>(path: string, body: unknown): Promise<T> {
 }
 
 async function getJson<T>(path: string): Promise<T> {
-  const res = await fetch(`${API_BASE}${path}`);
+  const res = await fetch(apiUrl(path));
   if (!res.ok) throw new Error(`${path} failed: HTTP ${res.status}`);
   return (await res.json()) as T;
 }

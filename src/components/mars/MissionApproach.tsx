@@ -55,7 +55,7 @@ export function MissionApproach({
         <div className="absolute inset-x-0 bottom-[12%] mx-auto max-w-lg px-6 text-brand-white">
           <div className="glass glass-overlay p-5 sm:p-6">
             <p className="font-mono text-[10px] tracking-[0.18em] text-brand-amber">
-              {t("TERRANEXIS // MISSION ENTRY")}
+              {t("MarsHab // MISSION ENTRY")}
             </p>
             <p
               role="status"

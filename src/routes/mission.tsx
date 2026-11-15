@@ -14,11 +14,11 @@ import {
 export const Route = createFileRoute("/mission")({
   head: () => ({
     meta: [
-      { title: "Interplanetary Survival Guide: Martian Map" },
+      { title: "Interplanetary Survival Guide: MarsHab" },
       {
         name: "description",
         content:
-          "Prototype Mars mission planner: survival suitability map of Jezero Crater, feasibility checks, route comparison and dynamic rerouting.",
+          "MarsHab prototype Mars mission planner: survival suitability map of Jezero Crater, feasibility checks, route comparison and dynamic rerouting.",
       },
     ],
   }),
@@ -31,8 +31,8 @@ export const Route = createFileRoute("/mission")({
 
 function App() {
   usePageTranslation(
-    "Interplanetary Survival Guide: Martian Map",
-    "Prototype Mars mission planner: survival suitability map of Jezero Crater, feasibility checks, route comparison and dynamic rerouting.",
+    "Interplanetary Survival Guide: MarsHab",
+    "MarsHab prototype Mars mission planner: survival suitability map of Jezero Crater, feasibility checks, route comparison and dynamic rerouting.",
   );
   const { view } = useMission();
   const V = {

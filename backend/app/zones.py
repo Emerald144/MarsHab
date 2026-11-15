@@ -34,7 +34,7 @@ def base_location() -> dict[str, Any]:
                     "latitude_deg": float(row["planetocentric_latitude"]),
                     "label": "Perseverance rover landing site (Sol 0)",
                     "source": "data/raw/jezero/Martian_Map_Rover_Files/Martian_Map_Rover_Files/best_interp.csv, sol=0",
-                    "note": "Verified NASA telemetry position, used as the mission base in this prototype; not a dedicated TerraNexis habitat location.",
+                    "note": "Verified NASA telemetry position, used as the mission base in this prototype; not a dedicated MarsHab habitat location.",
                 }
                 return _BASE_CACHE
     raise RuntimeError("Sol 0 rover telemetry row not found; cannot establish a mission base location")
