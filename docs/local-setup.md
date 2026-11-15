@@ -1,8 +1,25 @@
 # Run the real terrain planner
 
-Use two terminals from the repository root. Keep the supplied data tree in
-`data/`; the backend logs missing dataset paths at startup. The frontend does
-not start FastAPI and never substitutes simulated success for a failed API.
+Keep the supplied data tree in `data/`; the backend logs missing dataset paths
+at startup. The local launcher starts FastAPI and Vite together and checks the
+real backend health before opening the frontend. No simulated API success is used.
+
+## Daily local startup
+
+From the repository root, run `npm.cmd run dev:local` and keep that terminal open.
+Open `http://127.0.0.1:8080`. The launcher uses an existing project `.venv`,
+`backend/.venv` or `venv` and reads `.env` if present. It waits up to 90 seconds
+for a cold Python/GIS startup. It reuses a healthy terrain backend on port 8000
+without stopping it when the launcher exits. A backend started by the launcher
+stops with that launcher. It does not install packages or modify data.
+
+If the frontend is already running, use `npm.cmd run dev:backend` to start only
+the missing API. `npm.cmd run dev` remains the frontend-only command for hosted
+previews. Separate terminals can still be used as below.
+
+Science Waypoint and Route C require this backend too. In Mission Setup, select
+the verified science waypoint, check feasibility, then compare routes. A failed
+catalog request now shows a retry control; it is not treated as an empty catalog.
 
 ## First-time setup (PowerShell)
 
@@ -38,14 +55,14 @@ before starting another one. FastAPI docs are `http://127.0.0.1:8000/docs`.
 ## API addresses and deployment
 
 - The browser requests `/api/v1/missions/plan` on its **own origin** by default.
-- Vite forwards `/api/v1/*` to `TERRANEXIS_API_PROXY_TARGET`, default
+- Vite forwards `/api/*` (including `/api/science/*` and MEDA) to `TERRANEXIS_API_PROXY_TARGET`, default
   `http://127.0.0.1:8000`, without rewriting the endpoint path. This target is
   server-only; it is not sent to browsers. An unavailable upstream yields 503.
 - `VITE_API_BASE_URL` is an optional public API origin/deployment prefix.
   Leave empty locally. Do not append `/api/v1`; endpoint paths include it.
   Vite reads it at startup/build time: restart/rebuild after changes.
 - Production needs either an explicitly configured host reverse proxy for
-  `/api/v1/*` to FastAPI, **or** `VITE_API_BASE_URL=https://your-api.example`
+  `/api/*` to FastAPI, **or** `VITE_API_BASE_URL=https://your-api.example`
   set before building. The development proxy is not a production server.
   An HTTPS page must use an HTTPS public API. A deployed browser's localhost
   refers to the visitor's computer, not the hosted FastAPI server.

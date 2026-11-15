@@ -20,10 +20,12 @@ export function terrainUrl(path: string, configuredBase = "", pageUrl?: string):
   try {
     const page = new URL(pageUrl ?? "http://same-origin.invalid");
     const target = new URL(url, page);
+    const configured = base ? new URL(base, page) : null;
     if (
       target.username ||
       target.password ||
-      target.search ||
+      configured?.search ||
+      configured?.hash ||
       target.hash ||
       (page.protocol === "https:" && target.protocol === "http:")
     ) {

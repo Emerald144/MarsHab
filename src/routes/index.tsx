@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
         content:
           "MarsHab prototype Mars mission planner: survival suitability map of Jezero Crater, feasibility checks, route comparison and dynamic rerouting.",
       },
-      { title: "MarsHab — Interplanetary Survival Guide" },
+      { title: "MarsHab | Mars Mission Planning" },
     ],
   }),
   component: Landing,
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/")({
 
 function Landing() {
   usePageTranslation(
-    "MarsHab — Interplanetary Survival Guide",
+    "MarsHab | Mars Mission Planning",
     "MarsHab prototype Mars mission planner: survival suitability map of Jezero Crater, feasibility checks, route comparison and dynamic rerouting.",
   );
   const { t, display } = useLanguage();

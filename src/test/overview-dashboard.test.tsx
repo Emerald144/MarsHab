@@ -60,6 +60,7 @@ const manifestFixture = {
 // Both geometry and scenario timing reproduce the 30.45 h rounding boundary:
 // 14.375 km each way at 1 km/h + 1.2 h science + 0.5 h buffer.
 const missionPlanFixture = {
+  resource_assessment: { available: false, warnings: [], assumptions: [] },
   base: {
     easting: 4354494.086,
     northing: 1093299.695,

@@ -7,18 +7,27 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { loadEnv } from "vite";
 
-const backendEnv = loadEnv(process.env.NODE_ENV ?? "development", process.cwd(), "TERRANEXIS_");
+const backendEnv = loadEnv(process.env["NODE_ENV"] ?? "development", process.cwd(), "TERRANEXIS_");
 
 export default defineConfig({
   vite: {
     server: {
       proxy: {
+        // Mission, science and MEDA requests stay on the browser's own origin.
         "/api": {
           target:
-            process.env.TERRANEXIS_API_PROXY_TARGET ??
-            backendEnv.TERRANEXIS_API_PROXY_TARGET ??
+            process.env["TERRANEXIS_API_PROXY_TARGET"] ??
+            backendEnv["TERRANEXIS_API_PROXY_TARGET"] ??
             "http://127.0.0.1:8000",
           changeOrigin: true,
+          configure(proxy) {
+            proxy.on("error", (_error, _request, response) => {
+              if ("writeHead" in response && !response.headersSent) {
+                response.writeHead(503, { "Content-Type": "application/json" });
+                response.end(JSON.stringify({ detail: "Terrain backend is unavailable. Start npm run dev:local." }));
+              }
+            });
+          },
         },
       },
     },

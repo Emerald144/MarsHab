@@ -5,7 +5,6 @@ import AnimatedContent from "@/components/animations/AnimatedContent";
 import {
   AlertTriangle,
   ArrowRight,
-  Brain,
   Check,
   Cpu,
   Download,
@@ -25,6 +24,7 @@ import {
 } from "@/lib/mission-api";
 import type { RouteId } from "@/lib/mission-data";
 import { PlanningFields, RouteAssessment, planningInputs } from "./RouteAssessment";
+import { terrainErrorMessage } from "@/lib/terrain-http";
 import { evaluatedPlan, rankedRoutes, assessEmergencyPath } from "@/lib/mission-evaluation";
 import type { Setup } from "@/lib/mission-store";
 import { useMission } from "@/lib/mission-store";
@@ -198,6 +198,8 @@ export function Planner() {
               <span className="label-caps">{t("Science Waypoint (Route C)")}</span>
               <select
                 className={`${field} mt-1`}
+                aria-label={t("Science Waypoint (Route C)")}
+                disabled={waypoints.isPending}
                 value={m.scienceWaypointId ?? ""}
                 onChange={(e) => m.setScienceWaypointId(e.target.value || null)}
               >
@@ -214,6 +216,12 @@ export function Planner() {
                 )}
               </p>
             </label>
+            {waypoints.isError && <div role="alert" className="text-sm text-caution sm:col-span-2">
+              <p>{display("Science waypoints could not be loaded. Check the terrain backend and retry.")}</p>
+              <button type="button" className="btn-ghost mt-2 px-3 py-2" onClick={() => void waypoints.refetch()}>
+                {display("Retry science waypoints")}
+              </button>
+            </div>}
             {num("eva", "Available EVA Time", 0.5)}
             {num("science", "Science Activity")}
             {num("buffer", "Safety Buffer")}
@@ -254,7 +262,7 @@ export function Planner() {
       ) : plan.isError || !plan.data ? (
         <div className="glass flex items-center justify-center p-10 text-center text-sm text-danger">
           {t("Could not reach the terrain routing backend.")}{" "}
-          {plan.error instanceof Error ? plan.error.message : ""}
+          {display(terrainErrorMessage(plan.error))}
         </div>
       ) : (
         <AnimatedContent distance={35} duration={0.75} scale={0.98} className="min-w-0">
@@ -408,229 +416,7 @@ export function Planner() {
 }
 
 /* ---------------- ROUTES ---------------- */
-export function RouteAnalysis() {
-  const { t, display } = useLanguage();
-  const m = useMission();
-  const [hl, setHl] = useState<RouteId>("B");
-  const plan = evaluatedPlan(m.missionPlan, planningInputs(m.setup));
-  if (!m.routesGenerated || !plan)
-    return (
-      <div className="glass mx-auto max-w-lg p-10 text-center">
-        <p className="text-muted-foreground">
-          {t("No routes yet. Select a destination and pass the feasibility check first.")}
-        </p>
-        <button onClick={() => m.setView("planner")} className="btn-mars mt-6 px-6 py-3 text-xs">
-          {t("Open Mission Planner")}
-        </button>
-      </div>
-    );
-
-  const preferred = preferredRoute(plan, m.setup);
-  const routeAt = (id: RouteId) => plan.routes[id] as { available: true; route: RouteFeature } | { available: false; reason: string };
-  const rows: [string, (id: RouteId) => string][] = [
-    ["Distance", (id) => { const r = routeAt(id); return r.available ? `${r.route.properties.distance_km.toFixed(1)} km` : "—"; }],
-    ["Mean Slope", (id) => { const r = routeAt(id); return r.available ? `${r.route.properties.mean_slope_degrees.toFixed(1)}°` : "—"; }],
-    [
-      "Elevation Gain / Loss",
-      (id) => { const r = routeAt(id); return r.available ? `+${r.route.properties.elevation_gain_m.toFixed(0)} / -${r.route.properties.elevation_loss_m.toFixed(0)} m` : "—"; },
-    ],
-    [
-      "Estimated Mission Time",
-      (id) => { const r = routeAt(id); return r.available ? `${r.route.properties.estimated_total_eva_hours.toFixed(1)} h` : "—"; },
-    ],
-    [
-      "Feasible (requested EVA)",
-      (id) => {
-        const r = routeAt(id);
-        if (!r.available) return t("No route");
-        return r.route.properties.passes_demo_time_assumptions === null
-          ? t("No EVA limit set")
-          : r.route.properties.passes_demo_time_assumptions
-            ? "YES"
-            : "NO";
-      },
-    ],
-  ];
-  const ids: RouteId[] = plan.routes.C.available ? ["A", "B", "C"] : ["A", "B"];
-  const routeColor: Record<RouteId, string> = { A: "var(--data)", B: "var(--safe)", C: "var(--mars)" };
-  const overlays = ids
-    .filter((id) => routeAt(id).available)
-    .map((id) => ({
-      id,
-      color: routeColor[id],
-      dash: id === "A" ? "10 8" : undefined,
-      coordinates: (routeAt(id) as { available: true; route: RouteFeature }).route.geometry.coordinates,
-    }));
-  const waypointPoint = plan.routes.C.available ? plan.routes.C.waypoint.location : null;
-
-  return (
-    <div className="space-y-4">
-      <div className="grid gap-4 xl:grid-cols-[1fr_380px]">
-        <div className="relative">
-          <RealTerrainMap
-            layerState={m.realMapLayers}
-            onLayerStateChange={m.setRealMapLayers}
-            className="h-[56vh] min-h-[420px]"
-            hidePanel
-            selectedZoneId={plan.destination_zone_id}
-            routes={overlays}
-            basePoint={plan.base}
-            {...(waypointPoint?.x_m != null && waypointPoint.y_m != null
-              ? { waypointPoint: { easting: waypointPoint.x_m, northing: waypointPoint.y_m } }
-              : {})}
-          />
-          <div className="absolute left-4 top-10 flex flex-col gap-2">
-            {ids
-              .filter((id) => routeAt(id).available)
-              .map((id) => (
-                <button
-                  key={id}
-                  onMouseEnter={() => setHl(id)}
-                  onClick={() => setHl(id)}
-                  className={`glass glass-interactive flex items-center gap-3 px-3 py-2 text-left text-xs ${hl === id ? "glass-selected" : ""}`}
-                >
-                  <span className="h-0.5 w-6" style={{ background: routeColor[id] }} />
-                  <span className="font-display font-semibold">
-                    {t("ROUTE")} {id}
-                  </span>
-                  <span className="text-muted-foreground">
-                    {id === "B" ? t("Terrain-Aware") : id === "C" ? t("Science Priority") : t("Shortest Distance")}
-                  </span>
-                </button>
-              ))}
-          </div>
-        </div>
-        <Panel className="glow-border">
-          {(() => {
-            const selected = routeAt(hl).available ? { id: hl, route: (routeAt(hl) as { available: true; route: RouteFeature }).route } : preferred;
-            if (!selected) return <div className="text-sm text-danger">{t("No traversable route to this zone at the current DEM scale.")}</div>;
-            const isPreferredChoice = preferred && selected.id === preferred.id && hl === preferred.id;
-            const label =
-              selected.id === "B" ? t("Route B · Terrain-Aware") : selected.id === "C" ? t("Route C · Science Priority") : t("Route A · Shortest Distance");
-            return (
-              <>
-                <div className={`label-caps ${isPreferredChoice ? "text-safe" : "text-mars"}`}>
-                  {isPreferredChoice ? t("⭐ Recommended Route") : t("Selected Route")}
-                </div>
-                <div className="mt-2 font-display text-2xl font-bold">{label}</div>
-                <RouteAssessment setup={m.setup} route={selected.route} />
-                <div className="my-4 flex items-center gap-4">
-                  <Ring value={Math.max(0, Math.min(100, 100 - selected.route.properties.mean_slope_degrees * 4))} size={110} />
-                  <div className="text-sm text-muted-foreground">
-                    {t("Terrain-cost-based comfort (heuristic from mean slope)")}
-                  </div>
-                </div>
-                <ul className="space-y-1.5 text-sm">
-                  <li className="flex gap-2">
-                    <Check className="h-4 w-4 text-safe" /> {selected.route.properties.distance_km.toFixed(1)} km,{" "}
-                    {selected.route.properties.mean_slope_degrees.toFixed(1)}° mean slope
-                  </li>
-                  <li className="flex gap-2">
-                    <Check className="h-4 w-4 text-safe" /> {t("Elevation gain")}{" "}
-                    {selected.route.properties.elevation_gain_m.toFixed(0)} m
-                  </li>
-                  <li className="flex gap-2">
-                    <Check className="h-4 w-4 text-safe" /> {selected.route.properties.estimated_total_eva_hours.toFixed(1)} h{" "}
-                    {t("total estimated time")}
-                  </li>
-                  {selected.id === "C" && plan.routes.C.available && (
-                    <li className="flex gap-2">
-                      <Check className="h-4 w-4 text-safe" /> {t("Via")} {plan.routes.C.waypoint.name}
-                    </li>
-                  )}
-                </ul>
-                <button
-                  onClick={() => {
-                    m.setActiveRoute(selected.id);
-                    m.setEnvChanged(false);
-                    m.setRerouted(false);
-                    m.setView("execution");
-                  }}
-                  className="btn-mars mt-5 flex w-full items-center justify-center gap-2 py-3 text-xs"
-                >
-                  {t("Start Simulated Mission")}
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-              </>
-            );
-          })()}
-        </Panel>
-      </div>
-      <div className="grid gap-4 lg:grid-cols-[1.3fr_1fr]">
-        <Panel title={t("Route Analysis")}>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="text-left">
-                  <th className="label-caps pb-3">{t("Factor")}</th>
-                  {ids.map((id) => (
-                    <th key={id} className={`pb-3 font-display ${id === "B" ? "text-safe" : id === "C" ? "text-mars" : ""}`}>
-                      {t("Route")} {id}
-                    </th>
-                  ))}
-                  {!plan.routes.C.available && <th className="pb-3 font-display text-muted-foreground">{t("Route")} C</th>}
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map(([l, fn]) => (
-                  <tr key={l} className="border-t border-border/60">
-                    <td className="py-2.5 text-muted-foreground">{display(l)}</td>
-                    {ids.map((id) => (
-                      <td
-                        key={id}
-                        className={`py-2.5 font-mono ${id === "B" ? "bg-safe/10 text-foreground" : id === "C" ? "bg-mars/10 text-foreground" : ""} ${fn(id) === "NO" ? "text-danger" : ""}`}
-                      >
-                        {display(fn(id))}
-                      </td>
-                    ))}
-                    {!plan.routes.C.available && <td className="py-2.5 font-mono text-muted-foreground">{t("Unavailable")}</td>}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
-            {plan.routes.C.available
-              ? t("Route C (Science Priority) waypoint: {name} — {kind}, {evidence}. {limitations}", {
-                  name: plan.routes.C.waypoint.name,
-                  kind: plan.routes.C.waypoint.kind,
-                  evidence: plan.routes.C.waypoint.evidence_level,
-                  limitations: plan.routes.C.waypoint.limitations[0] ?? "",
-                })
-              : `${t("Route C (Science Priority):")} ${plan.routes.C.reason}`}
-          </p>
-        </Panel>
-        <AnimatedContent distance={35} duration={0.8} scale={0.98} blur={2} className="min-w-0">
-          <Panel title={t("Why this route?")} className="h-full">
-            <div className="mb-4 flex items-center justify-between gap-2 rounded-md border border-border p-3 font-mono text-[10px] tracking-wider text-muted-foreground">
-              <span className="flex items-center gap-1">
-                <Cpu className="h-3.5 w-3.5 text-data" />
-                {t("A* OVER TERRAIN-COST GRID")}
-              </span>
-              →<span>{t("REAL DEM/SLOPE RASTERS")}</span>→
-              <span className="flex items-center gap-1">
-                <Brain className="h-3.5 w-3.5 text-mars" />
-                {t("ASSUMPTIONS SHOWN")}
-              </span>
-            </div>
-            {preferred ? (
-              <>
-                <p className="text-sm leading-relaxed">{preferred.route.properties.algorithm}</p>
-                <ul className="mt-3 space-y-1.5 text-xs text-muted-foreground">
-                  {preferred.route.properties.assumptions.map((a) => (
-                    <li key={a}>• {a}</li>
-                  ))}
-                </ul>
-              </>
-            ) : (
-              <p className="text-sm text-muted-foreground">{t("No route to explain — none could be computed.")}</p>
-            )}
-          </Panel>
-        </AnimatedContent>
-      </div>
-    </div>
-  );
-}
+export { RouteAnalysis } from "./RoutePlanningWorkspace";
 
 /* ---------------- EXECUTION ---------------- */
 export function Execution() {
@@ -739,40 +525,234 @@ export function Execution() {
   };
 
   return (
-    <div className="grid gap-4 xl:grid-cols-[1fr_360px]">
-      <div className="relative">
-        <RealTerrainMap
-            layerState={m.realMapLayers}
-            onLayerStateChange={m.setRealMapLayers}
-          className="h-[70vh] min-h-[460px]"
-          hidePanel
-          selectedZoneId={plan.destination_zone_id}
-          basePoint={plan.base}
-          markerPoint={currentPoint}
-          {...(activeWaypoint?.location.x_m != null && activeWaypoint.location.y_m != null
-            ? { waypointPoint: { easting: activeWaypoint.location.x_m, northing: activeWaypoint.location.y_m } }
-            : {})}
-          routes={[
-            ...(emergencyOutcome
-              ? [{ id: "emergency", color: "var(--danger)", coordinates: emergencyOutcome.geometry.coordinates }]
-              : [{ id: "active", color: showingRevised ? "var(--caution)" : "var(--safe)", coordinates: displayedCoordinates }]),
-          ]}
-        />
-        <div className="glass glass-overlay absolute left-4 top-10 px-3 py-2 font-mono text-[10px] tracking-widest">
-          <span className="text-caution">{t("● SIMULATED MISSION")}</span>
-          <div className="text-muted-foreground">{t("NOT REAL-TIME ASTRONAUT TRACKING")}</div>
+    <div className="min-w-0 space-y-4">
+      <div
+        data-execution-dashboard
+        className="grid items-start gap-4 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]"
+      >
+        <div data-execution-map className="relative min-w-0">
+          <RealTerrainMap
+            mode="execution"
+            progress={p}
+            destinationPoint={plan.destination_point}
+            className="h-[clamp(300px,50svh,520px)]"
+            hidePanel
+            selectedZoneId={plan.destination_zone_id}
+            basePoint={plan.base}
+            markerPoint={currentPoint}
+            {...(activeWaypoint?.location.x_m != null && activeWaypoint.location.y_m != null
+              ? {
+                  waypointPoint: {
+                    easting: activeWaypoint.location.x_m,
+                    northing: activeWaypoint.location.y_m,
+                  },
+                }
+              : {})}
+            routes={[
+              ...(emergencyOutcome
+                ? [
+                    {
+                      id: "emergency",
+                      color: "var(--danger)",
+                      coordinates: emergencyOutcome.geometry.coordinates,
+                    },
+                  ]
+                : [
+                    {
+                      id: "active",
+                      color: showingRevised ? "var(--caution)" : "var(--safe)",
+                      coordinates: displayedCoordinates,
+                    },
+                  ]),
+            ]}
+          />
+          <div className="glass glass-overlay absolute left-3 right-3 top-3 rounded-lg px-3 py-2 text-xs sm:right-auto">
+            <span className="text-caution">{t("● SIMULATED MISSION")}</span>
+            <div className="text-muted-foreground">{t("NOT REAL-TIME ASTRONAUT TRACKING")}</div>
+          </div>
+
+          <div className="glass glass-overlay pointer-events-none absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-xs">
+            <span>
+              {t("Active Route")} / {t("Route")} {m.activeRoute}
+            </span>
+            <span className="font-mono text-data">{Math.round(p * 100)}%</span>
+          </div>
         </div>
+        <div data-execution-status className="min-w-0 space-y-4">
+          <Panel title={returning ? t("Returning to Base") : t("Mission in Progress")}>
+            <div className="space-y-2 text-sm">
+              <div className="flex flex-wrap justify-between gap-2">
+                <span className="text-muted-foreground">{t("Base")}</span>
+                <span>{t("Perseverance landing site")}</span>
+              </div>
+              <div className="flex flex-wrap justify-between gap-2">
+                <span className="text-muted-foreground">{t("Destination")}</span>
+                <span>{m.destination}</span>
+              </div>
+              <div className="flex flex-wrap justify-between gap-2">
+                <span className="text-muted-foreground">{t("Active Route")}</span>
+                <span className="font-mono">
+                  {t("Route")} {m.activeRoute} — {Math.round(p * 100)}%
+                </span>
+              </div>
+              {activeWaypoint && (
+                <div className="flex flex-wrap justify-between gap-2">
+                  <span className="text-muted-foreground">{t("Science Waypoint")}</span>
+                  <span className="min-w-0 break-words text-right font-mono">
+                    {activeWaypoint.name}
+                  </span>
+                </div>
+              )}
+            </div>
+            <div
+              role="progressbar"
+              aria-label={t("Mission in Progress")}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={Math.round(p * 100)}
+              className="mt-4 h-2 overflow-hidden rounded-full bg-muted"
+            >
+              <div
+                className="h-full rounded-full bg-data shadow-[var(--glow-data)]"
+                style={{ width: `${p * 100}%` }}
+              />
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-2 text-center">
+              <div className="rounded-md border border-border p-2">
+                <div className="label-caps">{t("Elapsed")}</div>
+                <div className="font-display text-lg">{elapsed.toFixed(1)} h</div>
+              </div>
+              <div className="rounded-md border border-border p-2">
+                <div className="label-caps">{t("Remaining")}</div>
+                <div className="font-display text-lg">
+                  {Math.max(0, total - elapsed).toFixed(1)} h
+                </div>
+              </div>
+            </div>
+
+            <div
+              className="mt-4 space-y-2 border-t border-border pt-3 text-xs"
+              aria-label={display("Abstract Resource Model")}
+            >
+              <div className="font-medium">{display("Abstract Resource Model")}</div>
+              <dl className="grid grid-cols-2 gap-2">
+                <div>
+                  <dt className="text-muted-foreground">{display("Estimated use")}</dt>
+                  <dd className="mt-1 font-mono">
+                    {plan.resource_assessment.available &&
+                    plan.resource_assessment.estimated_use_percent != null
+                      ? plan.resource_assessment.estimated_use_percent.toFixed(1) + "%"
+                      : display("Not available")}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-muted-foreground">{display("Remaining after reserve")}</dt>
+                  <dd className="mt-1 font-mono">
+                    {plan.resource_assessment.available &&
+                    plan.resource_assessment.remaining_after_reserve_percent != null
+                      ? plan.resource_assessment.remaining_after_reserve_percent.toFixed(1) + "%"
+                      : display("Not available")}
+                  </dd>
+                </div>
+              </dl>
+              {plan.feasibility?.feasible === false && (
+                <p className="font-medium text-danger">{t("MISSION NOT FEASIBLE")}</p>
+              )}
+              {m.envChanged && !m.rerouted && (
+                <p className="font-medium text-caution">{display("Path blocked")}</p>
+              )}
+              {plan.resource_assessment.warnings.map((warning) => (
+                <p key={warning} className="text-caution">
+                  {display(warning)}
+                </p>
+              ))}
+              {plan.feasibility?.warnings.map((warning) => (
+                <p key={warning} className="text-caution">
+                  {display(warning)}
+                </p>
+              ))}
+            </div>
+            {!m.envChanged && (
+              <>
+                <button
+                  onClick={simulateEnvironmentalChange}
+                  className="btn-ghost mt-5 flex w-full items-center justify-center gap-2 py-3 text-xs text-caution"
+                >
+                  <AlertTriangle className="h-4 w-4" />
+                  {t("Simulate Environmental Closure")}
+                </button>
+                <p className="mt-2 text-[11px] text-muted-foreground">
+                  {t(
+                    "This closure is a user-configured scenario. It is not detected from, or driven by, MEDA observations.",
+                  )}
+                </p>
+              </>
+            )}
+            {m.rerouted && (
+              <div className="mt-4 rounded-md border border-safe/50 bg-safe/10 p-3 text-sm text-safe">
+                <Star className="mr-1 inline h-4 w-4" />
+                {t("Rerouted around the simulated closure.")}
+              </div>
+            )}
+            <button
+              onClick={() => m.setView("report")}
+              className="btn-ghost mt-3 w-full py-3 text-xs"
+            >
+              {t("View Mission Report")}
+            </button>
+          </Panel>
+          {emergency ? (
+            <Panel
+              className="border-danger/60"
+              title={<span className="text-danger">{t("🚨 Emergency Return Mode")}</span>}
+            >
+              <div className="label-caps">{t("Objective")}</div>
+              <div className="font-display text-xl font-bold">{t("RETURN TO BASE")}</div>
+              <p className="mt-2 text-xs text-muted-foreground">
+                {t(
+                  "Calculates a real terrain-aware route from the current simulated position back to the verified base.",
+                )}
+              </p>
+              {m.emergencyRoute && (
+                <div className="mt-3 rounded-md border border-border p-3 font-mono text-xs">
+                  {m.emergencyRoute.available ? (
+                    <>
+                      <div className="label-caps mb-1">{t("Return route found")}</div>
+                      {m.emergencyRoute.route.properties.distance_km.toFixed(1)} km ·{" "}
+                      {m.emergencyRoute.route.properties.estimated_one_way_hours.toFixed(1)} h
+                    </>
+                  ) : (
+                    <span className="text-danger">
+                      {t("No return route could be calculated:")} {m.emergencyRoute.reason}
+                    </span>
+                  )}
+                </div>
+              )}
+              <button
+                onClick={triggerEmergency}
+                disabled={emergencyMutation.isPending}
+                className="btn-mars mt-4 w-full py-3 text-xs"
+                style={{ background: "var(--danger)" }}
+              >
+                {emergencyMutation.isPending
+                  ? t("Calculating return route…")
+                  : t("Initiate Emergency Return")}
+              </button>
+            </Panel>
+          ) : null}
+        </div>
+      </div>
+      <div data-execution-secondary className="space-y-4">
         {m.envChanged && !m.rerouted && (
-          <div
-            className="glass glass-overlay animate-slide-in absolute bottom-4 left-4 right-4 border-danger/60 p-5 md:right-auto md:w-[420px]"
-            style={{ boxShadow: "0 0 30px -8px var(--danger)" }}
-          >
+          <div className="glass min-w-0 border-danger/60 p-4">
             <div className="flex items-center gap-2 font-display font-bold text-danger">
               <AlertTriangle className="h-5 w-5" />
               {t("SIMULATED CLOSURE NEAR ROUTE MIDPOINT")}
             </div>
             <p className="mt-2 text-sm text-muted-foreground">
-              {t("A simulated 1.5 km closure was placed on the route and the terrain cost grid was recalculated.")}
+              {t(
+                "A simulated 1.5 km closure was placed on the route and the terrain cost grid was recalculated.",
+              )}
             </p>
             {m.revisedMissionPlan ? (
               <div className="mt-4 grid grid-cols-2 gap-2 text-center font-mono text-xs">
@@ -785,7 +765,9 @@ export function Execution() {
                 <div className="rounded-md border border-safe p-2 text-safe">
                   {t("Revised")}
                   <div className="font-display text-lg font-bold">
-                    {revisedOutcome?.available ? `${revisedOutcome.route.properties.distance_km.toFixed(1)} km` : t("unavailable")}
+                    {revisedOutcome?.available
+                      ? `${revisedOutcome.route.properties.distance_km.toFixed(1)} km`
+                      : t("unavailable")}
                   </div>
                 </div>
               </div>
@@ -802,111 +784,23 @@ export function Execution() {
             )}
           </div>
         )}
-      </div>
-      <div className="space-y-4">
-        {emergency ? (
-          <Panel
-            className="border-danger/60"
-            title={<span className="text-danger">{t("🚨 Emergency Return Mode")}</span>}
-          >
-            <div className="label-caps">{t("Objective")}</div>
-            <div className="font-display text-xl font-bold">{t("RETURN TO BASE")}</div>
-            <p className="mt-2 text-xs text-muted-foreground">
-              {t("Calculates a real terrain-aware route from the current simulated position back to the verified base.")}
-            </p>
-            {m.emergencyRoute && (
-              <div className="mt-3 rounded-md border border-border p-3 font-mono text-xs">
-                {m.emergencyRoute.available ? (
-                  <>
-                    <div className="label-caps mb-1">{t("Return route found")}</div>
-                    {m.emergencyRoute.route.properties.distance_km.toFixed(1)} km ·{" "}
-                    {m.emergencyRoute.route.properties.estimated_one_way_hours.toFixed(1)} h
-                  </>
-                ) : (
-                  <span className="text-danger">
-                    {t("No return route could be calculated:")} {m.emergencyRoute.reason}
-                  </span>
-                )}
-              </div>
-            )}
-            <button
-              onClick={triggerEmergency}
-              disabled={emergencyMutation.isPending}
-              className="btn-mars mt-4 w-full py-3 text-xs"
-              style={{ background: "var(--danger)" }}
-            >
-              {emergencyMutation.isPending ? t("Calculating return route…") : t("Initiate Emergency Return")}
-            </button>
-          </Panel>
-        ) : null}
-        <RouteAssessment setup={m.setup} route={showingRevised && revisedOutcome?.available ? revisedOutcome.route : activeRouteFeature} blocked={m.envChanged && !m.rerouted} />
-        <Panel title={returning ? t("Returning to Base") : t("Mission in Progress")}>
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">{t("Base")}</span>
-              <span>{t("Perseverance landing site")}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">{t("Destination")}</span>
-              <span>{m.destination}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">{t("Active Route")}</span>
-              <span className="font-mono">
-                {t("Route")} {m.activeRoute} — {Math.round(p * 100)}%
-              </span>
-            </div>
-            {activeWaypoint && (
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">{t("Science Waypoint")}</span>
-                <span className="font-mono">{activeWaypoint.name}</span>
-              </div>
-            )}
-          </div>
-          <div className="mt-4 h-2 overflow-hidden rounded-full bg-muted">
-            <div
-              className="h-full rounded-full bg-data shadow-[var(--glow-data)]"
-              style={{ width: `${p * 100}%` }}
+        <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+          <Panel title={display("Planning constraint assessment")}>
+            <RouteAssessment
+              compact
+              setup={m.setup}
+              route={
+                showingRevised && revisedOutcome?.available
+                  ? revisedOutcome.route
+                  : activeRouteFeature
+              }
+              blocked={m.envChanged && !m.rerouted}
             />
+          </Panel>
+          <div className="min-w-0">
+            <HistoricalObservationPanel />
           </div>
-          <div className="mt-4 grid grid-cols-2 gap-2 text-center">
-            <div className="rounded-md border border-border p-2">
-              <div className="label-caps">{t("Elapsed")}</div>
-              <div className="font-display text-lg">{elapsed.toFixed(1)} h</div>
-            </div>
-            <div className="rounded-md border border-border p-2">
-              <div className="label-caps">{t("Remaining")}</div>
-              <div className="font-display text-lg">{Math.max(0, total - elapsed).toFixed(1)} h</div>
-            </div>
-          </div>
-          {!m.envChanged && (
-            <>
-              <button
-                onClick={simulateEnvironmentalChange}
-                className="btn-ghost mt-5 flex w-full items-center justify-center gap-2 py-3 text-xs text-caution"
-              >
-                <AlertTriangle className="h-4 w-4" />
-                {t("Simulate Environmental Closure")}
-              </button>
-              <p className="mt-2 text-[11px] text-muted-foreground">
-                {t("This closure is a user-configured scenario. It is not detected from, or driven by, MEDA observations.")}
-              </p>
-            </>
-          )}
-          {m.rerouted && (
-            <div className="mt-4 rounded-md border border-safe/50 bg-safe/10 p-3 text-sm text-safe">
-              <Star className="mr-1 inline h-4 w-4" />
-              {t("Rerouted around the simulated closure.")}
-            </div>
-          )}
-          <button
-            onClick={() => m.setView("report")}
-            className="btn-ghost mt-3 w-full py-3 text-xs"
-          >
-            {t("View Mission Report")}
-          </button>
-        </Panel>
-        <HistoricalObservationPanel />
+        </div>
       </div>
     </div>
   );

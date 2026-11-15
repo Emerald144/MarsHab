@@ -27,16 +27,26 @@ let wideViewport = false;
 function Harness() {
   const m = useMission();
   const [visible, setVisible] = useState(true);
+  const [execution, setExecution] = useState(false);
+  const [progress, setProgress] = useState(0.25);
   const base = rover.points[0];
   return (
     <>
       <LanguageSwitcher />
       <button onClick={() => setVisible((value) => !value)}>Toggle map view</button>
+      <button onClick={() => setExecution((value) => !value)}>Toggle execution presentation</button>
+      <button onClick={() => setProgress(0.5)}>Advance map progress</button>
       <output aria-label="Mission state">
         {JSON.stringify({ destination: m.destination, setup: m.setup, plan: m.missionPlan })}
       </output>
       {visible && (
         <RealTerrainMap
+          mode={execution ? "execution" : "configuration"}
+          basePoint={base}
+          markerPoint={base}
+          destinationPoint={{ easting: base.easting + 1000, northing: base.northing + 1000 }}
+          waypointPoint={{ easting: base.easting + 500, northing: base.northing + 500 }}
+          progress={progress}
           explorer={explorerMode}
           className="h-[70vh]"
           layerState={m.realMapLayers}
@@ -113,6 +123,31 @@ afterEach(() => {
 });
 
 describe("real map layer controls", () => {
+  it("isolates execution presentation while preserving Survival Map layer preferences", async () => {
+    const { container } = await renderMap();
+    fireEvent.click(screen.getByRole("radio", { name: "Hillshade" }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "Slope classes" }));
+    fireEvent.click(screen.getByRole("button", { name: "Toggle execution presentation" }));
+    expect(screen.queryByRole("radio")).not.toBeInTheDocument();
+    expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
+    expect(screen.queryByRole("slider")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Inspect terrain zone/ })).not.toBeInTheDocument();
+    expect(screen.queryByText("Layer details")).not.toBeInTheDocument();
+    expect(screen.queryByRole("region", { name: "Zone Details" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("group", { name: "Map controls" })).not.toBeInTheDocument();
+    expect([...container.querySelectorAll("image")].map((node) => node.getAttribute("data-layer"))).toEqual(["terrain"]);
+    for (const marker of ["BASE", "Destination", "position", "SCIENCE"])
+      expect(container.querySelector(`[data-marker="${marker}"]`)).toBeInTheDocument();
+    const route = container.querySelector('[data-route="test-route"]')!;
+    const progress = container.querySelector('[data-route-progress="test-route"]')!;
+    expect(progress).toHaveAttribute("points", route.getAttribute("points"));
+    expect(progress).toHaveAttribute("stroke-dasharray", "0.25 1");
+    fireEvent.click(screen.getByRole("button", { name: "Advance map progress" }));
+    expect(progress).toHaveAttribute("stroke-dasharray", "0.5 1");
+    fireEvent.click(screen.getByRole("button", { name: "Toggle execution presentation" }));
+    expect(screen.getByRole("radio", { name: "Hillshade" })).toBeChecked();
+    expect(screen.getByRole("checkbox", { name: "Slope classes" })).toBeChecked();
+  });
   it("uses one camera for all geographic content, fits actual imagery, and restores the full map", async () => {
     explorerMode = true;
     wideViewport = true;
@@ -123,6 +158,10 @@ describe("real map layer controls", () => {
     const coordinates = route.getAttribute("points");
     fireEvent.click(screen.getByRole("button", { name: "Zoom in" }));
     expect(Number(svg.getAttribute("viewBox")!.split(" ")[2])).toBeLessThan(
+      Number(initial.split(" ")[2]),
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Zoom out" }));
+    expect(Number(svg.getAttribute("viewBox")!.split(" ")[2])).toBeCloseTo(
       Number(initial.split(" ")[2]),
     );
     expect(route).toHaveAttribute("points", coordinates);
@@ -189,9 +228,13 @@ describe("real map layer controls", () => {
     expect(zone).toHaveAttribute("aria-pressed", "true");
     const details = screen.getByRole("region", { name: "Zone Details" });
     expect(svg.contains(details)).toBe(false);
-    fireEvent.click(screen.getByRole("button", { name: "Collapse zone details" }));
+    expect(screen.queryByRole("button", { name: "Collapse zone details" })).not.toBeInTheDocument();
+    expect(details).toBeVisible();
     expect(zone).toHaveAttribute("aria-pressed", "true");
-    fireEvent.click(screen.getByRole("button", { name: "Zone Details" }));
+    fireEvent.click(screen.getByRole("button", { name: "Inspect terrain zone JZ-02" }));
+    expect(within(details).getByRole("heading", { name: "JZ-02" })).toBeInTheDocument();
+    fireEvent.click(zone);
+    expect(within(details).getByRole("heading", { name: "JZ-01" })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Select destination" }));
     expect(screen.getByLabelText("Mission state")).toHaveTextContent('"destination":"JZ-01"');
     expect(container.querySelector('[data-route="test-route"]')).toBeInTheDocument();

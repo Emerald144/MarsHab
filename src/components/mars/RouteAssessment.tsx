@@ -68,10 +68,10 @@ export function PlanningFields({
   const field = (key: keyof PlanningInputs, label: string, optional = false) => {
     const help = optional ? explanation(key as ResearchKey) : undefined;
     return (
-      <label className="block min-w-0" key={key}>
+      <label className={optional ? "block min-w-0" : "flex min-w-0 flex-col gap-1"} key={key}>
         <span className="text-sm font-medium">{display(label)}</span>
         <input
-          className={fieldClass}
+          className={optional ? fieldClass : `${fieldClass.replace("mt-1 ", "")} mt-auto`}
           aria-label={display(label)}
           type="number"
           step="any"
@@ -237,10 +237,12 @@ export function RouteAssessment({
   route,
   setup,
   blocked = false,
+  compact = false,
 }: {
   route?: RouteFeature | undefined;
   setup: Setup;
   blocked?: boolean;
+  compact?: boolean;
 }) {
   const { display } = useLanguage();
   const a = route
@@ -288,7 +290,7 @@ export function RouteAssessment({
   );
   return (
     <div className="my-3 space-y-3" aria-label={display("Planning constraint assessment")}>
-      <div className="space-y-2" role="status">
+      <div className={compact ? "grid gap-2 sm:grid-cols-3" : "space-y-2"} role="status">
         {budgetRow("Mission time", a?.totalHours, setup.eva, a?.eva ?? "unknown")}
         {budgetRow(
           "Emergency return",

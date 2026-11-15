@@ -3,8 +3,9 @@
 // These are HISTORICAL ROVER OBSERVATIONS: not live weather, not a forecast, and never used
 // to change A* terrain cost, routes, feasibility or the simulated closure events.
 import { useQuery } from "@tanstack/react-query";
+import { terrainUrl } from "./terrain-http";
 
-const API_BASE = import.meta.env["VITE_API_BASE_URL"] ?? "http://127.0.0.1:8000";
+const API_BASE = import.meta.env["VITE_API_BASE_URL"] ?? "";
 
 export type EnvironmentDataLabel = {
   label: string;
@@ -83,7 +84,7 @@ export type EnvironmentObservations = {
 };
 
 async function getJson<T>(path: string): Promise<T> {
-  const res = await fetch(`${API_BASE}${path}`);
+  const res = await fetch(terrainUrl(path, API_BASE, typeof window === "undefined" ? undefined : window.location.href));
   if (!res.ok) throw new Error(`${path} failed: HTTP ${res.status}`);
   return (await res.json()) as T;
 }

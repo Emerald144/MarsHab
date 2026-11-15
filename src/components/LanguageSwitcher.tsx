@@ -15,8 +15,9 @@ export function LanguageSwitcher() {
         onClick={() => setLanguage("en")}
         className={`focus-ring min-h-9 rounded px-2 ${language === "en" ? "bg-mars/15 text-mars" : "text-muted-foreground"}`}
       >
-        <span aria-hidden="true">🇬🇧 </span>EN
+        EN
       </button>
+      <span aria-hidden="true" className="text-muted-foreground">|</span>
       <button
         type="button"
         lang="my"
@@ -24,7 +25,7 @@ export function LanguageSwitcher() {
         onClick={() => setLanguage("my")}
         className={`focus-ring min-h-9 rounded px-2 ${language === "my" ? "bg-mars/15 text-mars" : "text-muted-foreground"}`}
       >
-        <span aria-hidden="true">🇲🇲 </span>မြန်မာ
+        မြန်မာ
       </button>
     </div>
   );

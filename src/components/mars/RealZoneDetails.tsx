@@ -18,7 +18,7 @@ export function RealZoneDetails({
   return (
     <section aria-label={display("Zone Details")} className="min-w-0 space-y-5 p-4">
       <div>
-        <div className="text-xs font-medium text-cyan-300">{display("Zone Details")}</div>
+        <div className="text-xs font-medium text-data">{display("Zone Details")}</div>
         <h3 className="mt-1 font-display text-2xl font-bold">{zone.id}</h3>
       </div>
       <div className="rounded-xl border border-cyan-400/20 bg-cyan-400/5 p-4">

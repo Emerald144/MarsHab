@@ -1,5 +1,6 @@
 /** English source phrases are stable translation keys; measurements and IDs stay in data. */
 export const myanmar = {
+  "MarsHab | Mars Mission Planning": "MarsHab | Mars Mission Planning",
   Overview: "ခြုံငုံသုံးသပ်ချက်",
   "Survival Map": "ရှင်သန်ရေးမြေပုံ",
   Routes: "လမ်းကြောင်းများ",
@@ -33,6 +34,8 @@ export const myanmar = {
   "Open mission control": "မစ်ရှင်ထိန်းချုပ်ရေးကို ဖွင့်ရန်",
   "MarsHab, back to landing page": "MarsHab၊ ပင်မစာမျက်နှာသို့ ပြန်ရန်",
   "MarsHab": "MarsHab",
+  "Science waypoints could not be loaded. Check the terrain backend and retry.": "သိပ္ပံလမ်းမှတ်များကို မရယူနိုင်ပါ။ Terrain backend ကို စစ်ပြီး ပြန်ကြိုးစားပါ။",
+  "Retry science waypoints": "သိပ္ပံလမ်းမှတ်များ ပြန်ရယူရန်",
   "Jezero Crater": "Jezero ဥက္ကာခဲကျင်း",
   "ID:": "အမှတ်:",
   "Mode:": "မုဒ်:",
@@ -329,6 +332,8 @@ export const myanmar = {
     "ဂြိုဟ်များအကြား ရှင်သန်ရေးလမ်းညွှန်: MarsHab",
   "MarsHab prototype Mars mission planner: survival suitability map of Jezero Crater, feasibility checks, route comparison and dynamic rerouting.":
     "MarsHab: အင်္ဂါဂြိုဟ် မစ်ရှင်စီမံရေး ရှေ့ပြေးစနစ်: Jezero ဥက္ကာခဲကျင်း ရှင်သန်ရေးသင့်လျော်မှုမြေပုံ၊ ဖြစ်နိုင်ခြေစစ်ဆေးမှု၊ လမ်းကြောင်းနှိုင်းယှဉ်မှုနှင့် အခြေအနေအလိုက် လမ်းကြောင်းပြောင်းလဲမှု။",
+  "Prototype Mars mission planner: survival suitability map of Jezero Crater, feasibility checks, route comparison and dynamic rerouting.":
+    "အင်္ဂါဂြိုဟ် မစ်ရှင်စီမံရေး ရှေ့ပြေးစနစ်: Jezero ဥက္ကာခဲကျင်း ရှင်သန်ရေးသင့်လျော်မှုမြေပုံ၊ ဖြစ်နိုင်ခြေစစ်ဆေးမှု၊ လမ်းကြောင်းနှိုင်းယှဉ်မှုနှင့် အခြေအနေအလိုက် လမ်းကြောင်းပြောင်းလဲမှု။",
 
   // Real Jezero terrain (Phase 1 data) — kept separate from the illustrative demo strings above.
   "Demo Mission Map": "သရုပ်ပြ မစ်ရှင်မြေပုံ",
@@ -413,6 +418,13 @@ export const myanmar = {
   "Route C · Science Priority:": "လမ်းကြောင်း C · သိပ္ပံဦးစားပေး:",
   "Route C · Science Priority": "လမ်းကြောင်း C · သိပ္ပံဦးစားပေး",
   "Selected Route": "ရွေးချယ်ထားသောလမ်းကြောင်း",
+  "Abstract Resource Model": "ယူဆချက်အခြေပြု အရင်းအမြစ်မော်ဒယ်",
+  "Abstract Resource Budget": "ယူဆချက်အခြေပြု အရင်းအမြစ်ဘတ်ဂျက်",
+  "Resource Safety Reserve": "အရင်းအမြစ် လုံခြုံရေးအရန်",
+  "Estimated use": "ခန့်မှန်းအသုံးပြုမှု",
+  "Remaining after reserve": "အရန်နုတ်ပြီး ကျန်ရှိမှု",
+  "Path blocked": "လမ်းကြောင်း ပိတ်ဆို့နေသည်",
+  "Assumptions and limitations": "ယူဆချက်များနှင့် ကန့်သတ်ချက်များ",
   Via: "ဖြတ်သန်း",
   "Route C (Science Priority) waypoint: {name} — {kind}, {evidence}. {limitations}":
     "လမ်းကြောင်း C (သိပ္ပံဦးစားပေး) ကြောင်းမှတ်: {name} — {kind}, {evidence}။ {limitations}",
@@ -572,6 +584,7 @@ export const myanmar = {
   "Within budget": "သတ်မှတ်ချိန်အတွင်း",
   "Not assessed": "မအကဲဖြတ်ရသေး",
   "Jezero Explorer": "Jezero စူးစမ်းလေ့လာမှု",
+  "Map controls": "မြေပုံထိန်းချုပ်မှုများ",
   "Zoom in": "ချဲ့ရန်",
   "Zoom out": "ချုံ့ရန်",
   "Fit map": "မြေပုံအပြည့် ကြည့်ရန်",

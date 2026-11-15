@@ -1,8 +1,11 @@
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Planner, Report, RouteAnalysis } from "@/components/mars/Views";
+import { Execution, Planner, Report, RouteAnalysis } from "@/components/mars/Views";
+import { evaluatedPlan } from "@/lib/mission-evaluation";
+import { planningInputs } from "@/components/mars/RouteAssessment";
+import type { Setup } from "@/lib/mission-store";
 import { MissionProvider, useMission } from "@/lib/mission-store";
 import type { MissionPlan } from "@/lib/mission-api";
 
@@ -14,7 +17,12 @@ vi.mock("@/components/animations/AnimatedContent", () => ({
   ),
 }));
 vi.mock("@/components/mars/RealTerrainMap", () => ({
-  RealTerrainMap: () => <div data-testid="interactive-map" />,
+  RealTerrainMap: ({ routes, explorer, mode, markerPoint, destinationPoint, waypointPoint, progress }: { routes: { id: string; opacity?: number }[]; explorer?: boolean; mode?: string; markerPoint?: unknown; destinationPoint?: unknown; waypointPoint?: unknown; progress?: number }) => (
+    <div data-testid="interactive-map" data-routes={JSON.stringify(routes)} data-explorer={String(explorer)} data-mode={mode} data-position={JSON.stringify(markerPoint)} data-destination={JSON.stringify(destinationPoint)} data-waypoint={JSON.stringify(waypointPoint)} data-progress={progress} />
+  ),
+}));
+vi.mock("@/components/mars/HistoricalObservationPanel", () => ({
+  HistoricalObservationPanel: () => <div data-testid="historical-observations" />,
 }));
 
 const pixelsFixture = {
@@ -157,6 +165,14 @@ vi.stubGlobal(
     if (url.includes("zones_preview_pixels")) return jsonResponse(pixelsFixture);
     if (url.includes("zone_terrain_statistics")) return jsonResponse(statsFixture);
     if (url.includes("layer_manifest")) return jsonResponse(manifestFixture);
+    if (url.includes("/api/v1/missions/emergency-return")) {
+      const request = JSON.parse(init?.body ?? "{}");
+      const route = routeFeature(8, 0, 0, 1000);
+      return jsonResponse({
+        available: true,
+        route: { ...route, geometry: { type: "LineString", coordinates: [[request.current.easting, request.current.northing], route.geometry.coordinates[0]] } },
+      });
+    }
     if (url.includes("/api/v1/missions/plan")) {
       const req = JSON.parse(init?.body ?? "{}");
       return jsonResponse(planResponse(req.eva_hours ?? 8, req.science_hours ?? 0, req.buffer_hours ?? 0.5, req.walking_speed_m_per_hour ?? 1000));
@@ -241,6 +257,16 @@ function MissionControls() {
         Load route fixtures
       </button>
       <button
+        onClick={() => mission.setActiveRoute("C")}
+      >
+        Select unavailable Route C fixture
+      </button>
+      <button onClick={() => mission.setSetup({ ...mission.setup, eva: 0.25 })}>
+        Reduce EVA fixture
+      </button>
+      {(["A", "B", "C"] as const).map((id) => <button key={id} onClick={() => mission.setActiveRoute(id)}>Choose execution route {id}</button>)}
+      <button onClick={() => mission.setMode("emergency")}>Enable emergency fixture</button>
+      <button
         onClick={() => {
           mission.setEnvChanged(true);
           mission.setRevisedMissionPlan(reroutedPlan);
@@ -258,7 +284,7 @@ function MissionControls() {
       >
         Load science Route C fixture
       </button>
-      <output aria-label="Mission state">
+      <output aria-label="Mission state" data-setup={JSON.stringify(mission.setup)}>
         {mission.view}|{mission.activeRoute}
       </output>
     </>
@@ -275,9 +301,54 @@ function withMission(children: ReactNode) {
     </QueryClientProvider>,
   );
 }
-afterEach(cleanup);
+afterEach(() => { cleanup(); vi.useRealTimers(); });
 
 describe("selective mission-section entrances", () => {
+  it.each(["A", "B", "C"])("monitors execution route %s without changing simulation timing or coordinates", (id) => {
+    vi.useFakeTimers();
+    const { container } = withMission(<Execution />);
+    fireEvent.click(screen.getByRole("button", { name: "Load science Route C fixture" }));
+    fireEvent.click(screen.getByRole("button", { name: `Choose execution route ${id}` }));
+    const map = screen.getByTestId("interactive-map");
+    expect(map).toHaveAttribute("data-mode", "execution");
+    expect(JSON.parse(map.getAttribute("data-destination")!)).toEqual(scienceRouteCPlan.destination_point);
+    expect(map.hasAttribute("data-waypoint")).toBe(id === "C");
+    const dashboard = container.querySelector("[data-execution-dashboard]")!;
+    expect(container.querySelector("[data-execution-map]")!.parentElement).toBe(dashboard);
+    expect(container.querySelector("[data-execution-status]")!.parentElement).toBe(dashboard);
+    expect(screen.getByTestId("historical-observations").closest("[data-execution-secondary]")).not.toBeNull();
+    act(() => vi.advanceTimersByTime(300));
+    const p = 0.92 * (1 - 0.96 ** 10);
+    expect(Number(map.getAttribute("data-progress"))).toBeCloseTo(p);
+    const position = JSON.parse(map.getAttribute("data-position")!);
+    expect(position.easting).toBeCloseTo(4354494 + 2000 * p);
+    expect(position.northing).toBe(1093299);
+    expect(screen.getByRole("progressbar")).toHaveAttribute("aria-valuenow", String(Math.round(p * 100)));
+    const setup = JSON.parse(screen.getByLabelText("Mission state").getAttribute("data-setup")!) as Setup;
+    const plan = evaluatedPlan(scienceRouteCPlan, planningInputs(setup), id as "A" | "B" | "C")!;
+    const outcome = plan.routes[id as "A" | "B" | "C"];
+    if (!outcome.available) throw new Error("Expected available fixture");
+    const elapsed = Math.round(p * outcome.route.properties.estimated_total_eva_hours * 10) / 10;
+    expect(screen.getByText("Elapsed").parentElement).toHaveTextContent(`${elapsed.toFixed(1)} h`);
+    expect(screen.getByText("Remaining").parentElement).toHaveTextContent(`${Math.max(0, outcome.route.properties.estimated_total_eva_hours - elapsed).toFixed(1)} h`);
+    expect(screen.getByLabelText("Abstract Resource Model")).toHaveTextContent(`${plan.resource_assessment.estimated_use_percent?.toFixed(1)}%`);
+    fireEvent.click(screen.getByRole("button", { name: "View Mission Report" }));
+    expect(screen.getByLabelText("Mission state")).toHaveTextContent(`report|${id}`);
+  });
+
+  it("requests emergency return from the existing simulated position and displays the returned path", async () => {
+    withMission(<Execution />);
+    fireEvent.click(screen.getByRole("button", { name: "Load science Route C fixture" }));
+    fireEvent.click(screen.getByRole("button", { name: "Enable emergency fixture" }));
+    const map = screen.getByTestId("interactive-map");
+    const position = JSON.parse(map.getAttribute("data-position")!);
+    fireEvent.click(screen.getByRole("button", { name: "Initiate Emergency Return" }));
+    await screen.findByText("Return route found");
+    await waitFor(() => expect(JSON.parse(map.getAttribute("data-routes")!)[0].id).toBe("emergency"));
+    const request = vi.mocked(fetch).mock.calls.filter(([url]) => String(url).includes("/emergency-return")).at(-1)!;
+    expect(JSON.parse(String(request[1]?.body)).current).toEqual(position);
+    expect(screen.getByText("Returning to Base")).toBeInTheDocument();
+  });
   it("animates Planner results while preserving input changes and feasibility checks", async () => {
     const { container } = withMission(<Planner />);
     expect(container.querySelectorAll("[data-animated-content]")).toHaveLength(0);
@@ -303,6 +374,7 @@ describe("selective mission-section entrances", () => {
       screen.getByRole("heading", { name: "Why this route?" }).closest("[data-animated-content]"),
     ).not.toBeNull();
     expect(screen.getByTestId("interactive-map").closest("[data-animated-content]")).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: /ROUTE\s*A/ }));
     const start = screen.getByRole("button", { name: "Start Simulated Mission" });
     expect(start.closest("[data-animated-content]")).toBeNull();
     fireEvent.click(start);
@@ -331,14 +403,53 @@ describe("selective mission-section entrances", () => {
   });
 
   it("shows a real, selectable Route C and its waypoint provenance once the science route is available", () => {
-    withMission(<RouteAnalysis />);
+    const { container } = withMission(<RouteAnalysis />);
     fireEvent.click(screen.getByRole("button", { name: "Load science Route C fixture" }));
+    const workspace = container.querySelector("[data-planning-workspace]")!;
+    const mapPanel = container.querySelector("[data-terrain-map-panel]")!;
+    const comparison = screen.getByRole("region", { name: "Route Analysis" });
+    expect(mapPanel.parentElement).toBe(workspace);
+    expect(comparison.parentElement).toBe(workspace);
+    expect(workspace).toHaveClass("min-[1200px]:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]");
+    expect(mapPanel.nextElementSibling).toBe(comparison);
+    expect(within(comparison).getAllByRole("table")).toHaveLength(1);
+    expect(screen.getAllByRole("table")).toHaveLength(1);
+    expect(screen.getByRole("region", { name: "Selected Route" }).parentElement).not.toBe(workspace);
+    expect(screen.getByTestId("interactive-map")).toHaveAttribute("data-explorer", "true");
     const routeCButton = screen.getByRole("button", { name: /ROUTE\s*C/ });
     expect(routeCButton).toBeInTheDocument();
     fireEvent.click(routeCButton);
+    expect(routeCButton).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByLabelText("Mission state")).toHaveTextContent("overview|C");
+    const overlays = JSON.parse(screen.getByTestId("interactive-map").getAttribute("data-routes")!);
+    expect(overlays.find((route: { opacity: number }) => route.opacity === 1).id).toBe("C");
+    expect(overlays.at(-1).coordinates).toEqual(scienceRouteCPlan.routes.C.available && scienceRouteCPlan.routes.C.route.geometry.coordinates);
+    expect(within(screen.getByRole("region", { name: "Selected Route" })).getByRole("heading", { name: "Selected Route · Route C" })).toBeInTheDocument();
     expect(screen.getAllByText(/Rover Site 8/).length).toBeGreaterThan(0);
     fireEvent.click(screen.getByRole("button", { name: "Start Simulated Mission" }));
     expect(screen.getByLabelText("Mission state")).toHaveTextContent("execution|C");
+  });
+
+  it("keeps unavailable Route C explicit without substituting or starting another route", () => {
+    withMission(<RouteAnalysis />);
+    fireEvent.click(screen.getByRole("button", { name: "Load route fixtures" }));
+    fireEvent.click(screen.getByRole("button", { name: "Select unavailable Route C fixture" }));
+    expect(screen.getByRole("button", { name: /ROUTE\s*C/ })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Start Simulated Mission" })).toBeDisabled();
+    expect(screen.getByLabelText("Mission state")).toHaveTextContent("overview|C");
+    expect(screen.getByRole("region", { name: "Selected Route" })).toHaveTextContent("No verified science-target location data.");
+  });
+
+  it("keeps calculated infeasibility warnings beside the route comparison", () => {
+    withMission(<RouteAnalysis />);
+    fireEvent.click(screen.getByRole("button", { name: "Load route fixtures" }));
+    fireEvent.click(screen.getByRole("button", { name: /ROUTE\s*A/ }));
+    fireEvent.click(screen.getByRole("button", { name: "Reduce EVA fixture" }));
+    const comparison = within(screen.getByRole("region", { name: "Route Analysis" }));
+    expect(comparison.getByText("MISSION NOT FEASIBLE")).toBeInTheDocument();
+    expect(comparison.getByText("Mission time · Over budget")).toBeInTheDocument();
+    expect(comparison.getAllByText("NO").length).toBeGreaterThan(0);
+    expect(screen.getByRole("button", { name: /ROUTE\s*A/ })).toHaveAttribute("aria-pressed", "true");
   });
 
   it("reports real Route C metrics and waypoint limitations in the mission report", () => {

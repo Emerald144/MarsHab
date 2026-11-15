@@ -118,6 +118,7 @@ function feasibleRouteFeature(overrides: Partial<Record<string, number>> = {}) {
   };
 }
 const feasibleMissionPlanFixture = {
+  resource_assessment: { available: false, warnings: [], assumptions: [] },
   base: {
     easting: 4354494.086,
     northing: 1093299.695,
@@ -339,7 +340,7 @@ describe("bilingual language layer", () => {
     expect(screen.getByRole("button", { name: "Resume effects" })).toBeInTheDocument();
   });
 
-  it("preserves selected demo-map zones, toggled layers and SVG nodes when language changes", () => {
+  it("uses only real terrain and preserves selected zones, layers and SVG nodes across languages", async () => {
     const { container } = render(
       withQuery(
         <LanguageProvider>
@@ -350,19 +351,21 @@ describe("bilingual language layer", () => {
         </LanguageProvider>,
       ),
     );
-    // SurvivalMapView now defaults to the real terrain map; switch to the legacy demo map first.
-    fireEvent.click(screen.getByRole("button", { name: "Demo Mission Map" }));
-    fireEvent.click(screen.getByLabelText("Hazards"));
-    const map = screen.getByRole("img", { name: "JEZERO REGIONAL MAP" });
-    const zone = container.querySelector("g.cursor-pointer")!;
+    const map = await screen.findByRole("img", { name: "Real Jezero Crater terrain map" });
+    expect(screen.queryByRole("button", { name: "Demo Mission Map" })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Layers" }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "Terrain suitability" }));
+    fireEvent.click(screen.getByRole("button", { name: "Close layers" }));
+    const zone = screen.getByRole("button", { name: "Inspect terrain zone JZ-06" });
     fireEvent.click(zone);
-    expect(screen.getByText("Smooth crater-floor plains")).toBeInTheDocument();
+    expect(within(screen.getByRole("region", { name: "Zone Details" })).getByRole("heading", { name: "JZ-06" })).toBeInTheDocument();
     switchTo("my");
-    expect(screen.getByRole("img", { name: myanmar["JEZERO REGIONAL MAP"] })).toBe(map);
-    expect(container.querySelector("g.cursor-pointer")).toBe(zone);
-    expect(screen.getByLabelText(myanmar["Hazards"])).toBeChecked();
-    expect(screen.getByText(myanmar["Smooth crater-floor plains"])).toBeInTheDocument();
-    expect(screen.getByText(`⚠ ${myanmar["Rim slopes"]}`)).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: myanmar["Real Jezero Crater terrain map"] })).toBe(map);
+    expect(screen.getByRole("button", { name: `${myanmar["Inspect terrain zone"]} JZ-06` })).toBe(zone);
+    expect(zone).toHaveAttribute("aria-pressed", "true");
+    expect(container.querySelector('[data-layer="suitability"]')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: myanmar["Layers"] }));
+    expect(screen.getByRole("checkbox", { name: myanmar["Terrain suitability"] })).toBeChecked();
   });
 
   it("keeps user-entered mission names and numbers unchanged in Planner", async () => {

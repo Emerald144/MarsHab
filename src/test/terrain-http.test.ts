@@ -16,6 +16,11 @@ describe("terrain API transport", () => {
       "/terrain/api/v1/health",
     );
   });
+  it("preserves science and MEDA endpoint filters while rejecting query strings in the configured base", () => {
+    expect(terrainUrl("/api/science/targets?verified_route_eligible=true")).toBe("/api/science/targets?verified_route_eligible=true");
+    expect(terrainUrl("/api/v1/environment/observations?metric=pressure&sol=36&limit=1000")).toContain("?metric=pressure&sol=36&limit=1000");
+    expect(() => terrainUrl("/api/v1/health", "https://api.example?key=invalid")).toThrow(TerrainApiError);
+  });
   it.each([
     "http://api.example",
     "bad-host:8000",

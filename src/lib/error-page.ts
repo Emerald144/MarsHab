@@ -12,7 +12,8 @@ export function renderErrorPage(): string {
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>This page didn't load</title>
+    <title>MarsHab | Mars Mission Planning</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
       body { font: 15px/1.5 system-ui, -apple-system, sans-serif; background: #fafafa; color: #111; display: grid; place-items: center; min-height: 100vh; margin: 0; padding: 1.5rem; }
@@ -37,7 +38,6 @@ export function renderErrorPage(): string {
     <script>try { if (localStorage.getItem(${JSON.stringify(LANGUAGE_STORAGE_KEY)}) === "my") {
       var messages = ${messages};
       document.documentElement.lang = "my";
-      document.title = messages[0];
       document.querySelectorAll("[data-error-message]").forEach(function (node) { node.textContent = messages[Number(node.dataset.errorMessage)]; });
     } } catch (_) { /* Keep readable English when storage is unavailable. */ }</script>
   </body>

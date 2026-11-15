@@ -14,7 +14,7 @@ import {
 export const Route = createFileRoute("/mission")({
   head: () => ({
     meta: [
-      { title: "Interplanetary Survival Guide: MarsHab" },
+      { title: "MarsHab | Mars Mission Planning" },
       {
         name: "description",
         content:
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/mission")({
 
 function App() {
   usePageTranslation(
-    "Interplanetary Survival Guide: MarsHab",
+    "MarsHab | Mars Mission Planning",
     "MarsHab prototype Mars mission planner: survival suitability map of Jezero Crater, feasibility checks, route comparison and dynamic rerouting.",
   );
   const { view } = useMission();

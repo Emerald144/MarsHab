@@ -117,7 +117,7 @@ export function RealMapLayersCard({
             </label>
           ))}
         </fieldset>
-        <fieldset className="space-y-2.5">
+        <fieldset className="space-y-2.5 border-t border-border pt-3">
           <legend className="mb-2 text-sm font-medium">{display("Overlays")}</legend>
           {checkbox("zones", "Zone boundaries and labels", true)}
           {checkbox("slope", "Slope classes", available("slope"))}

@@ -4,15 +4,10 @@
 // nothing in this file invents a measurement. See docs/team/INTEGRATION_GUIDE.md.
 import { useMutation, useQuery } from "@tanstack/react-query";
 import type { JezeroZoneId } from "./jezero-real-data";
-import { terrainUrl } from "./terrain-http";
+import { terrainJson } from "./terrain-http";
+import { validBase, validEmergency, validPlan } from "./terrain-contract";
 
-function apiUrl(path: string) {
-  return terrainUrl(
-    path,
-    import.meta.env["VITE_API_BASE_URL"] ?? "",
-    typeof window === "undefined" ? undefined : window.location.href,
-  );
-}
+const queryOptions = { retry: false, refetchOnWindowFocus: false } as const;
 
 export type MarsPoint = { easting: number; northing: number };
 
@@ -158,22 +153,16 @@ export type MissionPlanInput = {
 };
 
 async function postJson<T>(path: string, body: unknown): Promise<T> {
-  const res = await fetch(apiUrl(path), {
+  return terrainJson<T>(path, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
-  });
-  if (!res.ok) {
-    const detail = await res.text().catch(() => "");
-    throw new Error(`${path} failed: HTTP ${res.status} ${detail}`.trim());
-  }
-  return (await res.json()) as T;
+  }, path.endsWith("/emergency-return") ? validEmergency : validPlan);
 }
 
 async function getJson<T>(path: string): Promise<T> {
-  const res = await fetch(apiUrl(path));
-  if (!res.ok) throw new Error(`${path} failed: HTTP ${res.status}`);
-  return (await res.json()) as T;
+  return terrainJson<T>(path, {}, path.endsWith("/base") ? validBase :
+    (value) => !!value && typeof value === "object" && "items" in value && Array.isArray(value.items));
 }
 
 export function planMission(input: MissionPlanInput): Promise<MissionPlan> {
@@ -208,7 +197,7 @@ export function emergencyReturn(input: {
 }
 
 export function useMissionBase() {
-  return useQuery({ queryKey: ["mission-base"], queryFn: () => getJson<MissionBase>("/api/v1/jezero/base"), staleTime: Infinity });
+  return useQuery({ queryKey: ["mission-base"], queryFn: () => getJson<MissionBase>("/api/v1/jezero/base"), staleTime: Infinity, ...queryOptions });
 }
 
 export function useMissionPlanMutation() {
@@ -232,6 +221,7 @@ export function useMissionPlanQuery(input: MissionPlanInput, enabled = true) {
     ],
     queryFn: () => planMission(input),
     enabled,
+    ...queryOptions,
   });
 }
 
@@ -242,6 +232,7 @@ export function useEmergencyReturnMutation() {
 /** Route-eligible science waypoints only (GET /api/science/targets?verified_route_eligible=true). */
 export function useScienceWaypoints() {
   return useQuery({
+    ...queryOptions,
     queryKey: ["science-waypoints"],
     queryFn: () =>
       getJson<{ items: ScienceCatalogTarget[]; total: number }>(
@@ -254,6 +245,7 @@ export function useScienceWaypoints() {
 /** Full science catalog, including non-route-eligible / unlocated records, for the read-only catalog view. */
 export function useScienceCatalog() {
   return useQuery({
+    ...queryOptions,
     queryKey: ["science-catalog"],
     queryFn: () => getJson<{ items: ScienceCatalogTarget[]; total: number }>("/api/science/targets"),
     staleTime: Infinity,
